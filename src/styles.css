@@ -63,8 +63,11 @@ input {
   cursor: pointer;
 }
 
+.logo svg {
+  font-size: 4.5rem;
+}
+
 .logo span {
-  margin-left: 1rem;
   margin-top: 1rem;
   align-self: center;
 }
@@ -93,9 +96,13 @@ input {
 .search-icon {
   position: absolute;
   left: 1rem;
+  font-size: 3rem;
+  color: #777;
 }
 
 .cross-icon {
+  font-size: 4rem;
+  color: #777;
   position: absolute;
   right: 0;
   background-color: rgba(255, 255, 255, 0.1);
@@ -133,6 +140,11 @@ input {
 
 .username {
   font-size: 1.6rem;
+}
+
+.chevron-icon {
+  font-size: 3rem;
+  color: var(--color-white);
 }
 
 .navbar {
@@ -445,6 +457,18 @@ input {
   margin: 1rem 0;
 }
 
+.social-media svg {
+  font-size: 4rem;
+  color: #222;
+  background-color: #bbb;
+  padding: 0.5rem;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
 .social-media img {
   width: 4rem;
   height: 4rem;
@@ -551,6 +575,11 @@ input {
   gap: 1rem;
 }
 
+.stars svg {
+  font-size: 3.5rem;
+  color: #d71bae;
+}
+
 .console {
   align-self: flex-end;
   display: flex;
@@ -597,6 +626,11 @@ input {
   gap: 0.5rem;
   justify-content: end;
   margin: 3rem 0;
+}
+
+.link svg {
+  font-size: 2rem;
+  color: var(--color-white);
 }
 
 .link a {
