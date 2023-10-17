@@ -7,7 +7,7 @@ const Footer: FC = () => {
       <div className="footer__content">
         <p className="copyright">
           Copyright © 2023
-          <span>@abhsyk</span>. All rights reserved
+          <a href="https://github.com/abhsyk"> @abhsyk </a>. All rights reserved
         </p>
         <div className="social-media">
           <InstagramIcon />

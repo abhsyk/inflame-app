@@ -1,6 +1,8 @@
 import { FC } from 'react';
-import { Game } from '../../../types/Type';
+import type { Game } from '../../../types/Type';
 import { GameItem } from '../../games';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 type Props = {
   games: Game[];
@@ -8,12 +10,19 @@ type Props = {
 
 const GamesList: FC<Props> = ({ games }) => {
   return (
-    <ul className="games__list">
+    <StyledGameList>
       {!!games && games.length > 0
         ? games.map((game) => <GameItem key={game.id} game={game} />)
         : null}
-    </ul>
+    </StyledGameList>
   );
 };
+
+const StyledGameList = styled(motion.ul)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(37.3rem, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+`;
 
 export default GamesList;
