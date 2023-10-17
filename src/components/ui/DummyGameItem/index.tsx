@@ -1,58 +1,22 @@
-import { FC, MouseEvent, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import type { Game } from '../../../types/Type';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-type Props = { game: Game };
-
-const GameItem: FC<Props> = ({
-  game: { id, slug, name, background_image, released },
-}) => {
-  const handleBookmark = useCallback(
-    (e: MouseEvent<HTMLButtonElement>): void => {
-      e.preventDefault();
-      console.log('Bookmarked!', id);
-    },
-    [id]
-  );
-
-  const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
-
+const DummyGameItem: FC = () => {
   return (
-    <Link to={`/game/${slug}`}>
-      <StyledGame variants={cardAnim} initial="hidden" animate="show">
-        <div className="games__image__wrapper">
-          <img src={background_image} alt={name} />
+    <Container className="games__item">
+      <div className="games__image__wrapper"></div>
+      <div className="games__info">
+        <div className="games__info__bottom">
+          <div className="release"></div>
+          <div>View detail</div>
         </div>
-        <div className="games__info">
-          <h2 className="title">{name}</h2>
-          <div className="games__info__bottom">
-            <p className="release">
-              Release date:
-              <span> {dotDate}</span>
-            </p>
-            <p className="games__link">View detail</p>
-          </div>
-          <button className="bookmark-btn" onClick={handleBookmark}>
-            +
-          </button>
-        </div>
-      </StyledGame>
-    </Link>
+        <div>button</div>
+      </div>
+    </Container>
   );
 };
 
-const cardAnim = {
-  hidden: { opacity: 0, scale: 0.95 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.4 },
-  },
-};
-
-const StyledGame = styled(motion.li)`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 37.3rem;
@@ -157,4 +121,4 @@ const StyledGame = styled(motion.li)`
   }
 `;
 
-export default GameItem;
+export default DummyGameItem;

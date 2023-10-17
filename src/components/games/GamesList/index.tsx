@@ -3,6 +3,7 @@ import type { Game } from '../../../types/Type';
 import { GameItem } from '../../games';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+// import DummyGameItem from '../../ui/DummyGameItem';
 
 type Props = {
   games: Game[];
@@ -11,6 +12,7 @@ type Props = {
 const GamesList: FC<Props> = ({ games }) => {
   return (
     <StyledGameList>
+      {/* <DummyGameItem /> */}
       {!!games && games.length > 0
         ? games.map((game) => <GameItem key={game.id} game={game} />)
         : null}

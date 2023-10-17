@@ -12,6 +12,7 @@ const LoadingDots: FC = () => {
 };
 
 const Container = styled.div`
+  min-height: calc(100vh - 18rem);
   display: flex;
   justify-content: center;
   margin: 5rem 0 2rem;

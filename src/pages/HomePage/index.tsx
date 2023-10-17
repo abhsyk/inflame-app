@@ -13,10 +13,20 @@ const HomePage: FC = () => {
   const [currentTaglinePath, setCurrentTaglinePath] =
     useState<CategoryPath>('popular-games');
   const { games, isLoading } = useGames(currentTaglinePath);
+  const { games: carouselGames, isLoading: isCarouselLoading } =
+    useGames('popular-games');
+
+  if (isCarouselLoading) {
+    return (
+      <Layout>
+        <LoadingDots />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
-      <Carousel />
+      <Carousel games={carouselGames} />
       <section className="games">
         <SwitchTaglineCategory
           currentTaglinePath={currentTaglinePath}
