@@ -1,6 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { Layout } from '../../components/common';
-import { Carousel, GamesList } from '../../components/games';
+import {
+  Carousel,
+  GamesList,
+  SwitchTaglineCategory,
+} from '../../components/games';
 import { DUMMY_GAME_DATA } from '../../data/games_data';
 import { Game } from '../../types/Type';
 
@@ -15,14 +19,7 @@ const HomePage: FC = () => {
     <Layout>
       <Carousel />
       <section className="games">
-        <div className="games__text">
-          <div className="games__tagline">
-            <button className="active">Popular</button>
-            <button>New</button>
-            <button>Upcoming</button>
-          </div>
-          <a href="#">View more</a>
-        </div>
+        <SwitchTaglineCategory />
         <GamesList games={games} />
       </section>
     </Layout>

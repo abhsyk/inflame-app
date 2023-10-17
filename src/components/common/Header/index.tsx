@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { ChevronDownIcon, CrossIcon, LogoIcon, SearchIcon } from '../../ui';
 import { Link } from 'react-router-dom';
+import { PageNav } from '..';
 
 const Header: FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
@@ -24,7 +25,6 @@ const Header: FC = () => {
             />
             <CrossIcon />
           </div>
-
           <div className="user-info">
             <img
               src="src/assets/images/user-icon.png"
@@ -36,30 +36,7 @@ const Header: FC = () => {
           </div>
         </div>
       </div>
-      <nav className="navbar">
-        <ul className="navbar__list">
-          <li className="navbar__item active">
-            <Link to="/" className="navbar__link">
-              Home
-            </Link>
-          </li>
-          <li className="navbar__item">
-            <Link to="/categories" className="navbar__link">
-              Popular
-            </Link>
-          </li>
-          <li className="navbar__item">
-            <a href="#" className="navbar__link">
-              New
-            </a>
-          </li>
-          <li className="navbar__item">
-            <a href="#" className="navbar__link">
-              Upcoming
-            </a>
-          </li>
-        </ul>
-
+      <PageNav>
         {/* <!-- Search --> */}
         <div className={`search-box ${isSearchOpen ? 'active' : ''}`}>
           <div className="search__wrapper">
@@ -72,12 +49,11 @@ const Header: FC = () => {
             <CrossIcon />
           </div>
         </div>
-
         {/* Notification */}
         <div className="notification">
           <p>Resident Evil 4 has been added to your bookmarks!</p>
         </div>
-      </nav>
+      </PageNav>
     </div>
   );
 };

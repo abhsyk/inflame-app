@@ -8,7 +8,7 @@ type Props = {
 
 const GameItem: FC<Props> = ({ game: { title, image, release } }) => {
   return (
-    <Link to="/something">
+    <Link to="/games/something">
       <li className="games__item">
         <div className="games__image__wrapper">
           <img src={image} alt={title} />

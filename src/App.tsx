@@ -8,8 +8,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/:id" element={<DetailPage />} />
-        <Route path="categories" element={<CategoriesPage />} />
+        <Route path="/games/:id" element={<DetailPage />} />
+        <Route path="/:categoryId" element={<CategoriesPage />} />
         <Route path="*" element={<div>PageNotFound</div>} />
       </Routes>
     </BrowserRouter>

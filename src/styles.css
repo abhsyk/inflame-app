@@ -76,6 +76,7 @@ input {
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: 3rem;
 }
 
 .search__input {
@@ -132,7 +133,7 @@ input {
 
 .user-info {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   color: var(--color-white);
   align-items: center;
   padding: 1rem;
@@ -143,7 +144,7 @@ input {
 }
 
 .chevron-icon {
-  font-size: 3rem;
+  font-size: 2rem;
   color: var(--color-white);
 }
 
