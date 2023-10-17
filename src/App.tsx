@@ -6,14 +6,12 @@ import DetailPage from './pages/DetailPage';
 function App() {
   return (
     <BrowserRouter>
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/:id" element={<DetailPage />} />
-          <Route path="categories" element={<CategoriesPage />} />
-          <Route path="*" element={<div>PageNotFound</div>} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/:id" element={<DetailPage />} />
+        <Route path="categories" element={<CategoriesPage />} />
+        <Route path="*" element={<div>PageNotFound</div>} />
+      </Routes>
     </BrowserRouter>
   );
 }

@@ -220,6 +220,33 @@ input {
   -ms-transform: scaleX(1);
   -o-transform: scaleX(1);
 }
+
+.notification {
+  position: fixed;
+  background-color: yellow;
+  font-size: 1.4rem;
+  padding: 0.5rem 2rem;
+  bottom: -5rem;
+  left: 50%;
+  border-radius: 3rem;
+  -webkit-border-radius: 3rem;
+  -moz-border-radius: 3rem;
+  -ms-border-radius: 3rem;
+  -o-border-radius: 3rem;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  display: none;
+}
+
+.notification.active {
+  display: block;
+  bottom: 3rem;
+}
 /* Header ends */
 
 /* Carousel */
@@ -403,7 +430,7 @@ input {
   font-weight: 600;
 }
 
-.games__info__bottom a {
+.games__link {
   font-size: 1.6rem;
   font-weight: 600;
   color: #3030af;
@@ -426,6 +453,15 @@ input {
   -ms-border-radius: 0.5rem;
   -o-border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+}
+
+.bookmark-btn:hover {
+  background-color: #444;
 }
 /* Games ends */
 
@@ -738,15 +774,22 @@ input {
     flex: 1;
   }
 
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    font-size: 3.6rem;
+    color: #777;
+  }
+
   .header__content .search-icon {
-    width: 4.5rem;
     background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    font-size: 5rem;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    padding: 1rem;
     position: initial;
     flex: 1;
   }
@@ -760,6 +803,18 @@ input {
     left: 0;
     color: #222;
     padding: 2rem 4rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+  }
+
+  .search-box.active {
+    visibility: visible;
+    opacity: 1;
   }
 
   .search-box .search__input,

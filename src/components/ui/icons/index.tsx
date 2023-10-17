@@ -18,7 +18,14 @@ export const LogoIcon: FC<Props> = (props) => {
 
 export const SearchIcon: FC<Props> = (props) => {
   return (
-    <svg fill="none" viewBox="0 0 24 24" height="1em" width="1em" {...props}>
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em"
+      className="search-icon"
+      {...props}
+    >
       <path
         fill="currentColor"
         fillRule="evenodd"
@@ -31,7 +38,14 @@ export const SearchIcon: FC<Props> = (props) => {
 
 export const CrossIcon: FC<Props> = (props) => {
   return (
-    <svg fill="none" viewBox="0 0 15 15" height="1em" width="1em" {...props}>
+    <svg
+      fill="none"
+      viewBox="0 0 15 15"
+      height="1em"
+      width="1em"
+      className="cross-icon"
+      {...props}
+    >
       <path
         fill="currentColor"
         fillRule="evenodd"

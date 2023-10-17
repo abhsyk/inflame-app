@@ -1,11 +1,18 @@
-import { FC } from 'react';
-import { Footer, Header } from '../../components/common';
+import { FC, useEffect, useState } from 'react';
+import { Layout } from '../../components/common';
 import { Carousel, GamesList } from '../../components/games';
+import { DUMMY_GAME_DATA } from '../../data/games_data';
+import { Game } from '../../types/Type';
 
 const HomePage: FC = () => {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    setGames(DUMMY_GAME_DATA);
+  }, []);
+
   return (
-    <>
-      <Header />
+    <Layout>
       <Carousel />
       <section className="games">
         <div className="games__text">
@@ -16,10 +23,9 @@ const HomePage: FC = () => {
           </div>
           <a href="#">View more</a>
         </div>
-        <GamesList />
+        <GamesList games={games} />
       </section>
-      <Footer />
-    </>
+    </Layout>
   );
 };
 

@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import { Footer, Header } from '../../components/common';
+import { Layout } from '../../components/common';
 import { LinkIcon, StarFullIcon, StarHalfIcon } from '../../components/ui';
 
 const DetailPage: FC = () => {
   return (
-    <>
-      <Header />
-      <div className="details">
+    <Layout>
+      <section className="details">
         <div className="details__top">
           <div className="details__info">
             <h1 className="details__heading">Resident Evil 4</h1>
@@ -70,9 +69,8 @@ const DetailPage: FC = () => {
           {/* <img src="src/assets/images/link-icon.svg" alt="Link icon" /> */}
           <a href="#"> https://www.residentevil.com/re4/en-asia/ </a>
         </div>
-      </div>
-      <Footer />
-    </>
+      </section>
+    </Layout>
   );
 };
 

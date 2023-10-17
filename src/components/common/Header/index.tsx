@@ -1,25 +1,28 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { ChevronDownIcon, CrossIcon, LogoIcon, SearchIcon } from '../../ui';
+import { Link } from 'react-router-dom';
 
 const Header: FC = () => {
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+
   return (
     <div className="header-container">
       <div className="header">
         <div className="header__content">
           <div className="logo">
-            <a href="/index.html">
+            <Link to="/">
               <LogoIcon />
               <span>Inflame</span>
-            </a>
+            </Link>
           </div>
           <div className="search__wrapper">
-            <SearchIcon className="search-icon" />
+            <SearchIcon onClick={() => setIsSearchOpen(!isSearchOpen)} />
             <input
               className="search__input"
               type="text"
               placeholder="Search game ..."
             />
-            <CrossIcon className="cross-icon" />
+            <CrossIcon />
           </div>
 
           <div className="user-info">
@@ -36,14 +39,14 @@ const Header: FC = () => {
       <nav className="navbar">
         <ul className="navbar__list">
           <li className="navbar__item active">
-            <a href="#" className="navbar__link">
+            <Link to="/" className="navbar__link">
               Home
-            </a>
+            </Link>
           </li>
           <li className="navbar__item">
-            <a href="/categories.html" className="navbar__link">
+            <Link to="/categories" className="navbar__link">
               Popular
-            </a>
+            </Link>
           </li>
           <li className="navbar__item">
             <a href="#" className="navbar__link">
@@ -58,24 +61,21 @@ const Header: FC = () => {
         </ul>
 
         {/* <!-- Search --> */}
-        <div className="search-box">
+        <div className={`search-box ${isSearchOpen ? 'active' : ''}`}>
           <div className="search__wrapper">
-            <img
-              className="search-icon"
-              src="src/assets/images/search-icon.svg"
-              alt="Search icon"
-            />
+            <SearchIcon />
             <input
               className="search__input"
               type="text"
               placeholder="Search game ..."
             />
-            <img
-              className="cross-icon"
-              src="src/assets/images/cross-icon.svg"
-              alt="Cross icon"
-            />
+            <CrossIcon />
           </div>
+        </div>
+
+        {/* Notification */}
+        <div className="notification">
+          <p>Resident Evil 4 has been added to your bookmarks!</p>
         </div>
       </nav>
     </div>
