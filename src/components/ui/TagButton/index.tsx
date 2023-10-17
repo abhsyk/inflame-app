@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { CategoryName, CategoryPath } from '../../../types/Type';
-import { getCategoryName } from '../../../libs/getCategoryName';
+import { getCategoryName } from '../../../utils/getCategoryName';
 
 type Props = {
   categoryPathName: CategoryPath;

@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import type { Game } from '../../../types/Type';
 import styled from 'styled-components';
 
-type Props = {
-  game: Game;
-};
+type Props = { game: Game };
 
-const GameItem: FC<Props> = ({ game: { id, title, image, release } }) => {
+const GameItem: FC<Props> = ({
+  game: { id, slug, name, background_image, released },
+}) => {
   const handleBookmark = useCallback(
     (e: MouseEvent<HTMLButtonElement>): void => {
       e.preventDefault();
@@ -17,8 +17,10 @@ const GameItem: FC<Props> = ({ game: { id, title, image, release } }) => {
     [id]
   );
 
+  const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
+
   return (
-    <Link to={`/games/${id}`}>
+    <Link to={`/game/${slug}`}>
       <StyledGame
         className="games__item"
         variants={cardAnim}
@@ -26,14 +28,14 @@ const GameItem: FC<Props> = ({ game: { id, title, image, release } }) => {
         animate="show"
       >
         <div className="games__image__wrapper">
-          <img src={image} alt={title} />
+          <img src={background_image} alt={name} />
         </div>
         <div className="games__info">
-          <h2 className="title">{title}</h2>
+          <h2 className="title">{name}</h2>
           <div className="games__info__bottom">
             <p className="release">
               Release date:
-              <span> {release}</span>
+              <span> {dotDate}</span>
             </p>
             <p className="games__link">View detail</p>
           </div>

@@ -1,23 +1,30 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { Layout } from '../../components/common';
 import { GamesList } from '../../components/games';
 import { CategoryPath, Game } from '../../types/Type';
-import { DUMMY_GAME_DATA } from '../../data/games_data';
+// import { DUMMY_GAME_DATA } from '../../data/games_data';
 import { useParams } from 'react-router-dom';
-import { getCategoryName } from '../../libs/getCategoryName';
+import { getCategoryName } from '../../utils/getCategoryName';
 import styled from 'styled-components';
+import axios from 'axios';
+import { popularGamesURL } from '../../api';
 
 const CategoriesPage: FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [categoryName, setCategoryName] = useState<string>();
   const { categoryId } = useParams<{ categoryId: CategoryPath }>();
 
+  const getPopularGames = useCallback(async () => {
+    const res = await axios.get(popularGamesURL());
+    setGames(res.data.results);
+  }, []);
+
   useEffect(() => {
     if (categoryId) {
       setCategoryName(getCategoryName(categoryId)!);
-      setGames(DUMMY_GAME_DATA);
+      getPopularGames();
     }
-  }, [categoryId]);
+  }, [categoryId, getPopularGames]);
 
   return (
     <Layout>

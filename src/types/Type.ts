@@ -1,8 +1,11 @@
 export type Game = {
   id: number;
-  title: string;
-  image: string;
-  release: string;
+  slug: string;
+  name: string;
+  rating: number;
+  ratings_count: number;
+  background_image: string;
+  released: string;
 };
 
 export type CategoryName = 'Popular' | 'New' | 'Upcoming';

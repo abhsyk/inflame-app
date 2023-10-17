@@ -85,9 +85,6 @@ export const GlobalStyles = createGlobalStyle`
     color: #222;
     border: none;
   }
-
-
-
   /* Games ends */
 
   /* Footer */
