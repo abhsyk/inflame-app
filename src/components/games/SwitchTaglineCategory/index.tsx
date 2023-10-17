@@ -1,29 +1,34 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { TagButton } from '../../ui';
 import { CategoryPath } from '../../../types/Type';
 import { Link } from 'react-router-dom';
 
-const SwitchTaglineCategory: FC = () => {
-  const [currentTaglinePath, setCurrentTaglinePath] =
-    useState<CategoryPath>('popular-games');
+type Props = {
+  currentTaglinePath: CategoryPath;
+  onTagChange: (categoryPathName: CategoryPath) => void;
+};
 
+const SwitchTaglineCategory: FC<Props> = ({
+  currentTaglinePath,
+  onTagChange,
+}) => {
   return (
     <div className="games__text">
       <div className="games__tagline">
         <TagButton
           categoryPathName="popular-games"
           currentTaglinePath={currentTaglinePath}
-          onTagChange={setCurrentTaglinePath}
+          onTagChange={onTagChange}
         />
         <TagButton
           categoryPathName="new-games"
           currentTaglinePath={currentTaglinePath}
-          onTagChange={setCurrentTaglinePath}
+          onTagChange={onTagChange}
         />
         <TagButton
           categoryPathName="upcoming-games"
           currentTaglinePath={currentTaglinePath}
-          onTagChange={setCurrentTaglinePath}
+          onTagChange={onTagChange}
         />
       </div>
       <Link to={currentTaglinePath}>View more</Link>
