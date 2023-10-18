@@ -24,7 +24,7 @@ const Carousel: FC<Props> = ({ games }) => {
   return (
     <StyledCarousel variants={carouselAnim} initial="hidden" animate="show">
       <div className="carousel__image__wrapper">
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           <motion.img
             key={bgImages[index]}
             src={bgImages[index]}
@@ -105,8 +105,8 @@ const StyledCarousel = styled(motion.section)`
 `;
 
 const carouselAnim = {
-  hidden: { opacity: 0, x: -50 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, x: -200 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.6 } },
 };
 
 const imgAnim = {

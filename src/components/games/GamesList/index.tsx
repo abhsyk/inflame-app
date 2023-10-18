@@ -24,7 +24,7 @@ const StyledGameList = styled(motion.ul)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(37.3rem, 1fr));
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 `;
 
 export default GamesList;

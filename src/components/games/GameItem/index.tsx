@@ -7,7 +7,7 @@ import styled from 'styled-components';
 type Props = { game: Game };
 
 const GameItem: FC<Props> = ({
-  game: { id, slug, name, background_image, released },
+  game: { id, slug, name, background_image, released, tba },
 }) => {
   const handleBookmark = useCallback(
     (e: MouseEvent<HTMLButtonElement>): void => {
@@ -30,7 +30,7 @@ const GameItem: FC<Props> = ({
           <div className="games__info__bottom">
             <p className="release">
               Release date:
-              <span> {dotDate}</span>
+              <span> {tba ? 'To be announced' : dotDate}</span>
             </p>
             <p className="games__link">View detail</p>
           </div>

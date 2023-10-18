@@ -8,19 +8,27 @@ const popularGamesParams = {
   page_size: 9,
 };
 
-const upcomingGamesParams = {
-  dates: `${currentDate},${nextYear}`,
-  ordering: '-added',
-  page_size: 9,
-};
-
 const newGamesParams = {
   dates: `${currentDate},${nextYear}`,
   ordering: 'released',
   page_size: 9,
 };
 
-const getParams = (categoryPath: CategoryPath) => {
+const upcomingGamesParams = {
+  dates: `${currentDate},${nextYear}`,
+  ordering: '-added',
+  page_size: 9,
+};
+
+const searchGamesParams = (searchWord?: string) => {
+  return {
+    search: searchWord,
+    ordering: 'ratings_count',
+    page_size: 9,
+  };
+};
+
+const getParams = (categoryPath: CategoryPath, searchWord?: string) => {
   switch (categoryPath) {
     case 'popular-games':
       return popularGamesParams;
@@ -29,14 +37,15 @@ const getParams = (categoryPath: CategoryPath) => {
     case 'upcoming-games':
       return upcomingGamesParams;
     default:
-      break;
+      return searchGamesParams(searchWord);
   }
 };
 
 const getGamesByCategory = async (
-  categoryPath: CategoryPath
+  categoryPath: CategoryPath,
+  searchWord?: string
 ): Promise<Game[]> => {
-  const params = getParams(categoryPath);
+  const params = getParams(categoryPath, searchWord);
   const { data } = await axios.get(BASE_URL, { params });
   const games: Game[] = data.results;
   return games;

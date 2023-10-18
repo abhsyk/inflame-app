@@ -1,11 +1,14 @@
-import { FC, useState } from 'react';
-import { ChevronDownIcon, CrossIcon, LogoIcon, SearchIcon } from '../../ui';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { PageNav } from '..';
 import styled from 'styled-components';
+import { ChevronDownIcon, CrossIcon, LogoIcon, SearchIcon } from '../../ui';
+import { PageNav } from '../../common';
+import useSearch from '../../../hooks/useSearch';
 
 const Header: FC = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  // const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const { searchWord, searchWordChange, clearSearchWord, searchGames } =
+    useSearch();
 
   return (
     <Container>
@@ -18,13 +21,20 @@ const Header: FC = () => {
             </Link>
           </div>
           <div className="search__wrapper">
-            <SearchIcon onClick={() => setIsSearchOpen(!isSearchOpen)} />
+            <SearchIcon
+              onClick={searchGames}
+              // onClick={() => setIsSearchOpen(!isSearchOpen)}
+            />
             <input
               className="search__input"
               type="text"
-              placeholder="Search game ..."
+              placeholder="Search"
+              value={searchWord}
+              onChange={searchWordChange}
             />
-            <CrossIcon />
+            <button onClick={clearSearchWord}>
+              <CrossIcon />
+            </button>
           </div>
           <div className="user-info">
             <img
@@ -39,14 +49,13 @@ const Header: FC = () => {
       </div>
       <PageNav>
         {/* <!-- Search --> */}
-        <div className={`search-box ${isSearchOpen ? 'active' : ''}`}>
+        <div
+          className={`search-box`}
+          // ${isSearchOpen ? 'active' : ''}
+        >
           <div className="search__wrapper">
             <SearchIcon />
-            <input
-              className="search__input"
-              type="text"
-              placeholder="Search game ..."
-            />
+            <input className="search__input" type="text" placeholder="Search" />
             <CrossIcon />
           </div>
         </div>
@@ -101,36 +110,39 @@ const Container = styled.div`
     width: 45rem;
     padding: 1rem 5rem;
     background: rgba(255, 255, 255, 0.1);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: var(--color-white);
-    border: none;
+    border: 0.1rem solid transparent;
     outline: none;
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
+    border-radius: 3rem;
+    -webkit-border-radius: 3rem;
+    -moz-border-radius: 3rem;
+    -ms-border-radius: 3rem;
+    -o-border-radius: 3rem;
   }
 
   .search-icon {
     position: absolute;
-    left: 1rem;
-    font-size: 3rem;
+    left: 1.5rem;
+    font-size: 2.2rem;
     color: #777;
   }
 
-  .cross-icon {
-    font-size: 4rem;
-    color: #777;
+  button {
     position: absolute;
     right: 0;
+    font-size: 2.4rem;
+    padding: 1.4rem;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    padding: 1rem;
+    border: none;
+    outline: none;
+    color: #777;
+    cursor: pointer;
     visibility: hidden;
     opacity: 0;
     transition: all 0.1s;
@@ -138,11 +150,20 @@ const Container = styled.div`
     -moz-transition: all 0.1s;
     -ms-transition: all 0.1s;
     -o-transition: all 0.1s;
+    display: grid;
+    place-items: center;
   }
 
-  .search__input:focus ~ .cross-icon {
-    visibility: visible;
-    opacity: 1;
+  .search__input {
+    &:focus {
+      border: 0.1rem solid #d71bae;
+
+      &:focus ~ button,
+      &:hover ~ button {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 
   .search-box {
