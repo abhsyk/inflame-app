@@ -11,8 +11,9 @@ const useGames = (categoryPath?: CategoryPath) => {
   const { categoryId } = useParams<{ categoryId: CategoryPath }>();
   const path: CategoryPath = (categoryPath || categoryId)!;
   const searchKey = new URLSearchParams(window.location.search).get('key')!;
+  const [nextPage, setNextPage] = useState<string>();
 
-  const handleGetGamesByCategory = useCallback(async ():Promise<void> => {
+  const handleGetGamesByCategory = useCallback(async (): Promise<void> => {
     if (path === 'search') setSearchWord(searchKey);
 
     setIsLoading(true);
@@ -20,8 +21,9 @@ const useGames = (categoryPath?: CategoryPath) => {
       setGames([]);
 
       if (path !== 'search' || searchWord.trim().length > 0) {
-        const games = await getGamesByCategory(path, searchWord);
-        setGames(games);
+        const { results, next } = await getGamesByCategory(path, searchWord);
+        setGames(results);
+        setNextPage(next);
       }
 
       setIsLoading(false);
@@ -31,11 +33,24 @@ const useGames = (categoryPath?: CategoryPath) => {
     }
   }, [path, searchWord, setSearchWord, searchKey]);
 
+  const handleNextPage = useCallback(async () => {
+    const res = await fetch(nextPage!, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await res.json();
+
+    setGames((prev) => [...prev, ...data.results]);
+    setNextPage(data.next);
+  }, [nextPage]);
+
   useEffect(() => {
     if (path) handleGetGamesByCategory();
   }, [path, handleGetGamesByCategory]);
 
-  return { games, isLoading, handleGetGamesByCategory };
+  return { games, isLoading, handleGetGamesByCategory, handleNextPage };
 };
 
 export default useGames;

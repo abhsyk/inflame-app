@@ -7,7 +7,7 @@ const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const toggleVisibility = useCallback((): void => {
-    if (window.scrollY > 400) setIsVisible(true);
+    if (window.scrollY > 800) setIsVisible(true);
     else setIsVisible(false);
   }, []);
 

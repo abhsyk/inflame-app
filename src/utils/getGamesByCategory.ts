@@ -1,30 +1,31 @@
-import axios from 'axios';
-import { CategoryPath, Game } from '../types';
-import { BASE_URL, currentDate, lastYear, nextYear } from '../api';
+import { ApiResponse, CategoryPath } from '../types';
+import { currentDate, lastYear, nextYear } from '../api';
+import { server } from './server';
 
+const params = { page_size: String(9) };
 const popularGamesParams = {
   dates: `${lastYear},${currentDate}`,
   ordering: '-rating',
-  page_size: 9,
+  ...params,
 };
 
 const newGamesParams = {
   dates: `${currentDate},${nextYear}`,
   ordering: 'released',
-  page_size: 9,
+  ...params,
 };
 
 const upcomingGamesParams = {
   dates: `${currentDate},${nextYear}`,
   ordering: '-added',
-  page_size: 9,
+  ...params,
 };
 
 const searchGamesParams = (searchWord?: string) => {
   return {
     search: searchWord,
     ordering: 'ratings_count',
-    page_size: 9,
+    ...params,
   };
 };
 
@@ -36,6 +37,7 @@ const getParams = (categoryPath: CategoryPath, searchWord?: string) => {
       return newGamesParams;
     case 'upcoming-games':
       return upcomingGamesParams;
+
     default:
       return searchGamesParams(searchWord);
   }
@@ -44,11 +46,13 @@ const getParams = (categoryPath: CategoryPath, searchWord?: string) => {
 const getGamesByCategory = async (
   categoryPath: CategoryPath,
   searchWord?: string
-): Promise<Game[]> => {
+): Promise<ApiResponse> => {
   const params = getParams(categoryPath, searchWord);
-  const { data } = await axios.get(BASE_URL, { params });
-  const games: Game[] = data.results;
-  return games;
+  const { data } = await server<ApiResponse>({ params });
+
+  // const { data } = await axios.get(BASE_URL, { params });
+  // const games: Game[] = data.results;
+  return data;
 };
 
 export default getGamesByCategory;

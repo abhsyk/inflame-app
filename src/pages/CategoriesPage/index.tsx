@@ -6,7 +6,7 @@ import useGames from '../../hooks/useGames';
 import { LoadingDots } from '../../components/ui';
 
 const CategoriesPage: FC = () => {
-  const { games, isLoading } = useGames();
+  const { games, isLoading, handleNextPage } = useGames();
 
   return (
     <Layout>
@@ -14,6 +14,7 @@ const CategoriesPage: FC = () => {
         {/* <h1 className="categories__heading">{categoryName} Games</h1> */}
         {!!games && games.length > 0 ? <GamesList games={games} /> : null}
         {isLoading && <LoadingDots />}
+        <button onClick={() => handleNextPage()}>More!</button>
       </StyledCategories>
     </Layout>
   );

@@ -15,3 +15,24 @@ export type CategoryPath =
   | 'new-games'
   | 'upcoming-games'
   | 'search';
+
+export interface ApiFetcherOptions {
+  params?: {
+    page_size: string;
+    dates?: string;
+    ordering: string;
+    search?: string;
+  };
+  url?: string;
+}
+
+export interface ApiFetcherResults<T> {
+  data: T;
+}
+
+export interface ApiResponse {
+  count: number;
+  next: string;
+  previous: string | null;
+  results: Game[];
+}
