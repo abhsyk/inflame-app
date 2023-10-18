@@ -6,7 +6,7 @@ export const server = async <T>({
   url,
 }: ApiFetcherOptions): Promise<ApiFetcherResults<T>> => {
   const res = await fetch(
-    url ? url : `${BASE_URL}&${new URLSearchParams(params)}`,
+    url ? url : `${BASE_URL}?${new URLSearchParams(params)}`,
     {
       headers: {
         'Content-Type': 'application/json',

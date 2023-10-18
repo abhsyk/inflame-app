@@ -1,8 +1,8 @@
 import { ApiResponse, CategoryPath } from '../types';
-import { currentDate, lastYear, nextYear } from '../api';
+import { API_KEY, currentDate, lastYear, nextYear } from '../api';
 import { server } from './server';
 
-const params = { page_size: String(9) };
+const params = { page_size: String(9), key: API_KEY };
 const popularGamesParams = {
   dates: `${lastYear},${currentDate}`,
   ordering: '-rating',

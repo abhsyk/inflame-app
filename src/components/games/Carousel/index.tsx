@@ -28,7 +28,6 @@ const Carousel: FC<Props> = ({ games }) => {
           <motion.img
             key={bgImages[index]}
             src={bgImages[index]}
-            alt=""
             variants={imgAnim}
             initial="hidden"
             animate="show"

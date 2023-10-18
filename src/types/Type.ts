@@ -7,6 +7,12 @@ export type Game = {
   background_image: string;
   released: string;
   tba: boolean;
+  description_raw: string;
+  screenshots: {
+    id: number;
+    image: string;
+  }[];
+  website: string;
 };
 
 export type CategoryName = 'Popular' | 'New' | 'Upcoming';

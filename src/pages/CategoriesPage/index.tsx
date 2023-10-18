@@ -8,6 +8,14 @@ import { LoadingDots } from '../../components/ui';
 const CategoriesPage: FC = () => {
   const { games, isLoading, handleNextPage } = useGames();
 
+  if (isLoading) {
+    return (
+      <Layout>
+        <LoadingDots />
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <StyledCategories className="categories">

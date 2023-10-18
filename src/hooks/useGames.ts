@@ -22,6 +22,8 @@ const useGames = (categoryPath?: CategoryPath) => {
 
       if (path !== 'search' || searchWord.trim().length > 0) {
         const { results, next } = await getGamesByCategory(path, searchWord);
+        console.log(results);
+
         setGames(results);
         setNextPage(next);
       }
