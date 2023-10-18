@@ -1,12 +1,14 @@
 import { FC, PropsWithChildren } from 'react';
 import { Footer, Header } from '../../common';
 import styled from 'styled-components';
+import { ScrollToTop } from '../../ui';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <StyledLayout>
       <Header />
       {children}
+      <ScrollToTop />
       <Footer />
     </StyledLayout>
   );

@@ -12,7 +12,7 @@ const useGames = (categoryPath?: CategoryPath) => {
   const path: CategoryPath = (categoryPath || categoryId)!;
   const searchKey = new URLSearchParams(window.location.search).get('key')!;
 
-  const handleGetGamesByCategory = useCallback(async () => {
+  const handleGetGamesByCategory = useCallback(async ():Promise<void> => {
     if (path === 'search') setSearchWord(searchKey);
 
     setIsLoading(true);
