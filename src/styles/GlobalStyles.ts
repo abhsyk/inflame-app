@@ -87,52 +87,6 @@ export const GlobalStyles = createGlobalStyle`
   }
   /* Games ends */
 
-  /* Footer */
-  .footer {
-    background-color: #101010;
-  }
-
-  .footer__content {
-    max-width: 120rem;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .copyright {
-    font-size: 1.4rem;
-    color: #eee;
-  }
-
-  .copyright a {
-    color: #d71bae;
-  }
-
-  .social-media {
-    display: flex;
-    gap: 2rem;
-    margin: 1rem 0;
-  }
-
-  .social-media svg {
-    font-size: 4rem;
-    color: #222;
-    background-color: #bbb;
-    padding: 0.5rem;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-  }
-
-  .social-media img {
-    width: 4rem;
-    height: 4rem;
-  }
-  /* Footer ends */
-
   /* Responsive */
 
   @media (max-width: 1400px) {

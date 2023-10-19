@@ -12,7 +12,7 @@ const GameItem: FC<Props> = ({
   const handleBookmark = useCallback(
     (e: MouseEvent<HTMLButtonElement>): void => {
       e.preventDefault();
-      console.log('Bookmarked!', id);
+      console.log(`"${name}" has been added to your bookmarks!`);
     },
     [id]
   );
@@ -75,6 +75,7 @@ const StyledGame = styled(motion.li)`
     overflow: hidden;
 
     img {
+      width: 100%;
       height: 100%;
       object-fit: cover;
       transition: opacity 0.2s;

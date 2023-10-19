@@ -75,6 +75,7 @@ const Container = styled.div`
 
   .header__content {
     max-width: 120rem;
+    height: 6.5rem;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

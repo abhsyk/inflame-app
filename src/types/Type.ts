@@ -13,7 +13,18 @@ export type Game = {
     image: string;
   }[];
   website: string;
+  platforms: {
+    platform: Platform;
+  }[];
+  publishers: Publisher[];
+  ratings: Rating[];
+  genres: Genre[];
 };
+
+type Platform = { id: number; name: string };
+type Publisher = { id: number; name: string };
+type Rating = { id: number; title: string };
+type Genre = { id: number; name: string };
 
 export type CategoryName = 'Popular' | 'New' | 'Upcoming';
 export type CategoryPath =

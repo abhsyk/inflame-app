@@ -36,12 +36,7 @@ const useGames = (categoryPath?: CategoryPath) => {
   }, [path, searchWord, setSearchWord, searchKey]);
 
   const handleNextPage = useCallback(async () => {
-    const res = await fetch(nextPage!, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
+    const res = await fetch(nextPage!);
     const data = await res.json();
 
     setGames((prev) => [...prev, ...data.results]);

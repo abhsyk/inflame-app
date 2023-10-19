@@ -10,12 +10,29 @@ import { useParams } from 'react-router-dom';
 import getGameDetail from '../../utils/getGameDetail';
 import { Game } from '../../types';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+
+const getStars = (rating: number) => {
+  const stars = [];
+  const fullStar = Math.floor(rating);
+  const halfStar = fullStar < rating;
+
+  for (let i = 1; i <= fullStar; i++) {
+    stars.push('full');
+  }
+  if (halfStar) {
+    stars.push('half');
+  }
+
+  return stars;
+};
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  console.log(game);
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
@@ -45,37 +62,49 @@ const DetailPage: FC = () => {
     <Layout>
       <Container>
         <motion.div
-          className="details"
+          className="detail"
           variants={detailAnim}
           initial="hidden"
           animate="show"
         >
-          <div className="details__top">
-            <div className="details__info">
-              <h1 className="details__heading">{game?.name}</h1>
-              <p className="details__release">
-                Release date:
-                <span> {game?.tba ? 'To be announced' : dotDate}</span>
-              </p>
-            </div>
-            <div className="details__icons">
-              <div className="stars">
-                <StarFullIcon />
-                <StarFullIcon />
-                <StarFullIcon />
-                <StarFullIcon />
-                <StarHalfIcon />
-                <span>( {game?.ratings_count} )</span>
+          <div className="detail__top">
+            <div className="detail__info">
+              <h1 className="detail__heading">{game?.name}</h1>
+              <div className="detail__second-row">
+                {game?.publishers.length ? (
+                  <div className="publisher">
+                    {game?.publishers.map((p) => (
+                      <p key={p.id}>{p.name}</p>
+                    ))}
+                  </div>
+                ) : null}
+                <div className="genre">
+                  {game?.genres.map((g) => (
+                    <p key={g.id}>{g.name}</p>
+                  ))}
+                </div>
+
+                {game?.rating ? (
+                  <div className="stars">
+                    {getStars(game.rating).map((s) =>
+                      s === 'full' ? <StarFullIcon /> : <StarHalfIcon />
+                    )}
+                    <span>( {game?.ratings_count} )</span>
+                  </div>
+                ) : null}
               </div>
-              <div className="console">
-                <img
-                  src="src/assets/images/game-console-icon.svg"
-                  alt="Game console"
-                />
-                <img
-                  src="src/assets/images/game-console-icon.svg"
-                  alt="Game console"
-                />
+              <div className="detail__third-row">
+                <p className="detail__release">
+                  Release date:
+                  <span> {game?.tba ? 'To be announced' : dotDate}</span>
+                </p>
+                <div className="platforms">
+                  {game?.platforms
+                    ? game?.platforms.map((p) => (
+                        <p key={p.platform.id}>{p.platform.name}</p>
+                      ))
+                    : null}
+                </div>
               </div>
             </div>
           </div>
@@ -84,20 +113,21 @@ const DetailPage: FC = () => {
             <img src={game?.background_image} alt={game?.name} />
           </div>
 
-          <p className="description">{game?.description_raw}</p>
+          {game?.description_raw ? (
+            <p className="description">{game?.description_raw}</p>
+          ) : null}
 
-          <motion.div
-            className="screenshot__wrapper"
-            // variants={screenshotsAnim}
-            // initial="hidden"
-            // animate="show"
-          >
-            <AnimatePresence>
-              {game?.screenshots.map((s) => (
-                <motion.img key={s.id} src={s.image} variants={imgAnim} />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          <div className="screenshots__wrapper">
+            {game?.screenshots.map((s) => (
+              <motion.img
+                key={s.id}
+                src={s.image}
+                variants={imgAnim}
+                initial="hidden"
+                animate="show"
+              />
+            ))}
+          </div>
 
           <div className="link">
             {game?.website ? (
@@ -127,85 +157,118 @@ const DetailPage: FC = () => {
 const Container = styled.section`
   position: relative;
 
-  &::after {
-    content: attr(data-content);
-    background: url(attr(data-content));
-    background-size: 'cover';
-    width: 100%;
-    min-height: 100vh;
-  }
-
-  .details {
+  .detail {
     max-width: 120rem;
     margin: 0 auto;
+    padding-top: 3rem;
     display: flex;
     flex-direction: column;
-  }
 
-  .details__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 3rem;
-  }
-
-  .details__info {
-    color: #efefef;
-  }
-
-  .details__heading {
-    font-size: 4rem;
-    font-weight: 400;
-  }
-
-  .details__release {
-    font-size: 1.4rem;
-
-    span {
-      font-weight: 600;
-    }
-  }
-
-  .details__icons {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    gap: 1rem;
-  }
-
-  .stars {
-    display: flex;
-    padding: 0.5rem 1.2rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 3rem;
-
-    svg {
-      font-size: 3rem;
-      color: rgba(215, 27, 174, 0.9);
+    &__info {
+      color: #efefef;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    span {
-      font-size: 2rem;
-      color: #ddd;
-      margin-left: 1rem;
+    &__heading {
+      font-size: 4rem;
+      font-weight: 400;
     }
-  }
 
-  .console {
-    align-self: flex-end;
-    display: flex;
-    gap: 1.5rem;
+    &__second-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+
+      .publisher {
+        display: flex;
+        padding: 0 1.5rem;
+        background-color: #c268fa;
+        gap: 1.5rem;
+
+        p {
+          font-size: 1.4rem;
+          color: #222;
+        }
+      }
+
+      .genre {
+        flex: 1;
+        display: flex;
+        gap: 0.5rem;
+
+        p {
+          border: 0.1rem solid #efefef;
+          padding: 0.2rem 1rem;
+          font-size: 1.2rem;
+          border-radius: 1rem;
+        }
+      }
+
+      .stars {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1.2rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 3rem;
+
+        svg {
+          font-size: 2rem;
+          color: rgba(215, 27, 174, 0.9);
+        }
+
+        span {
+          font-family: var(--font-secondary);
+          font-size: 1.6rem;
+          color: #ddd;
+          margin-left: 1rem;
+        }
+      }
+    }
+    &__third-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .platforms {
+        display: flex;
+        justify-self: end;
+        gap: 0.5rem;
+
+        p {
+          font-size: 1.2rem;
+          color: #222;
+          padding: 0.2rem 1.2rem;
+          background-color: var(--color-white);
+          border-radius: 1rem;
+        }
+      }
+    }
+
+    &__release {
+      font-size: 1.4rem;
+
+      span {
+        font-weight: 600;
+      }
+    }
+
+    &__icons {
+    }
   }
 
   .banner {
     width: 100%;
-    height: 48rem;
+    max-height: 48rem;
     margin-top: 1rem;
     overflow: hidden;
     border: 0.1rem solid rgba(255, 255, 255, 0.3);
 
     img {
       width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
@@ -214,28 +277,32 @@ const Container = styled.section`
     font-family: var(--font-secondary);
     column-count: 2;
     column-gap: 3rem;
-    background-color: #232323;
+    background-color: rgba(35, 35, 35, 0.6);
     font-size: 1.6rem;
     line-height: 1.8;
     color: #efefef;
     padding: 3rem;
+    border-left: 0.1rem solid rgba(255, 255, 255, 0.3);
+    border-right: 0.1rem solid rgba(255, 255, 255, 0.3);
   }
 
-  .screenshot__wrapper {
+  .screenshots__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
-    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25); */
 
-    & img {
+    img {
       width: 100%;
       height: 28.5rem;
       object-fit: cover;
+      filter: grayscale(0.7);
       border: 0.1rem solid rgba(255, 255, 255, 0.3);
       transition: all 0.2s;
 
       &:hover {
         transform: scale(1.1);
         border: 0.1rem solid rgba(255, 255, 255, 0.7);
+        filter: grayscale(0);
       }
     }
   }
@@ -259,21 +326,13 @@ const Container = styled.section`
 `;
 
 const detailAnim = {
-  hidden: { opacity: 0, y: 300 },
+  hidden: { opacity: 0, y: 250 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8 },
+    transition: { duration: 0.9 },
   },
 };
-
-// const screenshotsAnim = {
-//   hidden: { opacity: 0 },
-//   show: {
-//     opacity: 1,
-//     transition: { delayChildren: 0, staggerChildren: 0.1 },
-//   },
-// };
 
 const imgAnim = {
   hidden: { scale: 0.9 },

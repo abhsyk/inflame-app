@@ -25,9 +25,9 @@ const ScrollToTop: React.FC = () => {
         <StyledButton
           onClick={scrollToTop}
           variants={variants}
-          initial="initial"
-          animate="animate"
-          exit="initial"
+          initial="hidden"
+          animate="show"
+          exit="hidden"
         >
           <ArrowUpIcon />
         </StyledButton>
@@ -40,16 +40,22 @@ const StyledButton = styled(motion.div)`
   display: grid;
   place-items: center;
   position: fixed;
-  bottom: 5rem;
-  right: 5rem;
+  bottom: 7rem;
+  right: 7rem;
   font-size: 5.5rem;
   color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
 `;
 
 const variants = {
-  initial: { y: '.5rem', opacity: 0 },
-  animate: {
+  hidden: { y: '.5rem', opacity: 0 },
+  show: {
     y: 0,
     opacity: 1,
     transition: {
