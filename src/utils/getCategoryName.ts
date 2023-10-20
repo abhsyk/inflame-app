@@ -1,4 +1,4 @@
-import { CategoryName, CategoryPath } from '../types/Type';
+import { CategoryName, CategoryPath } from '../types/Game';
 
 export const getCategoryName = (
   categoryId: CategoryPath

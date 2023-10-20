@@ -1,24 +1,24 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { GlobalStyles } from './styles/GlobalStyles';
 import CategoriesPage from './pages/CategoriesPage';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
-import { GlobalStyles } from './styles/GlobalStyles';
-import { AnimatePresence } from 'framer-motion';
+import { GamesContextProvider } from './context';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <BrowserRouter>
-        <AnimatePresence>
+      <GamesContextProvider>
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/game/:id" element={<DetailPage />} />
             <Route path="/:categoryId" element={<CategoriesPage />} />
             <Route path="*" element={<div>PageNotFound</div>} />
           </Routes>
-        </AnimatePresence>
-      </BrowserRouter>
+        </BrowserRouter>
+      </GamesContextProvider>
     </>
   );
 }

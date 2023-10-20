@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -12,14 +12,23 @@ import {
 import { PageNav } from '../../common';
 import useSearch from '../../../hooks/useSearch';
 
-import { useGameProvider } from '../..';
+import { useGameProvider } from '../../../context';
 
 const Header: FC = () => {
   // const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [isUserListOpen, setIsUserListOpen] = useState<boolean>(false);
-  const { hasNotification, addedGameName } = useGameProvider();
+
+  const { hasNotification, addedGameName, isUserInfoOpen, handleUserInfoOpen } =
+    useGameProvider();
   const { searchWord, searchWordChange, clearSearchWord, searchGames } =
     useSearch();
+
+  const handleClickInside = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation();
+      handleUserInfoOpen(!isUserInfoOpen);
+    },
+    [handleUserInfoOpen, isUserInfoOpen]
+  );
 
   return (
     <Container>
@@ -47,10 +56,7 @@ const Header: FC = () => {
               <CrossIcon />
             </button>
           </div>
-          <div
-            className="user-info"
-            onClick={() => setIsUserListOpen(!isUserListOpen)}
-          >
+          <div className="user-info" onClick={handleClickInside}>
             <img
               src="src/assets/images/user-icon.png"
               className="user-icon"
@@ -58,7 +64,7 @@ const Header: FC = () => {
             />
             <p className="username">John Smith</p>
             <ChevronDownIcon className="chevron-icon" />
-            <ul className={`user-info__list ${isUserListOpen ? 'active' : ''}`}>
+            <ul className={`user-info__list ${isUserInfoOpen ? 'active' : ''}`}>
               <li>
                 <BookmarkIcon />
                 Bookmarks
@@ -211,7 +217,7 @@ const Container = styled.div`
     &__list {
       display: flex;
       flex-direction: column;
-      width: 20rem;
+      width: 18rem;
       position: absolute;
       top: 100%;
       right: 0;
@@ -219,7 +225,7 @@ const Container = styled.div`
       background-color: var(--color-white);
       z-index: 100;
       box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
-      border-radius: 0.5rem;
+      border-radius: 0 0 0.5rem 0.5rem;
       overflow: hidden;
       visibility: hidden;
       opacity: 0;

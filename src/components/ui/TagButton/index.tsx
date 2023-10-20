@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import { CategoryName, CategoryPath } from '../../../types/Type';
+import { CategoryName, CategoryPath } from '../../../types/Game';
 import { getCategoryName } from '../../../utils/getCategoryName';
 
 type Props = {

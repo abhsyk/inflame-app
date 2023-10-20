@@ -1,4 +1,4 @@
-import { Game } from '../types/Type';
+import { Game } from '../types/Game';
 
 export const DUMMY_GAME_DATA: Game[] = [
   {

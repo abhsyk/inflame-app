@@ -5,7 +5,7 @@ import {
   GamesList,
   SwitchTaglineCategory,
 } from '../../components/games';
-import { CategoryPath } from '../../types/Type';
+import { CategoryPath } from '../../types/Game';
 import useGames from '../../hooks/useGames';
 import { LoadingDots } from '../../components/ui';
 

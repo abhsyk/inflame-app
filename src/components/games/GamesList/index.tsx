@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import type { Game } from '../../../types/Type';
+import type { Game } from '../../../types/Game';
 import { GameItem } from '../../games';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';

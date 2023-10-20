@@ -1,9 +1,9 @@
 import { FC, MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { Game } from '../../../types/Type';
+import type { Game } from '../../../types/Game';
 import styled from 'styled-components';
-import { useGameProvider } from '../..';
+import { useGameProvider } from '../../../context';
 
 type Props = { game: Game };
 

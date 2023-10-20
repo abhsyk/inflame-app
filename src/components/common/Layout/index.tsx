@@ -2,25 +2,26 @@ import { FC, PropsWithChildren, useEffect } from 'react';
 import { Footer, Header } from '../../common';
 import styled from 'styled-components';
 import { ScrollTopButton } from '../../ui';
-import { GamesProvider } from '../..';
+import { useGameProvider } from '../../../context';
 import { useLocation } from 'react-router-dom';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { pathname } = useLocation();
+  const { isUserInfoOpen, handleUserInfoOpen } = useGameProvider();
 
   useEffect(() => {
     window.scroll(0, 0);
   }, [pathname]);
 
   return (
-    <GamesProvider>
-      <StyledLayout>
-        <Header />
-        {children}
-        <ScrollTopButton />
-        <Footer />
-      </StyledLayout>
-    </GamesProvider>
+    <StyledLayout
+      onClick={() => (isUserInfoOpen ? handleUserInfoOpen(false) : null)}
+    >
+      <Header />
+      {children}
+      <ScrollTopButton />
+      <Footer />
+    </StyledLayout>
   );
 };
 

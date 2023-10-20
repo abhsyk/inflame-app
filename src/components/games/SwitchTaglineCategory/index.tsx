@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { TagButton } from '../../ui';
-import { CategoryPath } from '../../../types/Type';
+import { CategoryPath } from '../../../types/Game';
 import { Link } from 'react-router-dom';
 
 type Props = {
