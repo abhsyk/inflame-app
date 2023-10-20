@@ -1,9 +1,13 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-const LoadingDots: FC = () => {
+type Props = {
+  center?: boolean;
+};
+
+const LoadingDots: FC<Props> = ({ center = false }) => {
   return (
-    <Container>
+    <Container style={center ? { minHeight: 'unset' } : {}}>
       <div className="dot dot-1"></div>
       <div className="dot dot-2"></div>
       <div className="dot dot-3"></div>

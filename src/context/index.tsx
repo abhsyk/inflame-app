@@ -7,58 +7,15 @@ import {
   useMemo,
   useReducer,
 } from 'react';
-import {
-  Game,
-  Action,
-  GamesProviderContext,
-  GamesContextState,
-} from '../types';
+import { Game, GamesProviderContext } from '../types';
+import reducer, { initialState } from './reducer';
 
 const GamesContext = createContext<Partial<GamesProviderContext>>({});
 
-const initialState: GamesContextState = {
-  bookmarks: [],
-  hasNotification: false,
-  addedGameName: '',
-  isUserInfoOpen: false,
-};
-
-const reducer = (state: GamesContextState = initialState, action: Action) => {
-  switch (action.type) {
-    case 'set_bookmarks': {
-      const newBookmark = action.payload;
-      const existingBookmark = state.bookmarks.find(
-        (b) => b.id === newBookmark.id
-      );
-      if (existingBookmark) return state;
-      return {
-        ...state,
-        bookmarks: [newBookmark, ...state.bookmarks],
-      };
-    }
-
-    case 'set_has_notification':
-      return {
-        ...state,
-        hasNotification: !state.hasNotification,
-      };
-    case 'set_added_games_name':
-      return {
-        ...state,
-        addedGameName: action.payload,
-      };
-    case 'set_is_user_info_open':
-      return {
-        ...state,
-        isUserInfoOpen: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
 export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleLogin = useCallback(() => dispatch({ type: 'login' }), []);
 
   const handleAddBookmark = useCallback((game: Game) => {
     dispatch({ type: 'set_bookmarks', payload: game });
@@ -72,6 +29,10 @@ export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleRemoveBookmark = useCallback((gameId: number) => {
+    dispatch({ type: 'remove_bookmark', payload: gameId });
+  }, []);
+
   const handleUserInfoOpen = useCallback((isOpen: boolean) => {
     dispatch({
       type: 'set_is_user_info_open',
@@ -83,7 +44,9 @@ export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
     return {
       ...state,
       handleAddBookmark,
+      handleRemoveBookmark,
       handleUserInfoOpen,
+      handleLogin,
     };
   }, [state, handleAddBookmark, handleUserInfoOpen]);
 

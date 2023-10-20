@@ -20,14 +20,18 @@ const CategoriesPage: FC = () => {
     <Layout>
       <Container className="categories">
         {/* <h1 className="categories__heading">{categoryName} Games</h1> */}
-        {!!games && games.length > 0 ? <GamesList games={games} /> : null}
-        <div className="btn-wrapper">
-          {isNextLoading ? (
-            <LoadingDots />
-          ) : (
-            <button onClick={() => handleNextPage()}>More</button>
-          )}
-        </div>
+        {!!games && games.length > 0 ? (
+          <>
+            <GamesList games={games} />
+            <div className="btn-wrapper">
+              {isNextLoading ? (
+                <LoadingDots />
+              ) : (
+                <button onClick={() => handleNextPage()}>More</button>
+              )}
+            </div>
+          </>
+        ) : null}
       </Container>
     </Layout>
   );

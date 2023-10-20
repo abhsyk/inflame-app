@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { pathname } = useLocation();
+
   const { isUserInfoOpen, handleUserInfoOpen } = useGameProvider();
 
   useEffect(() => {

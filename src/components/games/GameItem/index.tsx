@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import type { Game } from '../../../types/Game';
 import styled from 'styled-components';
 import { useGameProvider } from '../../../context';
+import { CheckIcon, PlusIcon } from '../../ui';
 
 type Props = { game: Game };
 
 const GameItem: FC<Props> = ({ game }) => {
-  const { slug, name, background_image, released, tba } = game;
-  const { handleAddBookmark, bookmarks } = useGameProvider();
+  const { id, slug, name, background_image, released, tba } = game;
+  const { handleAddBookmark, handleRemoveBookmark, bookmarks, isLoggedIn } =
+    useGameProvider();
   const isBookmarked: boolean = !!bookmarks.find((b) => b.id === game?.id);
 
   const handleBookmark = useCallback(
@@ -20,11 +22,24 @@ const GameItem: FC<Props> = ({ game }) => {
     [game, handleAddBookmark]
   );
 
+  const handleRemove = useCallback(
+    (e: MouseEvent): void => {
+      e.preventDefault();
+      handleRemoveBookmark(id);
+    },
+    [id, handleRemoveBookmark]
+  );
+
   const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
 
   return (
     <Link to={`/game/${slug}`}>
-      <StyledGame variants={cardAnim} initial="hidden" animate="show">
+      <StyledGame
+        variants={cardAnim}
+        initial="hidden"
+        animate="show"
+        exit="exit"
+      >
         <div className="games__image__wrapper">
           <img src={background_image} alt={name} />
         </div>
@@ -37,12 +52,15 @@ const GameItem: FC<Props> = ({ game }) => {
             </p>
             <p className="games__link">View detail</p>
           </div>
-          <button
-            className={`bookmark-btn ${isBookmarked ? 'added' : ''}`}
-            onClick={handleBookmark}
-          >
-            +
-          </button>
+          {isLoggedIn ? (
+            <motion.button
+              className={`bookmark-btn ${isBookmarked ? 'added' : ''}`}
+              onClick={isBookmarked ? handleRemove : handleBookmark}
+              whileHover={{ scale: 1.1 }}
+            >
+              {isBookmarked ? <CheckIcon /> : <PlusIcon />}
+            </motion.button>
+          ) : null}
         </div>
       </StyledGame>
     </Link>
@@ -56,6 +74,7 @@ const cardAnim = {
     scale: 1,
     transition: { duration: 0.4 },
   },
+  exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } },
 };
 
 const StyledGame = styled(motion.li)`
@@ -138,14 +157,16 @@ const StyledGame = styled(motion.li)`
   }
 
   .bookmark-btn {
+    display: flex;
+    align-items: center;
     position: absolute;
     bottom: 1rem;
     right: 1rem;
     color: var(--color-white);
-    font-size: 2rem;
+    font-size: 2.5rem;
     background-color: var(--color-body);
     border: none;
-    padding: 1rem 1.6rem;
+    padding: 1rem;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -157,7 +178,11 @@ const StyledGame = styled(motion.li)`
     &.added {
       color: var(--color-body);
       background-color: var(--color-white);
+      transition: background-color 0.2s;
       /* border: 0.1rem solid var(--color-body); */
+      &:hover {
+        background-color: #fff;
+      }
     }
   }
 `;

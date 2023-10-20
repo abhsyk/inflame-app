@@ -51,7 +51,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  margin-left: 2.5rem;
+  /* margin-left: 2.5rem; */
 
   .search__input {
     width: 45rem;

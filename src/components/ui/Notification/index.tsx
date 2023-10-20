@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import { BookmarkIcon } from '..';
 
 type Props = {
   hasNotification: boolean;
@@ -9,6 +10,7 @@ type Props = {
 const Notification: FC<Props> = ({ hasNotification, addedGameName }) => {
   return (
     <Container className={hasNotification ? 'active' : ''}>
+      <BookmarkIcon />
       <p>
         <strong>{addedGameName}</strong> has been added to your bookmarks!
       </p>
@@ -30,11 +32,17 @@ const Container = styled.div`
   opacity: 0;
   z-index: 10;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  display: flex;
+  align-items: center;
 
   &.active {
     bottom: 4rem;
     visibility: visible;
     opacity: 1;
+  }
+
+  p {
+    margin-left: 0.5rem;
   }
 `;
 

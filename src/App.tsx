@@ -4,6 +4,8 @@ import CategoriesPage from './pages/CategoriesPage';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
 import { GamesContextProvider } from './context';
+import UserPage from './pages/UserPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/user" element={<UserPage />} />
             <Route path="/game/:id" element={<DetailPage />} />
             <Route path="/:categoryId" element={<CategoriesPage />} />
             <Route path="*" element={<div>PageNotFound</div>} />

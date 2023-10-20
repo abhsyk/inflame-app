@@ -48,6 +48,7 @@ export const GlobalStyles = createGlobalStyle`
   .games,
   .categories {
     max-width: 120rem;
+    min-height: 68.7vh;
     padding: 3rem 2rem;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 1rem;

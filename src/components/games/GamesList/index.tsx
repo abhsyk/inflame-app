@@ -2,8 +2,7 @@ import { FC } from 'react';
 import type { Game } from '../../../types/Game';
 import { GameItem } from '../../games';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-// import DummyGameItem from '../../ui/DummyGameItem';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type Props = {
   games: Game[];
@@ -12,10 +11,11 @@ type Props = {
 const GamesList: FC<Props> = ({ games }) => {
   return (
     <StyledGameList>
-      {/* <DummyGameItem /> */}
-      {!!games && games.length > 0
-        ? games.map((game) => <GameItem key={game.id} game={game} />)
-        : null}
+      <AnimatePresence>
+        {!!games && games.length > 0
+          ? games.map((game) => <GameItem key={game.id} game={game} />)
+          : null}
+      </AnimatePresence>
     </StyledGameList>
   );
 };
