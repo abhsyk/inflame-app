@@ -1,16 +1,26 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useEffect } from 'react';
 import { Footer, Header } from '../../common';
 import styled from 'styled-components';
-import { ScrollToTop } from '../../ui';
+import { ScrollTopButton } from '../../ui';
+import { GamesProvider } from '../..';
+import { useLocation } from 'react-router-dom';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [pathname]);
+
   return (
-    <StyledLayout>
-      <Header />
-      {children}
-      <ScrollToTop />
-      <Footer />
-    </StyledLayout>
+    <GamesProvider>
+      <StyledLayout>
+        <Header />
+        {children}
+        <ScrollTopButton />
+        <Footer />
+      </StyledLayout>
+    </GamesProvider>
   );
 };
 

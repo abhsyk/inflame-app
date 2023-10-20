@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
-import { ArrowUpIcon } from '../../ui';
+import { ArrowUpIcon } from '..';
 
-const ScrollToTop: React.FC = () => {
+const ScrollTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const toggleVisibility = useCallback((): void => {
@@ -47,6 +47,7 @@ const StyledButton = styled(motion.div)`
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
   cursor: pointer;
   transition: color 0.3s;
+  z-index: 50;
 
   &:hover {
     color: rgba(255, 255, 255, 0.9);
@@ -64,4 +65,4 @@ const variants = {
   },
 };
 
-export default ScrollToTop;
+export default ScrollTopButton;

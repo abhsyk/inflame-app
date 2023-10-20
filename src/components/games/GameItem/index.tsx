@@ -3,18 +3,20 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import type { Game } from '../../../types/Type';
 import styled from 'styled-components';
+import { useGameProvider } from '../..';
 
 type Props = { game: Game };
 
-const GameItem: FC<Props> = ({
-  game: { id, slug, name, background_image, released, tba },
-}) => {
+const GameItem: FC<Props> = ({ game }) => {
+  const { slug, name, background_image, released, tba } = game;
+  const { handleAddBookmark } = useGameProvider();
+
   const handleBookmark = useCallback(
     (e: MouseEvent<HTMLButtonElement>): void => {
       e.preventDefault();
-      console.log(`"${name}" has been added to your bookmarks!`);
+      handleAddBookmark(game);
     },
-    [id]
+    [game, handleAddBookmark]
   );
 
   const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;

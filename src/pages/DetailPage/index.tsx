@@ -44,7 +44,7 @@ const DetailPage: FC = () => {
 
   useEffect(() => {
     if (params.id) handleGetGameDetail();
-  }, [params.id]);
+  }, [params.id, handleGetGameDetail]);
 
   const dotDate = game?.released
     ? game?.released.replace(/-0|-/gi, '.')
@@ -139,6 +139,7 @@ const DetailPage: FC = () => {
           </div>
         </motion.div>
         <div
+          className="background"
           style={{
             background: `url(${game?.background_image}) center`,
             backgroundSize: 'cover',
@@ -147,6 +148,8 @@ const DetailPage: FC = () => {
             position: 'absolute',
             top: 0,
             zIndex: -10,
+            filter: 'blur(5px)',
+            opacity: '0.2',
           }}
         />
       </Container>
@@ -156,6 +159,9 @@ const DetailPage: FC = () => {
 
 const Container = styled.section`
   position: relative;
+  min-height: 100vh;
+  z-index: 10;
+  /* background-blend-mode: overlay; */
 
   .detail {
     max-width: 120rem;
@@ -277,7 +283,7 @@ const Container = styled.section`
     font-family: var(--font-secondary);
     column-count: 2;
     column-gap: 3rem;
-    background-color: rgba(35, 35, 35, 0.6);
+    background-color: rgba(35, 35, 35, 0.7);
     font-size: 1.6rem;
     line-height: 1.8;
     color: #efefef;
@@ -330,7 +336,7 @@ const detailAnim = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9 },
+    transition: { duration: 1 },
   },
 };
 

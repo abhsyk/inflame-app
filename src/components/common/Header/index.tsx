@@ -1,12 +1,23 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ChevronDownIcon, CrossIcon, LogoIcon, SearchIcon } from '../../ui';
+import {
+  BookmarkIcon,
+  ChevronDownIcon,
+  CrossIcon,
+  LogoIcon,
+  LogoutIcon,
+  SearchIcon,
+} from '../../ui';
 import { PageNav } from '../../common';
 import useSearch from '../../../hooks/useSearch';
 
+import { useGameProvider } from '../..';
+
 const Header: FC = () => {
   // const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [isUserListOpen, setIsUserListOpen] = useState<boolean>(false);
+  const { hasNotification, addedGameName } = useGameProvider();
   const { searchWord, searchWordChange, clearSearchWord, searchGames } =
     useSearch();
 
@@ -36,7 +47,10 @@ const Header: FC = () => {
               <CrossIcon />
             </button>
           </div>
-          <div className="user-info">
+          <div
+            className="user-info"
+            onClick={() => setIsUserListOpen(!isUserListOpen)}
+          >
             <img
               src="src/assets/images/user-icon.png"
               className="user-icon"
@@ -44,6 +58,16 @@ const Header: FC = () => {
             />
             <p className="username">John Smith</p>
             <ChevronDownIcon className="chevron-icon" />
+            <ul className={`user-info__list ${isUserListOpen ? 'active' : ''}`}>
+              <li>
+                <BookmarkIcon />
+                Bookmarks
+              </li>
+              <li>
+                <LogoutIcon />
+                Log Out
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -60,9 +84,12 @@ const Header: FC = () => {
           </div>
         </div>
         {/* Notification */}
-        <div className="notification">
-          <p>Resident Evil 4 has been added to your bookmarks!</p>
-        </div>
+
+        <Notification className={hasNotification ? 'active' : ''}>
+          <p>
+            <strong>{addedGameName}</strong> has been added to your bookmarks!
+          </p>
+        </Notification>
       </PageNav>
     </Container>
   );
@@ -82,22 +109,23 @@ const Container = styled.div`
     align-items: center;
   }
 
-  .logo,
-  .logo a {
-    font-family: 'Rubik', sans-serif;
-    color: var(--color-white);
-    font-size: 3rem;
-    display: flex;
-    cursor: pointer;
-  }
+  .logo {
+    a {
+      font-family: 'Rubik', sans-serif;
+      color: var(--color-white);
+      font-size: 3rem;
+      display: flex;
+      cursor: pointer;
+    }
 
-  .logo svg {
-    font-size: 4.5rem;
-  }
+    svg {
+      font-size: 4.5rem;
+    }
 
-  .logo span {
-    margin-top: 1rem;
-    align-self: center;
+    span {
+      margin-top: 1rem;
+      align-self: center;
+    }
   }
 
   .search__wrapper {
@@ -177,6 +205,50 @@ const Container = styled.div`
     color: var(--color-white);
     align-items: center;
     padding: 1rem;
+    position: relative;
+    cursor: pointer;
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      width: 20rem;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      color: var(--color-body);
+      background-color: var(--color-white);
+      z-index: 100;
+      box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        gap: 1rem;
+        font-size: 1.6rem;
+        list-style: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #ccc;
+        }
+
+        svg {
+          font-size: 2rem;
+        }
+      }
+
+      &.active {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 
   .username {
@@ -187,32 +259,27 @@ const Container = styled.div`
     font-size: 2rem;
     color: var(--color-white);
   }
+`;
 
-  .notification {
-    position: fixed;
-    background-color: yellow;
-    font-size: 1.4rem;
-    padding: 0.5rem 2rem;
-    bottom: -5rem;
-    left: 50%;
-    border-radius: 3rem;
-    -webkit-border-radius: 3rem;
-    -moz-border-radius: 3rem;
-    -ms-border-radius: 3rem;
-    -o-border-radius: 3rem;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
-    z-index: 10;
-    display: none;
-  }
+const Notification = styled.div`
+  position: fixed;
+  background-color: yellow;
+  font-size: 1.4rem;
+  padding: 0.5rem 2rem;
+  left: 50%;
+  border-radius: 3rem;
+  transform: translateX(-50%);
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+  bottom: -5rem;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
-  .notification.active {
-    display: block;
-    bottom: 3rem;
+  &.active {
+    bottom: 4rem;
+    visibility: visible;
+    opacity: 1;
   }
 `;
 
