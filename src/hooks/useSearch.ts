@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState, MouseEvent } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const useSearch = () => {
@@ -9,8 +9,7 @@ const useSearch = () => {
     setSearchWord(e.target.value);
   }, []);
 
-  const clearSearchWord = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const clearSearchWord = useCallback(() => {
     setSearchWord('');
   }, []);
 

@@ -6,7 +6,7 @@ import useGames from '../../hooks/useGames';
 import { LoadingDots } from '../../components/ui';
 
 const CategoriesPage: FC = () => {
-  const { games, isLoading, handleNextPage } = useGames();
+  const { games, isLoading, handleNextPage, isNextLoading } = useGames();
 
   if (isLoading) {
     return (
@@ -22,7 +22,11 @@ const CategoriesPage: FC = () => {
         {/* <h1 className="categories__heading">{categoryName} Games</h1> */}
         {!!games && games.length > 0 ? <GamesList games={games} /> : null}
         <div className="btn-wrapper">
-          <button onClick={() => handleNextPage()}>More</button>
+          {isNextLoading ? (
+            <LoadingDots />
+          ) : (
+            <button onClick={() => handleNextPage()}>More</button>
+          )}
         </div>
       </Container>
     </Layout>
@@ -43,16 +47,16 @@ const Container = styled.section`
   }
 
   .btn-wrapper {
-    margin-top: 3rem;
+    margin-top: 4rem;
     display: flex;
     justify-content: center;
 
     button {
       font-size: 2rem;
-      background-color: var(--color-white);
-      border: none;
+      background-color: rgba(255, 255, 255, 0.3);
+      border: 0.1rem solid var(--color-white);
       padding: 1rem 4rem;
-      border-radius: 1rem;
+      border-radius: 0.5rem;
       cursor: pointer;
     }
   }

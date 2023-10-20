@@ -23,13 +23,20 @@ const initialState: GamesContextState = {
   isUserInfoOpen: false,
 };
 
-const reducer = (state: GamesContextState, action: Action) => {
+const reducer = (state: GamesContextState = initialState, action: Action) => {
   switch (action.type) {
-    case 'set_bookmarks':
+    case 'set_bookmarks': {
+      const newBookmark = action.payload;
+      const existingBookmark = state.bookmarks.find(
+        (b) => b.id === newBookmark.id
+      );
+      if (existingBookmark) return state;
       return {
         ...state,
-        bookmarks: [action.payload, ...state.bookmarks],
+        bookmarks: [newBookmark, ...state.bookmarks],
       };
+    }
+
     case 'set_has_notification':
       return {
         ...state,
@@ -57,24 +64,20 @@ export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
     dispatch({ type: 'set_bookmarks', payload: game });
     dispatch({ type: 'set_added_games_name', payload: game.name });
     dispatch({ type: 'set_has_notification', payload: true });
+
     const timer = setTimeout(() => {
       dispatch({ type: 'set_has_notification', payload: false });
     }, 2500);
+
     return () => clearTimeout(timer);
   }, []);
 
-  const handleUserInfoOpen = useCallback(
-    (isOpen: boolean) => {
-      const { isUserInfoOpen } = state;
-      console.log(isUserInfoOpen);
-
-      dispatch({
-        type: 'set_is_user_info_open',
-        payload: isOpen,
-      });
-    },
-    [state.isUserInfoOpen]
-  );
+  const handleUserInfoOpen = useCallback((isOpen: boolean) => {
+    dispatch({
+      type: 'set_is_user_info_open',
+      payload: isOpen,
+    });
+  }, []);
 
   const config = useMemo(() => {
     return {
@@ -82,7 +85,7 @@ export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleAddBookmark,
       handleUserInfoOpen,
     };
-  }, [state]);
+  }, [state, handleAddBookmark, handleUserInfoOpen]);
 
   return (
     <GamesContext.Provider value={config}>{children}</GamesContext.Provider>

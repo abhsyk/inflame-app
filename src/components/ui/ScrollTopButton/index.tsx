@@ -41,7 +41,7 @@ const StyledButton = styled(motion.div)`
   place-items: center;
   position: fixed;
   bottom: 7rem;
-  right: 7rem;
+  right: 6rem;
   font-size: 5.5rem;
   color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);

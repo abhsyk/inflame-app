@@ -50,8 +50,6 @@ const getGamesByCategory = async (
   const params = getParams(categoryPath, searchWord);
   const { data } = await server<ApiResponse>({ params });
 
-  // const { data } = await axios.get(BASE_URL, { params });
-  // const games: Game[] = data.results;
   return data;
 };
 

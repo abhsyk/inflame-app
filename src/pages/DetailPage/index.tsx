@@ -32,12 +32,9 @@ const DetailPage: FC = () => {
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  console.log(game);
-
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
     const data = await getGameDetail(params.id!);
-
     setGame(data);
     setIsLoading(false);
   }, [params.id]);
@@ -50,7 +47,7 @@ const DetailPage: FC = () => {
     ? game?.released.replace(/-0|-/gi, '.')
     : game?.released;
 
-  if (isLoading) {
+  if (!game && isLoading) {
     return (
       <Layout>
         <LoadingDots />
@@ -161,7 +158,6 @@ const Container = styled.section`
   position: relative;
   min-height: 100vh;
   z-index: 10;
-  /* background-blend-mode: overlay; */
 
   .detail {
     max-width: 120rem;
@@ -190,13 +186,18 @@ const Container = styled.section`
 
       .publisher {
         display: flex;
-        padding: 0 1.5rem;
-        background-color: #c268fa;
+        padding: 0.1rem 1.8rem;
+        margin: 0 1rem;
+        background-color: #68fabd;
+        transform: skewX(-45deg);
         gap: 1.5rem;
 
         p {
           font-size: 1.4rem;
           color: #222;
+          transform: skewX(45deg);
+          text-transform: uppercase;
+          font-weight: 600;
         }
       }
 
@@ -260,9 +261,6 @@ const Container = styled.section`
         font-weight: 600;
       }
     }
-
-    &__icons {
-    }
   }
 
   .banner {
@@ -295,7 +293,6 @@ const Container = styled.section`
   .screenshots__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
-    /* box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25); */
 
     img {
       width: 100%;

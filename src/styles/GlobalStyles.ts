@@ -32,6 +32,18 @@ export const GlobalStyles = createGlobalStyle`
     font-family: inherit;
   }
 
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d71bae;
+    border-radius: 2rem;
+    border: transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
   /* Games */
   .games,
   .categories {

@@ -9,10 +9,11 @@ type Props = { game: Game };
 
 const GameItem: FC<Props> = ({ game }) => {
   const { slug, name, background_image, released, tba } = game;
-  const { handleAddBookmark } = useGameProvider();
+  const { handleAddBookmark, bookmarks } = useGameProvider();
+  const isBookmarked: boolean = !!bookmarks.find((b) => b.id === game?.id);
 
   const handleBookmark = useCallback(
-    (e: MouseEvent<HTMLButtonElement>): void => {
+    (e: MouseEvent): void => {
       e.preventDefault();
       handleAddBookmark(game);
     },
@@ -36,7 +37,10 @@ const GameItem: FC<Props> = ({ game }) => {
             </p>
             <p className="games__link">View detail</p>
           </div>
-          <button className="bookmark-btn" onClick={handleBookmark}>
+          <button
+            className={`bookmark-btn ${isBookmarked ? 'added' : ''}`}
+            onClick={handleBookmark}
+          >
             +
           </button>
         </div>
@@ -98,21 +102,21 @@ const StyledGame = styled(motion.li)`
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     position: relative;
     justify-content: space-between;
-  }
 
-  .games__info .title {
-    flex: 0 0 55%;
-    font-size: 2rem;
-    font-weight: 600;
-    line-height: 1.1;
-    flex: 0 0 50%;
-  }
+    .title {
+      flex: 0 0 55%;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.1;
+      flex: 0 0 50%;
+    }
 
-  .games__info__bottom {
-    flex: 0 0 45%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 1.5rem;
+    &__bottom {
+      flex: 0 0 45%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.5rem;
+    }
   }
 
   .release {
@@ -143,20 +147,18 @@ const StyledGame = styled(motion.li)`
     border: none;
     padding: 1rem 1.6rem;
     border-radius: 0.5rem;
-    -webkit-border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    -ms-border-radius: 0.5rem;
-    -o-border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.2s;
-    -webkit-transition: background-color 0.2s;
-    -moz-transition: background-color 0.2s;
-    -ms-transition: background-color 0.2s;
-    -o-transition: background-color 0.2s;
-  }
 
-  .bookmark-btn:hover {
-    background-color: #444;
+    &:hover {
+      background-color: #444;
+    }
+
+    &.added {
+      color: var(--color-body);
+      background-color: var(--color-white);
+      /* border: 0.1rem solid var(--color-body); */
+    }
   }
 `;
 
