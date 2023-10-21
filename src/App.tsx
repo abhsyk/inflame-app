@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GlobalStyles } from './styles/GlobalStyles';
+import GamesContextProvider from './context';
 import CategoriesPage from './pages/CategoriesPage';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
-import { GamesContextProvider } from './context';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 

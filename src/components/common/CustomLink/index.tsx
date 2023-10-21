@@ -6,11 +6,9 @@ const CustomLink: FC<PropsWithChildren<LinkProps>> = ({ children, to }) => {
   const match = useMatch({ path: resolved.pathname, end: true });
 
   return (
-    <li className={`navbar__item ${match ? 'active' : ''}`}>
-      <Link to={to} className="navbar__link">
-        {children}
-      </Link>
-    </li>
+    <Link to={to}>
+      <li className={`navbar__item ${match ? 'active' : ''}`}>{children}</li>
+    </Link>
   );
 };
 

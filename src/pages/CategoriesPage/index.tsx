@@ -19,15 +19,14 @@ const CategoriesPage: FC = () => {
   return (
     <Layout>
       <Container className="categories">
-        {/* <h1 className="categories__heading">{categoryName} Games</h1> */}
         {!!games && games.length > 0 ? (
           <>
             <GamesList games={games} />
             <div className="btn-wrapper">
               {isNextLoading ? (
-                <LoadingDots />
+                <LoadingDots center />
               ) : (
-                <button onClick={() => handleNextPage()}>More</button>
+                <button onClick={() => handleNextPage()}>View more</button>
               )}
             </div>
           </>
@@ -51,16 +50,18 @@ const Container = styled.section`
   }
 
   .btn-wrapper {
-    margin-top: 4rem;
+    margin-top: 3rem;
     display: flex;
     justify-content: center;
 
     button {
-      font-size: 2rem;
-      background-color: rgba(255, 255, 255, 0.3);
-      border: 0.1rem solid var(--color-white);
-      padding: 1rem 4rem;
+      font-family: var(--font-secondary);
+      font-size: 1.6rem;
+      background-color: transparent;
+      border: none;
+      padding: 1.13rem 4rem;
       border-radius: 0.5rem;
+      color: var(--color-white);
       cursor: pointer;
     }
   }

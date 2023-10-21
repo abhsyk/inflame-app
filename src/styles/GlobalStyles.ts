@@ -4,6 +4,7 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --color-body: #222;
     --color-white: #efefef;
+    --color-primary: #D345AE;
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Montserrat', sans-serif;
   }
@@ -36,7 +37,7 @@ export const GlobalStyles = createGlobalStyle`
     width: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #d71bae;
+    background-color: var(--color-primary);
     border-radius: 2rem;
     border: transparent;
   }

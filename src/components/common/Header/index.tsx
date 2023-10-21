@@ -48,7 +48,6 @@ const Header: FC = () => {
             <div className="user-info" onClick={handleClickInside}>
               <img src={avator} className="avatar-icon" alt="Avatar" />
               <p className="username">John Smith</p>
-
               <ChevronDownIcon className="chevron-icon" />
               <ul
                 className={`user-info__list ${isUserInfoOpen ? 'active' : ''}`}
@@ -153,7 +152,7 @@ const Container = styled.div`
       li {
         display: flex;
         align-items: center;
-        padding: 1rem 2rem;
+        padding: 1.2rem 2rem;
         gap: 1rem;
         font-size: 1.6rem;
         list-style: none;

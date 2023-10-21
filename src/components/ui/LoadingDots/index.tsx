@@ -19,7 +19,7 @@ const Container = styled.div`
   min-height: calc(100vh - 18rem);
   display: flex;
   justify-content: center;
-  margin: 5rem 0 2rem;
+  margin: 2rem 0 1rem;
 
   .dot {
     width: 1.2rem;

@@ -12,7 +12,7 @@ import reducer, { initialState } from './reducer';
 
 const GamesContext = createContext<Partial<GamesProviderContext>>({});
 
-export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
+const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleLogin = useCallback(() => dispatch({ type: 'login' }), []);
@@ -24,7 +24,7 @@ export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const timer = setTimeout(() => {
       dispatch({ type: 'set_has_notification', payload: false });
-    }, 2500);
+    }, 6500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -48,12 +48,20 @@ export const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleUserInfoOpen,
       handleLogin,
     };
-  }, [state, handleAddBookmark, handleUserInfoOpen]);
+  }, [
+    state,
+    handleAddBookmark,
+    handleUserInfoOpen,
+    handleLogin,
+    handleRemoveBookmark,
+  ]);
 
   return (
     <GamesContext.Provider value={config}>{children}</GamesContext.Provider>
   );
 };
+
+export default GamesContextProvider;
 
 export const useGameProvider = () => {
   return useContext(GamesContext) as GamesProviderContext;

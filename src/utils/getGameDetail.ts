@@ -1,5 +1,3 @@
-// import { server } from './server';
-
 import { API_KEY, BASE_URL } from '../api';
 import { Game } from '../types';
 

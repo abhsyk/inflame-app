@@ -9,9 +9,7 @@ const useSearch = () => {
     setSearchWord(e.target.value);
   }, []);
 
-  const clearSearchWord = useCallback(() => {
-    setSearchWord('');
-  }, []);
+  const clearSearchWord = useCallback(() => setSearchWord(''), []);
 
   const searchGames = useCallback(() => {
     navigate(`/search?key=${searchWord}`);

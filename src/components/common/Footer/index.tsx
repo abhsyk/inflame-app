@@ -38,7 +38,7 @@ const Container = styled.footer`
   }
 
   .copyright a {
-    color: #d71bae;
+    color: var(--color-primary);
   }
 
   .social-media {

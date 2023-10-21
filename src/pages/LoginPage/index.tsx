@@ -97,8 +97,9 @@ const Container = styled.div`
     );
     background-color: rgba(0, 0, 0, 0.9);
     position: relative;
-    border: 0.1rem solid rgba(255, 255, 255, 0.4);
+    /* border: 0.1rem solid rgba(255, 255, 255, 0.4); */
     border-radius: 1rem;
+    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
 
     .form-container {
       display: grid;

@@ -64,7 +64,7 @@ const Container = styled.div`
     border-radius: 3rem;
 
     &:focus {
-      border: 0.1rem solid #d71bae;
+      border: 0.1rem solid var(--color-primary);
     }
     &:focus ~ button {
       visibility: visible;
