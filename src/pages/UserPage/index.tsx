@@ -4,6 +4,7 @@ import { useGameProvider } from '../../context';
 import { GamesList } from '../../components/games';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Categories } from '../../styles/GlobalStyles';
 
 const UserPage: FC = () => {
   const { bookmarks } = useGameProvider();
@@ -16,13 +17,13 @@ const UserPage: FC = () => {
 
   return (
     <Layout>
-      <div className="games">
+      <Categories>
         {!!bookmarks && bookmarks.length > 0 ? (
           <GamesList games={bookmarks} />
         ) : (
           <Message>There are no bookmarks.😢</Message>
         )}
-      </div>
+      </Categories>
     </Layout>
   );
 };

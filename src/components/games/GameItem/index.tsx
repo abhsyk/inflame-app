@@ -33,13 +33,8 @@ const GameItem: FC<Props> = ({ game }) => {
   const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
 
   return (
-    <Link to={`/game/${slug}`}>
-      <StyledGame
-        variants={cardAnim}
-        initial="hidden"
-        animate="show"
-        exit="exit"
-      >
+    <StyledGame variants={cardAnim} initial="hidden" animate="show" exit="exit">
+      <Link to={`/game/${slug}`}>
         <div className="games__image__wrapper">
           <img src={background_image} alt={name} />
         </div>
@@ -62,8 +57,8 @@ const GameItem: FC<Props> = ({ game }) => {
             </motion.button>
           ) : null}
         </div>
-      </StyledGame>
-    </Link>
+      </Link>
+    </StyledGame>
   );
 };
 
@@ -78,21 +73,23 @@ const cardAnim = {
 };
 
 const StyledGame = styled(motion.li)`
-  display: flex;
-  flex-direction: column;
-  width: 37.3rem;
-  height: 37.6rem;
-  list-style: none;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 1rem;
-  -webkit-border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -ms-border-radius: 1rem;
-  -o-border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
-  justify-self: center;
-  /* border: 0.05rem solid rgba(255, 255, 255, 0.05); */
+  a {
+    display: flex;
+    flex-direction: column;
+    width: 37.3rem;
+    height: 37.6rem;
+    list-style: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+    justify-self: center;
+    border: 0.05rem solid rgba(255, 255, 255, 0.05);
+  }
 
   .games__image__wrapper {
     width: 100%;
@@ -179,7 +176,7 @@ const StyledGame = styled(motion.li)`
       color: var(--color-body);
       background-color: var(--color-white);
       transition: background-color 0.2s;
-      /* border: 0.1rem solid var(--color-body); */
+
       &:hover {
         background-color: #fff;
       }

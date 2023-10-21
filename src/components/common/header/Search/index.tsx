@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import styled from 'styled-components';
-import useSearch from '../../../hooks/useSearch';
-import { CrossIcon, SearchIcon } from '../../ui';
+import useSearch from '../../../../hooks/useSearch';
+import { CrossIcon, SearchIcon } from '../../../ui';
 
 const Search: FC = () => {
   const { searchWord, searchWordChange, clearSearchWord, searchGames } =
@@ -51,11 +51,10 @@ const Container = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  /* margin-left: 2.5rem; */
 
   .search__input {
     width: 45rem;
-    padding: 1rem 5rem;
+    padding: 0.8rem 5rem;
     background: rgba(255, 255, 255, 0.1);
     font-size: 1.6rem;
     color: var(--color-white);

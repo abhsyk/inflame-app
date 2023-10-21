@@ -4,6 +4,7 @@ import { GamesList } from '../../components/games';
 import styled from 'styled-components';
 import useGames from '../../hooks/useGames';
 import { LoadingDots } from '../../components/ui';
+import { Categories } from '../../styles/GlobalStyles';
 
 const CategoriesPage: FC = () => {
   const { games, isLoading, handleNextPage, isNextLoading } = useGames();
@@ -36,7 +37,7 @@ const CategoriesPage: FC = () => {
   );
 };
 
-const Container = styled.section`
+const Container = styled(Categories)`
   min-height: 100vh;
   margin-bottom: 0;
   border-bottom-right-radius: 0;

@@ -24,7 +24,7 @@ const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const timer = setTimeout(() => {
       dispatch({ type: 'set_has_notification', payload: false });
-    }, 6500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);

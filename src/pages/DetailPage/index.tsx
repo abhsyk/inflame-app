@@ -313,7 +313,7 @@ const Container = styled.section`
   .link {
     display: flex;
     gap: 0.5rem;
-    justify-content: end;
+    justify-content: start;
     margin: 3rem 0;
 
     svg {

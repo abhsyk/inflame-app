@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
+import { motion } from 'framer-motion';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -36,73 +37,18 @@ export const GlobalStyles = createGlobalStyle`
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-primary);
     border-radius: 2rem;
     border: transparent;
   }
+  
   &::-webkit-scrollbar-track {
     background: transparent;
   }
 
-  /* Games */
-  .games,
-  .categories {
-    max-width: 120rem;
-    min-height: 68.7vh;
-    padding: 3rem 2rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
-    margin: 3rem auto 5rem;
-    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
-  }
-
-  .games__text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .games__tagline {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .games__text a {
-    font-size: 1.4rem;
-    color: var(--color-white);
-    text-decoration: underline;
-  }
-
-  .games__tagline button {
-    color: var(--color-white);
-    font-weight: 600;
-    text-transform: uppercase;
-    background-color: transparent;
-    padding: 0.6rem 2rem;
-    border: 0.1rem solid var(--color-white);
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
-    cursor: pointer;
-    font-size: 1.4rem;
-  }
-
-  .games__tagline button.active {
-    background-color: var(--color-white);
-    color: #222;
-    border: none;
-  }
-  /* Games ends */
-
   /* Responsive */
-
   @media (max-width: 1400px) {
     html {
       font-size: 55%;
@@ -296,4 +242,18 @@ export const GlobalStyles = createGlobalStyle`
       top: 65%;
     }
   }
+`;
+
+export const Categories = styled(motion.section)`
+  max-width: 120rem;
+  min-height: calc(100vh - 26rem);
+  padding: 3rem 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  margin: 3rem auto 4rem;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
 `;

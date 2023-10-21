@@ -1,12 +1,10 @@
 import { FC } from 'react';
-import type { Game } from '../../../types/Game';
-import { GameItem } from '../../games';
+import type { Game } from '../../../types';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+import { GameItem } from '../../games';
 
-type Props = {
-  games: Game[];
-};
+type Props = { games: Game[] };
 
 const GamesList: FC<Props> = ({ games }) => {
   return (
@@ -22,7 +20,7 @@ const GamesList: FC<Props> = ({ games }) => {
 
 const StyledGameList = styled(motion.ul)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(37.3rem, 1fr));
+  grid-template-columns: repeat(auto-fit, 37.3rem);
   gap: 2rem;
   margin-top: 1rem;
 `;

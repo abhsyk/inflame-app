@@ -35,10 +35,10 @@ const Container = styled.footer`
   .copyright {
     font-size: 1.4rem;
     color: #eee;
-  }
 
-  .copyright a {
-    color: var(--color-primary);
+    a {
+      color: var(--color-primary);
+    }
   }
 
   .social-media {

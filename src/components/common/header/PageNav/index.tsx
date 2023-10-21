@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import { CustomLink } from '../../common';
+import { CustomLink } from '../../header';
 import styled from 'styled-components';
 
 const PageNav: FC<PropsWithChildren> = ({ children }) => {

@@ -1,14 +1,10 @@
 import { FC, useState } from 'react';
-import { Layout } from '../../components/common';
-import {
-  Carousel,
-  GamesList,
-  SwitchTaglineCategory,
-} from '../../components/games';
-import { CategoryPath } from '../../types/Game';
+import type { CategoryPath } from '../../types';
 import useGames from '../../hooks/useGames';
-import { LoadingDots } from '../../components/ui';
-import { motion } from 'framer-motion';
+import { Layout } from '../../components/common';
+import { Carousel, GamesList } from '../../components/games';
+import { LoadingDots, SwitchTaglineCategory } from '../../components/ui';
+import { Categories } from '../../styles/GlobalStyles';
 
 const HomePage: FC = () => {
   const [currentTaglinePath, setCurrentTaglinePath] =
@@ -28,12 +24,7 @@ const HomePage: FC = () => {
   return (
     <Layout>
       <Carousel games={carouselGames} />
-      <motion.section
-        className="games"
-        variants={variants}
-        initial="hidden"
-        animate="show"
-      >
+      <Categories variants={variants} initial="hidden" animate="show">
         <SwitchTaglineCategory
           currentTaglinePath={currentTaglinePath}
           onTagChange={setCurrentTaglinePath}
@@ -42,7 +33,7 @@ const HomePage: FC = () => {
           <GamesList games={games.slice(0, 6)} />
         ) : null}
         {isLoading && <LoadingDots />}
-      </motion.section>
+      </Categories>
     </Layout>
   );
 };

@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-type Props = {
-  center?: boolean;
-};
+type Props = { center?: boolean };
 
 const LoadingDots: FC<Props> = ({ center = false }) => {
   return (
@@ -46,17 +44,9 @@ const Container = styled.div`
     0%,
     100% {
       transform: scale(0.5);
-      -webkit-transform: scale(0.5);
-      -moz-transform: scale(0.5);
-      -ms-transform: scale(0.5);
-      -o-transform: scale(0.5);
     }
     50% {
       transform: scale(1);
-      -webkit-transform: scale(1);
-      -moz-transform: scale(1);
-      -ms-transform: scale(1);
-      -o-transform: scale(1);
     }
   }
 `;

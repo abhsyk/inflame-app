@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
-import { ArrowUpIcon } from '..';
+import { ArrowUpIcon } from '../../ui';
 
 const ScrollTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -11,7 +11,7 @@ const ScrollTopButton: React.FC = () => {
     else setIsVisible(false);
   }, []);
 
-  const scrollToTop = useCallback((): void => {
+  const handleScrollToTop = useCallback((): void => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -23,7 +23,7 @@ const ScrollTopButton: React.FC = () => {
     <AnimatePresence>
       {isVisible ? (
         <StyledButton
-          onClick={scrollToTop}
+          onClick={handleScrollToTop}
           variants={variants}
           initial="hidden"
           animate="show"

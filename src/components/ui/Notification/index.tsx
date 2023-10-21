@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { BookmarkIcon } from '..';
+import { BookmarkIcon } from '../../ui';
 
 type Props = {
   hasNotification: boolean;

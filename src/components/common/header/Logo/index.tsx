@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { LogoIcon } from '../../ui';
+import { LogoIcon } from '../../../ui';
 
 const Logo: FC = () => {
   return (
