@@ -158,23 +158,6 @@ const Container = styled.section`
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-
-      .publisher {
-        display: flex;
-        padding: 0.1rem 1.8rem;
-        margin: 0 1rem;
-        background-color: #68fabd;
-        transform: skewX(-45deg);
-        gap: 1.5rem;
-
-        p {
-          font-size: 1.4rem;
-          color: #222;
-          transform: skewX(45deg);
-          text-transform: uppercase;
-          font-weight: 600;
-        }
-      }
     }
 
     &__third-row {
