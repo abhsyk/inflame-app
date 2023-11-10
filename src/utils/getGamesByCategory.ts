@@ -34,9 +34,9 @@ const getParams = (categoryPath: CategoryPath) => {
 
 const getGamesByCategory = async (
   categoryPath: CategoryPath
-): Promise<ApiResponse> => {
+): Promise<ApiResponse<any>> => {
   const params = getParams(categoryPath);
-  const { data } = await server<ApiResponse>({ params });
+  const { data } = await server<ApiResponse<any>>({ params });
 
   return data;
 };
