@@ -6,7 +6,11 @@ import getGameDetail from '../../utils/getGameDetail';
 import { Game } from '../../types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Banner, Screenshots } from '../../components/gameDetail';
+import {
+  BackgroundImage,
+  Banner,
+  Screenshots,
+} from '../../components/gameDetail';
 import DetailHeadings from '../../components/gameDetail/detailHeadings/DetailHeadings';
 
 const DetailPage: FC = () => {
@@ -25,53 +29,36 @@ const DetailPage: FC = () => {
     if (params.id) handleGetGameDetail();
   }, [params.id, handleGetGameDetail]);
 
-  if (!game && isLoading) {
-    return (
-      <Layout>
-        <LoadingDots />
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
-      <Container>
-        <motion.div
-          className="detail"
-          variants={detailAnim}
-          initial="hidden"
-          animate="show"
-        >
-          <DetailHeadings game={game} />
-          <Banner image={game?.background_image} name={game?.name} />
-          {game?.description_raw ? (
-            <p className="description">{game?.description_raw}</p>
-          ) : null}
-          <Screenshots screenshots={game?.screenshots} />
-          <div className="link">
-            {game?.website ? (
-              <>
-                <LinkIcon />
-                <a href="#"> {game?.website} </a>
-              </>
+      {!game && isLoading ? (
+        <LoadingDots />
+      ) : (
+        <Container>
+          <motion.div
+            className="detail"
+            variants={detailAnim}
+            initial="hidden"
+            animate="show"
+          >
+            <DetailHeadings game={game} />
+            <Banner image={game?.background_image} name={game?.name} />
+            {game?.description_raw ? (
+              <p className="description">{game?.description_raw}</p>
             ) : null}
-          </div>
-        </motion.div>
-        <div
-          className="background"
-          style={{
-            background: `url(${game?.background_image}) center`,
-            backgroundSize: 'cover',
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            top: 0,
-            zIndex: -10,
-            filter: 'blur(5px)',
-            opacity: '0.2',
-          }}
-        />
-      </Container>
+            <Screenshots screenshots={game?.screenshots} />
+            <div className="link">
+              {game?.website ? (
+                <>
+                  <LinkIcon />
+                  <a href="#"> {game?.website} </a>
+                </>
+              ) : null}
+            </div>
+          </motion.div>
+          <BackgroundImage image={game?.background_image} />
+        </Container>
+      )}
     </Layout>
   );
 };
