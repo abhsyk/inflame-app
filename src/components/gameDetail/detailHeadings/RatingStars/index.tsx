@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Game } from '../../../../types';
-import { StarFullIcon, StarHalfIcon } from '../../../ui';
+import { Game, RatingStarType } from '../../../../types';
+import { StarEmptyIcon, StarFullIcon, StarHalfIcon } from '../../../ui';
 import styled from 'styled-components';
 
 type Props = {
@@ -14,7 +14,13 @@ const RatingStars: FC<Props> = ({ rating, ratingsCount }) => {
       {rating ? (
         <Container>
           {getStars(rating).map((s, i) =>
-            s === 'full' ? <StarFullIcon key={i} /> : <StarHalfIcon key={i} />
+            s === 'full' ? (
+              <StarFullIcon key={i} />
+            ) : s === 'half' ? (
+              <StarHalfIcon key={i} />
+            ) : (
+              <StarEmptyIcon key={i} />
+            )
           )}
           <span>( {ratingsCount} )</span>
         </Container>
@@ -23,12 +29,16 @@ const RatingStars: FC<Props> = ({ rating, ratingsCount }) => {
   );
 };
 
-const getStars = (rating: number) => {
-  const fullStar = Math.floor(rating);
-  const hasHalfStar = fullStar < rating;
-  const fullStars = Array(fullStar).fill('full');
+const getStars = (rating: number): RatingStarType[] => {
+  const fullStar: number = Math.floor(rating);
+  const hasHalfStar: boolean = fullStar < rating;
+  const fullStars: RatingStarType[] = Array(fullStar).fill('full');
   const stars = hasHalfStar ? [...fullStars, 'half'] : fullStars;
-  return stars;
+
+  const emptyStarsCount: number = 5 - stars.length;
+  const emptyStars: RatingStarType[] = Array(emptyStarsCount).fill('empty');
+
+  return [...stars, ...emptyStars] as RatingStarType[];
 };
 
 const Container = styled.div`
@@ -41,6 +51,7 @@ const Container = styled.div`
   svg {
     font-size: 2rem;
     color: rgba(215, 27, 174, 0.9);
+    margin: 0 0.1rem;
   }
 
   span {
