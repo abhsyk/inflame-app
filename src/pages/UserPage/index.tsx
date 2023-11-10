@@ -17,10 +17,10 @@ const UserPage: FC = () => {
   return (
     <Layout>
       <Categories>
-        {!!bookmarks && bookmarks.length > 0 ? (
+        {!!bookmarks && bookmarks.length ? (
           <GamesList games={bookmarks} />
         ) : (
-          <Message>There are no bookmarks.😢</Message>
+          <Message>There are no bookmarks😢</Message>
         )}
       </Categories>
     </Layout>
@@ -30,6 +30,7 @@ const UserPage: FC = () => {
 const Message = styled.p`
   font-size: 1.8rem;
   color: var(--color-white);
+  text-align: center;
 `;
 
 export default UserPage;
