@@ -2,27 +2,29 @@ import { FC, useCallback, useState, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  BookmarkIcon,
   ChevronDownIcon,
+  BookmarkIcon,
+  LogOutIcon,
   CrossIcon,
-  LogoutIcon,
 } from '../../../ui';
 import avator from '../../../../assets/images/avatar-icon.png';
 import styled from 'styled-components';
 import useGamesContext from '../../../../hooks/useGamesContext';
+import useGames from '../../../../hooks/useGames';
 
 type Props = { isLoggedIn: boolean };
 
 const UserInfo: FC<Props> = ({ isLoggedIn }) => {
   const [message, setMessage] = useState(
-    'You can use bookmarks by logging in!'
+    'By logging in, you can access the bookmark feature😃'
   );
 
   const { handleLogin, isUserInfoOpen, handleUserInfoOpen, bookmarks } =
     useGamesContext();
+  const { isLoading } = useGames();
 
   const handleClickInside = useCallback(
-    (e: MouseEvent) => {
+    (e: MouseEvent<HTMLDivElement>): void => {
       e.stopPropagation();
       handleUserInfoOpen(!isUserInfoOpen);
     },
@@ -40,11 +42,11 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
             <Link to="/user">
               <li className="bookmarks">
                 <BookmarkIcon />
-                Bookmarks ({bookmarks.length})
+                Bookmark ({bookmarks.length})
               </li>
             </Link>
             <li onClick={handleLogin}>
-              <LogoutIcon />
+              <LogOutIcon />
               Log Out
             </li>
           </ul>
@@ -54,15 +56,17 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
           <Link to="/login" className="login">
             Log In
           </Link>
-          {!isLoggedIn && message ? (
+          {!isLoggedIn && !isLoading && message ? (
             <motion.div
               className="message-container"
               onClick={() => setMessage('')}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 2 } }}
+              animate={{ opacity: 1, transition: { delay: 2.8 } }}
             >
               <p>{message}</p>
-              <CrossIcon />
+              <div>
+                <CrossIcon />
+              </div>
             </motion.div>
           ) : null}
         </StyledLogin>
@@ -83,7 +87,7 @@ const StyledUserInfo = styled.div`
   .user-info__list {
     display: flex;
     flex-direction: column;
-    width: 20rem;
+    width: 19.5rem;
     position: absolute;
     top: 100%;
     right: 0;
@@ -151,15 +155,16 @@ const StyledLogin = styled.div`
       background-color: #46f5d2;
     }
   }
+
   .message-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     position: absolute;
-    width: 35rem;
-    padding: 1rem;
-    font-size: 1.4rem;
+    width: 32rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
     background-color: #e7fef0;
     right: 0;
     top: 150%;
@@ -167,12 +172,16 @@ const StyledLogin = styled.div`
     border-radius: 1rem;
     cursor: pointer;
 
+    div {
+      display: flex;
+    }
+
     svg {
       border: 0.1rem solid var(--color-body);
       color: var(--color-body);
       font-size: 2rem;
       border-radius: 50%;
-      padding: 0.2rem;
+      padding: 0.3rem;
     }
   }
 `;

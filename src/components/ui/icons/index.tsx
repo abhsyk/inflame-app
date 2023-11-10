@@ -199,7 +199,7 @@ export const BookmarkIcon: FC<Props> = (props) => {
   );
 };
 
-export const LogoutIcon: FC<Props> = (props) => {
+export const LogOutIcon: FC<Props> = (props) => {
   return (
     <svg
       viewBox="0 0 24 24"
