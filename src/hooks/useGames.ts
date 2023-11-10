@@ -1,63 +1,83 @@
-import { useCallback, useEffect, useReducer } from 'react';
-import { useParams } from 'react-router-dom';
-import { CategoryPath } from '../types';
-import getGamesByCategory from '../utils/getGamesByCategory';
-import reducer, { initialState } from './reducer';
-import useSearch from './useSearch';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ApiResponse, CategoryPath, Game } from '../types';
+import { BASE_URL } from '../api';
+import getParams, { getSearchParams } from '../utils/getParams';
 
 const useGames = (categoryPath?: CategoryPath) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
+  const [games, setGames] = useState<Game[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isNextLoading, setIsNextLoading] = useState<boolean>(false);
   const { categoryId } = useParams<{ categoryId: CategoryPath }>();
   const path: CategoryPath = (categoryPath || categoryId)!;
-  const { handleSearchGames } = useSearch();
+  const [nextPage, setNextPage] = useState<string>();
+  const [count, setCount] = useState<number>(0);
+
+  const fetcher = useCallback(
+    async <T>(
+      url: string,
+      isNext: boolean = false
+    ): Promise<ApiResponse<T>> => {
+      !isNext ? setIsLoading(true) : setIsNextLoading(true);
+      try {
+        !isNext && setGames([]); // reset
+        const res = await fetch(url);
+        if (!res.ok)
+          throw new Error('Something went wrong with fetching games.');
+        const data = await res.json();
+        console.log(data.results);
+
+        setGames(isNext ? (prev) => [...prev, ...data.results] : data.results);
+        setNextPage(data.next);
+        setCount(data.count);
+        return data;
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(err);
+        }
+        return Promise.reject(err);
+      } finally {
+        !isNext ? setIsLoading(false) : setIsNextLoading(false);
+      }
+    },
+    []
+  );
 
   const handleGetGamesByCategory = useCallback(async (): Promise<void> => {
-    if (path === 'search') return handleSearchGames();
+    if (path === 'search') return;
+    const params = getParams(path);
+    await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`);
+  }, [path, fetcher]);
 
-    dispatch({ type: 'get_games_start' });
-    try {
-      dispatch({ type: 'reset_games' });
-      const { results, next } = await getGamesByCategory(path);
-      dispatch({
-        type: 'get_games_complete',
-        payload: { games: results, nextPageUrl: next },
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        dispatch({ type: 'get_games_error', payload: error.message });
-        console.log(error);
-      }
-    }
-  }, [path, handleSearchGames]);
+  const handleNextPage = useCallback(async () => {
+    await fetcher<Game[]>(nextPage!, true);
+  }, [nextPage, fetcher]);
 
-  const handleNextPage = useCallback(async (): Promise<void> => {
-    dispatch({ type: 'get_next_page_start' });
-    try {
-      const res = await fetch(state.nextPageUrl!);
-      const data = await res.json();
-      const { results, next } = data;
-      dispatch({
-        type: 'get_next_page_complete',
-        payload: {
-          games: results,
-          nextPageUrl: next,
-        },
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        dispatch({ type: 'get_next_page_error', payload: error.message });
-        console.log(error);
+  const handleSearchGames = useCallback(
+    async (searchWord: string) => {
+      if (searchWord) {
+        navigate(`/search?key=${searchWord}`);
+        const params = getSearchParams(searchWord);
+        await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`);
       }
-    }
-  }, [state.nextPageUrl]);
+    },
+    [path, fetcher, navigate]
+  );
 
   useEffect(() => {
     if (path) handleGetGamesByCategory();
   }, [path, handleGetGamesByCategory]);
 
   return {
-    ...state,
+    games,
+    isLoading,
+    handleGetGamesByCategory,
     handleNextPage,
+    isNextLoading,
+    handleSearchGames,
+    nextPage,
+    count,
   };
 };
 

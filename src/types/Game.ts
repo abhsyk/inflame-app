@@ -47,9 +47,9 @@ export interface ApiFetcherResults<T> {
   data: T;
 }
 
-export interface ApiResponse {
+export interface ApiResponse<T> {
   count: number;
   next: string;
   previous: string | null;
-  results: Game[];
+  results: T;
 }
