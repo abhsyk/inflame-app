@@ -22,7 +22,7 @@ export type Game = {
 };
 
 type Platform = { id: number; name: string };
-type Publisher = { id: number; name: string };
+export type Publisher = { id: number; name: string };
 type Rating = { id: number; title: string };
 type Genre = { id: number; name: string };
 

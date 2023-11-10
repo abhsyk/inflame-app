@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { smallImage } from '../../utils/smallImage';
 import NotFoundImage from '../../assets/images/not-found.jpg';
+import { Publishers } from '../../components/gameDetail';
 
 const getStars = (rating: number) => {
   const stars = [];
@@ -70,13 +71,7 @@ const DetailPage: FC = () => {
             <div className="detail__info">
               <h1 className="detail__heading">{game?.name}</h1>
               <div className="detail__second-row">
-                {game?.publishers.length ? (
-                  <div className="publisher">
-                    {game?.publishers.map((p) => (
-                      <p key={p.id}>{p.name}</p>
-                    ))}
-                  </div>
-                ) : null}
+                <Publishers publishers={game?.publishers} />
                 <div className="genre">
                   {game?.genres.map((g) => (
                     <p key={g.id}>{g.name}</p>
