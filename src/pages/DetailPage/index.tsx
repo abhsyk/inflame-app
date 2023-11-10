@@ -1,17 +1,17 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { Layout } from '../../components/common';
-import { LinkIcon, LoadingDots } from '../../components/ui';
 import { useParams } from 'react-router-dom';
-import getGameDetail from '../../utils/getGameDetail';
-import { Game } from '../../types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import getGameDetail from '../../utils/getGameDetail';
+import type { Game } from '../../types';
+import { Layout } from '../../components/common';
+import { LinkIcon, LoadingDots } from '../../components/ui';
 import {
   BackgroundImage,
   Banner,
   Screenshots,
+  DetailHeadings,
 } from '../../components/gameDetail';
-import DetailHeadings from '../../components/gameDetail/detailHeadings/DetailHeadings';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
@@ -37,7 +37,7 @@ const DetailPage: FC = () => {
         <Container>
           <motion.div
             className="detail"
-            variants={detailAnim}
+            variants={variants}
             initial="hidden"
             animate="show"
           >
@@ -107,7 +107,7 @@ const Container = styled.section`
   }
 `;
 
-const detailAnim = {
+const variants = {
   hidden: { opacity: 0, y: 250 },
   show: {
     opacity: 1,
