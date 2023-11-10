@@ -11,6 +11,8 @@ import getGameDetail from '../../utils/getGameDetail';
 import { Game } from '../../types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { smallImage } from '../../utils/smallImage';
+import NotFoundImage from '../../assets/images/not-found.jpg';
 
 const getStars = (rating: number) => {
   const stars = [];
@@ -107,7 +109,14 @@ const DetailPage: FC = () => {
           </div>
 
           <div className="banner">
-            <img src={game?.background_image} alt={game?.name} />
+            {game?.background_image ? (
+              <img
+                src={smallImage(game?.background_image, 1280)}
+                alt={game?.name}
+              />
+            ) : (
+              <img src={NotFoundImage} alt={game?.name} className="not-found" />
+            )}
           </div>
 
           {game?.description_raw ? (

@@ -2,19 +2,26 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Game } from '../../../types';
+import { smallImage } from '../../../utils/smallImage';
+import { Link } from 'react-router-dom';
 
 type Props = { games: Game[] };
 
 const Carousel: FC<Props> = ({ games }) => {
-  const bgImages = games?.map((game) => game.background_image);
   const [index, setIndex] = useState<number>(0);
   const ref = useRef<NodeJS.Timeout>();
 
   const startSlideShow = useCallback(() => {
     ref.current = setInterval(() => {
-      setIndex((prev) => (prev < bgImages.slice(0, 4).length ? prev + 1 : 0));
+      setIndex((prev) => (prev < games.slice(0, 4).length ? prev + 1 : 0));
     }, 6000);
-  }, [bgImages]);
+    return () => clearInterval(ref.current);
+  }, [games]);
+
+  const handleCircleClick = useCallback((index: number) => {
+    setIndex(index);
+    return () => clearInterval(ref.current);
+  }, []);
 
   useEffect(() => {
     startSlideShow();
@@ -22,30 +29,38 @@ const Carousel: FC<Props> = ({ games }) => {
   }, [startSlideShow]);
 
   return (
-    <StyledCarousel variants={carouselAnim} initial="hidden" animate="show">
-      <div className="carousel__image__wrapper">
-        <AnimatePresence initial={false}>
-          <motion.img
-            key={bgImages[index]}
-            src={bgImages[index]}
-            variants={imgAnim}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-          />
-        </AnimatePresence>
-      </div>
+    <>
+      {games.length ? (
+        <StyledCarousel variants={carouselAnim} initial="hidden" animate="show">
+          <div className="carousel__image__wrapper">
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={games[index].id}
+                variants={imgAnim}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+              >
+                <Link to={`/game/${games[index].slug}`}>
+                  <img src={smallImage(games[index].background_image, 1280)} />
+                </Link>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <p>{games[index].name}</p>
 
-      <div className="circles">
-        {Array.from({ length: bgImages.slice(0, 5).length }, (_, i) => (
-          <div
-            key={i}
-            className={`circle ${i === index ? 'active' : ''}`}
-            onClick={() => setIndex(i)}
-          ></div>
-        ))}
-      </div>
-    </StyledCarousel>
+          <div className="circles">
+            {Array.from({ length: games.slice(0, 5).length }, (_, i) => (
+              <div
+                key={i}
+                className={`circle ${i === index ? 'active' : ''}`}
+                onClick={() => handleCircleClick(i)}
+              ></div>
+            ))}
+          </div>
+        </StyledCarousel>
+      ) : null}
+    </>
   );
 };
 
@@ -72,6 +87,11 @@ const StyledCarousel = styled(motion.section)`
     object-fit: cover;
   }
 
+  p {
+    position: absolute;
+    color: var(--color-white);
+  }
+
   .circles {
     display: flex;
     gap: 0.7rem;
@@ -84,6 +104,9 @@ const StyledCarousel = styled(motion.section)`
     -ms-transform: translateX(-50%);
     -o-transform: translateX(-50%);
     cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 0.4rem 0.8rem;
+    border-radius: 1rem;
   }
 
   .circle {

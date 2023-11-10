@@ -5,13 +5,16 @@ import type { Game } from '../../../types/Game';
 import styled from 'styled-components';
 import { useGameProvider } from '../../../context';
 import { CheckIcon, PlusIcon } from '../../ui';
+import { smallImage } from '../../../utils/smallImage';
+import NotFoundImage from '../../../assets/images/not-found.jpg';
 
 type Props = { game: Game };
 
 const GameItem: FC<Props> = ({ game }) => {
-  const { id, slug, name, background_image, released, tba } = game;
+  const { id, slug, name, released, tba } = game;
   const { handleAddBookmark, handleRemoveBookmark, bookmarks, isLoggedIn } =
     useGameProvider();
+  const backgroundImage = smallImage(game.background_image, 640);
   const isBookmarked: boolean = !!bookmarks.find((b) => b.id === game?.id);
 
   const handleBookmark = useCallback(
@@ -36,7 +39,7 @@ const GameItem: FC<Props> = ({ game }) => {
     <StyledGame variants={cardAnim} initial="hidden" animate="show" exit="exit">
       <Link to={`/game/${slug}`}>
         <div className="games__image__wrapper">
-          <img src={background_image} alt={name} />
+          <img src={backgroundImage ?? NotFoundImage} alt={name} />
         </div>
         <div className="games__info">
           <h2 className="title">{name}</h2>
