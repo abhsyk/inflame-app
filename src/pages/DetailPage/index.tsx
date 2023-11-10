@@ -6,9 +6,8 @@ import getGameDetail from '../../utils/getGameDetail';
 import { Game } from '../../types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { smallImage } from '../../utils/smallImage';
-import NotFoundImage from '../../assets/images/not-found.jpg';
 import {
+  Banner,
   Genres,
   Platforms,
   Publishers,
@@ -72,18 +71,7 @@ const DetailPage: FC = () => {
               </div>
             </div>
           </div>
-
-          <div className="banner">
-            {game?.background_image ? (
-              <img
-                src={smallImage(game?.background_image, 1280)}
-                alt={game?.name}
-              />
-            ) : (
-              <img src={NotFoundImage} alt={game?.name} className="not-found" />
-            )}
-          </div>
-
+          <Banner image={game?.background_image} name={game?.name} />
           {game?.description_raw ? (
             <p className="description">{game?.description_raw}</p>
           ) : null}
@@ -171,20 +159,6 @@ const Container = styled.section`
       span {
         font-weight: 600;
       }
-    }
-  }
-
-  .banner {
-    width: 100%;
-    max-height: 48rem;
-    margin-top: 1rem;
-    overflow: hidden;
-    border: 0.1rem solid rgba(255, 255, 255, 0.3);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
   }
 
