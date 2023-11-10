@@ -9,9 +9,11 @@ const Genres: FC<Props> = ({ genres }) => {
     <>
       {genres ? (
         <Container>
-          {genres.map((g) => (
-            <p key={g.id}>{g.name}</p>
-          ))}
+          {genres
+            .sort((a, b) => (a.name > b.name ? 1 : -1))
+            .map((g) => (
+              <p key={g.id}>{g.name}</p>
+            ))}
         </Container>
       ) : null}
     </>
