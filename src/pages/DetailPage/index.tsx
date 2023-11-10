@@ -175,27 +175,8 @@ const Container = styled.section`
           font-weight: 600;
         }
       }
-
-      .stars {
-        display: flex;
-        align-items: center;
-        padding: 0.5rem 1.2rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 3rem;
-
-        svg {
-          font-size: 2rem;
-          color: rgba(215, 27, 174, 0.9);
-        }
-
-        span {
-          font-family: var(--font-secondary);
-          font-size: 1.6rem;
-          color: #ddd;
-          margin-left: 1rem;
-        }
-      }
     }
+
     &__third-row {
       display: flex;
       align-items: center;
