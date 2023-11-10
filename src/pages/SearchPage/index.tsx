@@ -1,15 +1,32 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { Categories } from '../../styles/GlobalStyles';
 import { Layout } from '../../components/common';
 import { GamesList } from '../../components/games';
-import styled from 'styled-components';
 import { LoadingDots } from '../../components/ui';
-import { Categories } from '../../styles/GlobalStyles';
-import useSearch from '../../hooks/useSearch';
 import useGames from '../../hooks/useGames';
+import useSearch from '../../hooks/useSearch';
 
 const SearchPage: FC = () => {
-  const { games, isLoading, isNextPageLoading } = useSearch();
-  const { handleNextPage } = useGames();
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries(searchParams);
+  const { setSearchWord } = useSearch();
+  const {
+    games,
+    isLoading,
+    handleNextPage,
+    isNextLoading,
+    handleSearchGames,
+    count,
+  } = useGames('search');
+
+  useEffect(() => {
+    if (params.key) {
+      setSearchWord(params.key);
+      handleSearchGames(params.key);
+    }
+  }, [params.key, setSearchWord, handleSearchGames]);
 
   if (isLoading) {
     return (
@@ -24,9 +41,10 @@ const SearchPage: FC = () => {
       <Container className="categories">
         {!!games && games.length > 0 ? (
           <>
+            <p>Results: {count}</p>
             <GamesList games={games} />
             <div className="btn-wrapper">
-              {isNextPageLoading ? (
+              {isNextLoading ? (
                 <LoadingDots center />
               ) : (
                 <button onClick={() => handleNextPage()}>View more</button>
@@ -53,9 +71,12 @@ const Container = styled(Categories)`
   }
 
   .btn-wrapper {
+    height: 3rem;
     margin-top: 3rem;
+    padding: 1rem;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     button {
       font-family: var(--font-secondary);
@@ -67,6 +88,11 @@ const Container = styled(Categories)`
       color: var(--color-white);
       cursor: pointer;
     }
+  }
+
+  p {
+    color: var(--color-white);
+    font-size: 1.4rem;
   }
 `;
 

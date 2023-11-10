@@ -1,13 +1,22 @@
-import { FC, useEffect } from 'react';
+import { FC, FormEvent, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import useSearch from '../../../../hooks/useSearch';
-import { CrossIcon, SearchIcon } from '../../../ui';
+import { SearchIcon, CrossIcon } from '../../../ui';
+import useGames from '../../../../hooks/useGames';
 
 const Search: FC = () => {
-  const { searchWord, searchWordChange, clearSearchWord, handleSearchGames } =
-    useSearch();
+  const { searchWord, searchWordChange, clearSearchWord } = useSearch();
+  const { handleSearchGames } = useGames();
 
-  console.log(searchWord);
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      if (searchWord.trim().length) {
+        handleSearchGames(searchWord);
+      }
+    },
+    [searchWord, handleSearchGames]
+  );
 
   useEffect(() => {
     const escapeKeyCallback = (e: KeyboardEvent) => {
@@ -19,40 +28,37 @@ const Search: FC = () => {
     return () => removeEventListener('keydown', escapeKeyCallback);
   }, [searchWord, clearSearchWord]);
 
-  useEffect(() => {
-    const enterKeyCallback = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && searchWord.trim().length > 0) {
-        handleSearchGames();
-      }
-    };
-    document.addEventListener('keydown', enterKeyCallback);
-    return () => removeEventListener('keydown', enterKeyCallback);
-  }, [searchWord, handleSearchGames]);
-
   return (
     <Container>
-      <SearchIcon
-        onClick={handleSearchGames}
-        // onClick={() => setIsSearchOpen(!isSearchOpen)}
-      />
-      <input
-        className="search__input"
-        type="text"
-        placeholder="Search"
-        value={searchWord}
-        onChange={searchWordChange}
-      />
-      <button onClick={clearSearchWord}>
-        <CrossIcon />
-      </button>
+      <form onSubmit={handleSubmit}>
+        <button type="submit">
+          <SearchIcon
+
+          // onClick={() => setIsSearchOpen(!isSearchOpen)}
+          />
+        </button>
+        <input
+          className="search__input"
+          type="text"
+          placeholder="Search"
+          value={searchWord}
+          onChange={searchWordChange}
+        />
+        <button type="button" onClick={clearSearchWord}>
+          <CrossIcon />
+        </button>
+      </form>
     </Container>
   );
 };
 
 const Container = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
+
+  form {
+    position: relative;
+  }
 
   .search__input {
     width: 45rem;
@@ -63,6 +69,7 @@ const Container = styled.div`
     border: 0.1rem solid transparent;
     outline: none;
     border-radius: 3rem;
+    transition: border 0.1s 0.1s;
 
     &:focus {
       border: 0.1rem solid var(--color-primary);
@@ -73,18 +80,23 @@ const Container = styled.div`
     }
   }
 
-  .search-icon {
+  button[type='submit'] {
     position: absolute;
     left: 1.5rem;
     font-size: 2.2rem;
     color: #777;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    top: 1.1rem;
   }
 
-  button {
+  button[type='button'] {
     position: absolute;
     right: 0;
+    top: -0.3rem;
     font-size: 2.4rem;
-    padding: 1.4rem;
+    padding: 1.2rem;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     border: none;
@@ -93,7 +105,7 @@ const Container = styled.div`
     cursor: pointer;
     visibility: hidden;
     opacity: 0;
-    transition: all 0.1s;
+    transition: all 0.1s 0.1s;
     display: grid;
     place-items: center;
     z-index: 10;
