@@ -1,11 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { Layout } from '../../components/common';
-import {
-  LinkIcon,
-  LoadingDots,
-  StarFullIcon,
-  StarHalfIcon,
-} from '../../components/ui';
+import { LinkIcon, LoadingDots } from '../../components/ui';
 import { useParams } from 'react-router-dom';
 import getGameDetail from '../../utils/getGameDetail';
 import { Game } from '../../types';
@@ -13,22 +8,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { smallImage } from '../../utils/smallImage';
 import NotFoundImage from '../../assets/images/not-found.jpg';
-import { Publishers } from '../../components/gameDetail';
-
-const getStars = (rating: number) => {
-  const stars = [];
-  const fullStar = Math.floor(rating);
-  const halfStar = fullStar < rating;
-
-  for (let i = 1; i <= fullStar; i++) {
-    stars.push('full');
-  }
-  if (halfStar) {
-    stars.push('half');
-  }
-
-  return stars;
-};
+import { Publishers, RatingStars } from '../../components/gameDetail';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
@@ -77,19 +57,10 @@ const DetailPage: FC = () => {
                     <p key={g.id}>{g.name}</p>
                   ))}
                 </div>
-
-                {game?.rating ? (
-                  <div className="stars">
-                    {getStars(game.rating).map((s, i) =>
-                      s === 'full' ? (
-                        <StarFullIcon key={i} />
-                      ) : (
-                        <StarHalfIcon key={i} />
-                      )
-                    )}
-                    <span>( {game?.ratings_count} )</span>
-                  </div>
-                ) : null}
+                <RatingStars
+                  rating={game?.rating}
+                  ratingsCount={game?.ratings_count}
+                />
               </div>
               <div className="detail__third-row">
                 <p className="detail__release">
