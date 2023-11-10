@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import type { Game } from '../../../types';
+import type { Game } from '../../../../types';
 
 type Props = { genres: Game['genres'] | undefined };
 

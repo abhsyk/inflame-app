@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Game } from '../../../types';
-import { StarFullIcon, StarHalfIcon } from '../../ui';
+import { Game } from '../../../../types';
+import { StarFullIcon, StarHalfIcon } from '../../../ui';
 import styled from 'styled-components';
 
 type Props = {

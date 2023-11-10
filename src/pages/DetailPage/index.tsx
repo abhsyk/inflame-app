@@ -6,14 +6,8 @@ import getGameDetail from '../../utils/getGameDetail';
 import { Game } from '../../types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import {
-  Banner,
-  Genres,
-  Platforms,
-  Publishers,
-  RatingStars,
-  Screenshots,
-} from '../../components/gameDetail';
+import { Banner, Screenshots } from '../../components/gameDetail';
+import DetailHeadings from '../../components/gameDetail/detailHeadings/DetailHeadings';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
@@ -30,10 +24,6 @@ const DetailPage: FC = () => {
   useEffect(() => {
     if (params.id) handleGetGameDetail();
   }, [params.id, handleGetGameDetail]);
-
-  const dotDate = game?.released
-    ? game?.released.replace(/-0|-/gi, '.')
-    : game?.released;
 
   if (!game && isLoading) {
     return (
@@ -52,26 +42,7 @@ const DetailPage: FC = () => {
           initial="hidden"
           animate="show"
         >
-          <div className="detail__top">
-            <div className="detail__info">
-              <h1 className="detail__heading">{game?.name}</h1>
-              <div className="detail__second-row">
-                <Publishers publishers={game?.publishers} />
-                <Genres genres={game?.genres} />
-                <RatingStars
-                  rating={game?.rating}
-                  ratingsCount={game?.ratings_count}
-                />
-              </div>
-              <div className="detail__third-row">
-                <p className="detail__release">
-                  Release date:
-                  <span> {game?.tba ? 'To be announced' : dotDate}</span>
-                </p>
-                <Platforms platforms={game?.platforms} />
-              </div>
-            </div>
-          </div>
+          <DetailHeadings game={game} />
           <Banner image={game?.background_image} name={game?.name} />
           {game?.description_raw ? (
             <p className="description">{game?.description_raw}</p>
@@ -116,39 +87,6 @@ const Container = styled.section`
     padding-top: 3rem;
     display: flex;
     flex-direction: column;
-
-    &__info {
-      color: #efefef;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    &__heading {
-      font-size: 4rem;
-      font-weight: 400;
-    }
-
-    &__second-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    &__third-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__release {
-      font-size: 1.4rem;
-
-      span {
-        font-weight: 600;
-      }
-    }
   }
 
   .description {

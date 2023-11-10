@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Publisher } from '../../../types';
+import { Publisher } from '../../../../types';
 import styled from 'styled-components';
 
 type Props = { publishers: Publisher[] | undefined };

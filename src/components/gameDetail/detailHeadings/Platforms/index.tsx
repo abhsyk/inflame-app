@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Game } from '../../../types';
+import { Game } from '../../../../types';
 import styled from 'styled-components';
 
 type Props = { platforms: Game['platforms'] | undefined };
