@@ -5,10 +5,28 @@ import styled from 'styled-components';
 import useGames from '../../hooks/useGames';
 import { LoadingDots } from '../../components/ui';
 import { Categories } from '../../styles/GlobalStyles';
+import { Game } from '../../types';
 
 const CategoriesPage: FC = () => {
-  const { games, isLoading, handleNextPage, isNextLoading, nextPage } =
-    useGames();
+  const {
+    popular,
+    new: newGames,
+    upcoming,
+    path,
+    isLoading,
+    handleNextPage,
+    isNextLoading,
+    nextPage,
+  } = useGames();
+
+  const games: Game[] =
+    path === 'popular-games'
+      ? popular
+      : path === 'new-games'
+      ? newGames
+      : path === 'upcoming-games'
+      ? upcoming
+      : [];
 
   return (
     <Layout>

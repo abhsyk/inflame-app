@@ -9,8 +9,8 @@ import { Categories } from '../../styles/GlobalStyles';
 const HomePage: FC = () => {
   const [currentTaglinePath, setCurrentTaglinePath] =
     useState<CategoryPath>('popular-games');
-  const { games, isLoading } = useGames(currentTaglinePath);
-  const { games: carouselGames, isLoading: isCarouselLoading } =
+  const { popular: games, isLoading } = useGames(currentTaglinePath);
+  const { popular: carouselGames, isLoading: isCarouselLoading } =
     useGames('popular-games');
 
   if (isCarouselLoading) {

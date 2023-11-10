@@ -7,6 +7,8 @@ import { GameItem } from '../../games';
 type Props = { games: Game[] };
 
 const GamesList: FC<Props> = ({ games }) => {
+  console.log(games);
+
   return (
     <StyledGameList>
       <AnimatePresence>
