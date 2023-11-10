@@ -8,7 +8,12 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { smallImage } from '../../utils/smallImage';
 import NotFoundImage from '../../assets/images/not-found.jpg';
-import { Genres, Publishers, RatingStars } from '../../components/gameDetail';
+import {
+  Genres,
+  Platforms,
+  Publishers,
+  RatingStars,
+} from '../../components/gameDetail';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
@@ -63,13 +68,7 @@ const DetailPage: FC = () => {
                   Release date:
                   <span> {game?.tba ? 'To be announced' : dotDate}</span>
                 </p>
-                <div className="platforms">
-                  {game?.platforms
-                    ? game?.platforms.map((p) => (
-                        <p key={p.platform.id}>{p.platform.name}</p>
-                      ))
-                    : null}
-                </div>
+                <Platforms platforms={game?.platforms} />
               </div>
             </div>
           </div>
@@ -164,20 +163,6 @@ const Container = styled.section`
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      .platforms {
-        display: flex;
-        justify-self: end;
-        gap: 0.5rem;
-
-        p {
-          font-size: 1.2rem;
-          color: #222;
-          padding: 0.2rem 1.2rem;
-          background-color: var(--color-white);
-          border-radius: 1rem;
-        }
-      }
     }
 
     &__release {
