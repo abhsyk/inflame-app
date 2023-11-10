@@ -49,6 +49,8 @@ const cardAnim = {
 };
 
 const StyledGame = styled(motion.li)`
+  list-style: none;
+
   a {
     display: flex;
     flex-direction: column;

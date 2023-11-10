@@ -72,7 +72,7 @@ const Container = styled(motion.button)`
 
   &.detail-page {
     position: fixed;
-    top: 17%;
+    top: 22%;
     bottom: unset;
     right: -0.2rem;
     z-index: 100;

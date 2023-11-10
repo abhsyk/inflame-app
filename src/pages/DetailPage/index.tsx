@@ -49,14 +49,12 @@ const DetailPage: FC = () => {
               <p className="description">{game?.description_raw}</p>
             ) : null}
             <Screenshots screenshots={game?.screenshots} />
-            <div className="link">
-              {game?.website ? (
-                <>
-                  <LinkIcon />
-                  <a href="#"> {game?.website} </a>
-                </>
-              ) : null}
-            </div>
+            {game?.website ? (
+              <div className="link">
+                <LinkIcon />
+                <a href={game?.website}> {game?.website} </a>
+              </div>
+            ) : null}
           </motion.div>
           <BackgroundImage image={game?.background_image} />
           {isLoggedIn && game ? <BookmarkBtn game={game} isDetail /> : null}
@@ -74,7 +72,7 @@ const Container = styled.section`
   .detail {
     max-width: 120rem;
     margin: 0 auto;
-    padding-top: 3rem;
+    padding: 3rem 0;
     display: flex;
     flex-direction: column;
   }
@@ -96,7 +94,7 @@ const Container = styled.section`
     display: flex;
     gap: 0.5rem;
     justify-content: start;
-    margin: 3rem 0;
+    margin-top: 3rem;
 
     svg {
       font-size: 2rem;

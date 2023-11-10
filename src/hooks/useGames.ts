@@ -26,8 +26,6 @@ const useGames = (categoryPath?: CategoryPath) => {
         if (!res.ok)
           throw new Error('Something went wrong with fetching games.');
         const data = await res.json();
-        console.log(data.results);
-
         setGames(isNext ? (prev) => [...prev, ...data.results] : data.results);
         setNextPage(data.next);
         setCount(data.count);

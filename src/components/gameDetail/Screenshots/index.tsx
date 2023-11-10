@@ -8,7 +8,7 @@ type Props = { screenshots: Game['screenshots'] | undefined };
 const Screenshots: FC<Props> = ({ screenshots }) => {
   return (
     <>
-      {screenshots ? (
+      {screenshots?.length ? (
         <Container>
           {screenshots.map((s) => (
             <motion.img

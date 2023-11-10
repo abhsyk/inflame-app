@@ -11,14 +11,13 @@ type Props = {
 
 const Banner: FC<Props> = ({ image, name }) => {
   return (
-    <>
+    <Container>
       {image ? (
-        <Container>
-          <img src={smallImage(image, 1280)} alt={name} />
-          <img src={NotFoundImage} alt={name} className="not-found" />
-        </Container>
-      ) : null}
-    </>
+        <img src={smallImage(image, 1280)} alt={name} />
+      ) : (
+        <img src={NotFoundImage} alt={name} className="not-found" />
+      )}
+    </Container>
   );
 };
 
@@ -33,6 +32,10 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    &.not-found {
+      margin-top: -30%;
+    }
   }
 `;
 
