@@ -12,6 +12,7 @@ import {
   Platforms,
   Publishers,
   RatingStars,
+  Screenshots,
 } from '../../components/gameDetail';
 
 const DetailPage: FC = () => {
@@ -75,19 +76,7 @@ const DetailPage: FC = () => {
           {game?.description_raw ? (
             <p className="description">{game?.description_raw}</p>
           ) : null}
-
-          <div className="screenshots__wrapper">
-            {game?.screenshots.map((s) => (
-              <motion.img
-                key={s.id}
-                src={s.image}
-                variants={imgAnim}
-                initial="hidden"
-                animate="show"
-              />
-            ))}
-          </div>
-
+          <Screenshots screenshots={game?.screenshots} />
           <div className="link">
             {game?.website ? (
               <>
@@ -175,26 +164,6 @@ const Container = styled.section`
     border-right: 0.1rem solid rgba(255, 255, 255, 0.3);
   }
 
-  .screenshots__wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
-
-    img {
-      width: 100%;
-      height: 28.5rem;
-      object-fit: cover;
-      filter: grayscale(0.7);
-      border: 0.1rem solid rgba(255, 255, 255, 0.3);
-      transition: all 0.2s;
-
-      &:hover {
-        transform: scale(1.1);
-        border: 0.1rem solid rgba(255, 255, 255, 0.7);
-        filter: grayscale(0);
-      }
-    }
-  }
-
   .link {
     display: flex;
     gap: 0.5rem;
@@ -219,14 +188,6 @@ const detailAnim = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.5 },
-  },
-};
-
-const imgAnim = {
-  hidden: { scale: 0.9 },
-  show: {
-    scale: 1,
-    transition: { duration: 0.2 },
   },
 };
 
