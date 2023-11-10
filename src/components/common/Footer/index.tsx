@@ -8,7 +8,7 @@ const Footer: FC = () => {
       <div className="footer__content">
         <p className="copyright">
           Copyright © 2023
-          <a href="https://github.com/abhsyk"> @abhsyk </a>. All rights reserved
+          <a href="https://github.com/abhsyk"> @abhsyk </a>
         </p>
         <div className="social-media">
           <InstagramIcon />
@@ -48,17 +48,9 @@ const Container = styled.footer`
 
     svg {
       font-size: 4rem;
-      color: #222;
-      background-color: #bbb;
+      color: #666;
       padding: 0.5rem;
-      border-radius: 50%;
       cursor: pointer;
-      transition: all 0.1s;
-
-      &:hover {
-        color: #444;
-        background-color: #ddd;
-      }
     }
   }
 `;
