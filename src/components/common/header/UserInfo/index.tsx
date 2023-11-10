@@ -1,7 +1,6 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useState, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useGameProvider } from '../../../../context';
 import {
   BookmarkIcon,
   ChevronDownIcon,
@@ -10,6 +9,7 @@ import {
 } from '../../../ui';
 import avator from '../../../../assets/images/avatar-icon.png';
 import styled from 'styled-components';
+import useGamesContext from '../../../../hooks/useGamesContext';
 
 type Props = { isLoggedIn: boolean };
 
@@ -19,7 +19,7 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
   );
 
   const { handleLogin, isUserInfoOpen, handleUserInfoOpen, bookmarks } =
-    useGameProvider();
+    useGamesContext();
 
   const handleClickInside = useCallback(
     (e: MouseEvent) => {

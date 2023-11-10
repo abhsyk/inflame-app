@@ -85,8 +85,12 @@ const DetailPage: FC = () => {
 
                 {game?.rating ? (
                   <div className="stars">
-                    {getStars(game.rating).map((s) =>
-                      s === 'full' ? <StarFullIcon /> : <StarHalfIcon />
+                    {getStars(game.rating).map((s, i) =>
+                      s === 'full' ? (
+                        <StarFullIcon key={i} />
+                      ) : (
+                        <StarHalfIcon key={i} />
+                      )
                     )}
                     <span>( {game?.ratings_count} )</span>
                   </div>

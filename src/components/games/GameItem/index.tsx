@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import type { Game } from '../../../types/Game';
 import styled from 'styled-components';
-import { useGameProvider } from '../../../context';
 import { CheckIcon, PlusIcon } from '../../ui';
 import { smallImage } from '../../../utils/smallImage';
 import NotFoundImage from '../../../assets/images/not-found.jpg';
+import useGamesContext from '../../../hooks/useGamesContext';
 
 type Props = { game: Game };
 
 const GameItem: FC<Props> = ({ game }) => {
   const { id, slug, name, released, tba } = game;
   const { handleAddBookmark, handleRemoveBookmark, bookmarks, isLoggedIn } =
-    useGameProvider();
+    useGamesContext();
   const backgroundImage = smallImage(game.background_image, 640);
   const isBookmarked: boolean = !!bookmarks.find((b) => b.id === game?.id);
 

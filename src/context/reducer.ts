@@ -21,7 +21,6 @@ const reducer = (state: GamesContextState = initialState, action: Action) => {
         bookmarks: [newBookmark, ...state.bookmarks],
       };
     }
-
     case 'remove_bookmark': {
       const removeBookmarkId = action.payload;
       const updatedBookmarks = state.bookmarks.filter(

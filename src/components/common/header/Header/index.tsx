@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { useGameProvider } from '../../../../context';
 import { CrossIcon, Notification, SearchIcon } from '../../../ui';
 import { PageNav, Logo, Search, UserInfo } from '../../header';
+import useGamesContext from '../../../../hooks/useGamesContext';
 
 const Header: FC = () => {
   // const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
-  const { isLoggedIn, hasNotification, addedGameName } = useGameProvider();
+  const { isLoggedIn, hasNotification, addedGameName } = useGamesContext();
 
   return (
     <Container>

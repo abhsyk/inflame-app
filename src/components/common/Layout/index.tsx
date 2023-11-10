@@ -2,12 +2,12 @@ import { FC, PropsWithChildren, useEffect } from 'react';
 import styled from 'styled-components';
 import { Footer, Header } from '../../common';
 import { ScrollTopButton } from '../../ui';
-import { useGameProvider } from '../../../context';
 import { useLocation } from 'react-router-dom';
+import useGamesContext from '../../../hooks/useGamesContext';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { pathname } = useLocation();
-  const { isUserInfoOpen, handleUserInfoOpen } = useGameProvider();
+  const { isUserInfoOpen, handleUserInfoOpen } = useGamesContext();
 
   useEffect(() => window.scroll(0, 0), [pathname]);
 

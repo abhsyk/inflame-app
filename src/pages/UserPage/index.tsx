@@ -1,15 +1,14 @@
 import { FC, useEffect } from 'react';
 import { Layout } from '../../components/common';
-import { useGameProvider } from '../../context';
 import { GamesList } from '../../components/games';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Categories } from '../../styles/GlobalStyles';
+import useGamesContext from '../../hooks/useGamesContext';
 
 const UserPage: FC = () => {
-  const { bookmarks } = useGameProvider();
+  const { bookmarks, isLoggedIn } = useGamesContext();
   const navigate = useNavigate();
-  const { isLoggedIn } = useGameProvider();
 
   useEffect(() => {
     if (!isLoggedIn) navigate('/');

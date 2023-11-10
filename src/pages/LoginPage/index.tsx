@@ -1,12 +1,12 @@
 import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useGameProvider } from '../../context';
 import { useNavigate } from 'react-router-dom';
 import { LoadingDots } from '../../components/ui';
 import { Logo } from '../../components/common';
+import useGamesContext from '../../hooks/useGamesContext';
 
 const LoginPage: FC = () => {
-  const { isLoggedIn, handleLogin } = useGameProvider();
+  const { isLoggedIn, handleLogin } = useGamesContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formValues, setFormValues] = useState<{
     email: string;
