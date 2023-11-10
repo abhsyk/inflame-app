@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { smallImage } from '../../utils/smallImage';
 import NotFoundImage from '../../assets/images/not-found.jpg';
-import { Publishers, RatingStars } from '../../components/gameDetail';
+import { Genres, Publishers, RatingStars } from '../../components/gameDetail';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
@@ -52,11 +52,7 @@ const DetailPage: FC = () => {
               <h1 className="detail__heading">{game?.name}</h1>
               <div className="detail__second-row">
                 <Publishers publishers={game?.publishers} />
-                <div className="genre">
-                  {game?.genres.map((g) => (
-                    <p key={g.id}>{g.name}</p>
-                  ))}
-                </div>
+                <Genres genres={game?.genres} />
                 <RatingStars
                   rating={game?.rating}
                   ratingsCount={game?.ratings_count}
@@ -177,19 +173,6 @@ const Container = styled.section`
           transform: skewX(45deg);
           text-transform: uppercase;
           font-weight: 600;
-        }
-      }
-
-      .genre {
-        flex: 1;
-        display: flex;
-        gap: 0.5rem;
-
-        p {
-          border: 0.1rem solid #efefef;
-          padding: 0.2rem 1rem;
-          font-size: 1.2rem;
-          border-radius: 1rem;
         }
       }
 
