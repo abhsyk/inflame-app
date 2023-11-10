@@ -1,14 +1,21 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-type Props = { center?: boolean };
+type Props = { center?: boolean; size?: number };
 
-const LoadingDots: FC<Props> = ({ center = false }) => {
+const LoadingDots: FC<Props> = ({ center = false, size = 10 }) => {
+  const customStyle = { width: size, height: size };
   return (
-    <Container style={center ? { minHeight: 'unset' } : {}}>
-      <div className="dot dot-1"></div>
-      <div className="dot dot-2"></div>
-      <div className="dot dot-3"></div>
+    <Container
+      style={
+        center
+          ? { minHeight: 'unset', gap: size * 1.2 }
+          : { gap: size * 1.2, margin: '2rem 0 1rem' }
+      }
+    >
+      <div className="dot dot-1" style={customStyle}></div>
+      <div className="dot dot-2" style={customStyle}></div>
+      <div className="dot dot-3" style={customStyle}></div>
     </Container>
   );
 };
@@ -17,13 +24,9 @@ const Container = styled.div`
   min-height: calc(100vh - 18rem);
   display: flex;
   justify-content: center;
-  margin: 2rem 0 1rem;
 
   .dot {
-    width: 1.2rem;
-    height: 1.2rem;
     background-color: var(--color-white);
-    margin-left: 1rem;
     border-radius: 50%;
     animation: pulse 1s linear infinite;
   }
