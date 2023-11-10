@@ -25,19 +25,20 @@ const Container = styled.div`
   padding: 0.5rem 2rem;
   left: 50%;
   border-radius: 3rem;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.8);
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
   bottom: -5rem;
   visibility: hidden;
   opacity: 0;
-  z-index: 10;
+  z-index: 50;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   display: flex;
   align-items: center;
 
   &.active {
-    bottom: 4rem;
+    bottom: 5rem;
     visibility: visible;
+    transform: translateX(-50%) scale(1);
     opacity: 1;
   }
 

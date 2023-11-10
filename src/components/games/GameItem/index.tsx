@@ -1,38 +1,19 @@
-import { FC, MouseEvent, useCallback } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { Game } from '../../../types/Game';
 import styled from 'styled-components';
-import { CheckIcon, PlusIcon } from '../../ui';
+import type { Game } from '../../../types/Game';
+import { BookmarkBtn } from '../../ui';
 import { smallImage } from '../../../utils/smallImage';
-import NotFoundImage from '../../../assets/images/not-found.jpg';
 import useGamesContext from '../../../hooks/useGamesContext';
+import NotFoundImage from '../../../assets/images/not-found.jpg';
 
 type Props = { game: Game };
 
 const GameItem: FC<Props> = ({ game }) => {
-  const { id, slug, name, released, tba } = game;
-  const { handleAddBookmark, handleRemoveBookmark, bookmarks, isLoggedIn } =
-    useGamesContext();
+  const { slug, name, released, tba } = game;
+  const { isLoggedIn } = useGamesContext();
   const backgroundImage = smallImage(game.background_image, 640);
-  const isBookmarked: boolean = !!bookmarks.find((b) => b.id === game?.id);
-
-  const handleBookmark = useCallback(
-    (e: MouseEvent): void => {
-      e.preventDefault();
-      handleAddBookmark(game);
-    },
-    [game, handleAddBookmark]
-  );
-
-  const handleRemove = useCallback(
-    (e: MouseEvent): void => {
-      e.preventDefault();
-      handleRemoveBookmark(id);
-    },
-    [id, handleRemoveBookmark]
-  );
-
   const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
 
   return (
@@ -50,15 +31,7 @@ const GameItem: FC<Props> = ({ game }) => {
             </p>
             <p className="games__link">View detail</p>
           </div>
-          {isLoggedIn ? (
-            <motion.button
-              className={`bookmark-btn ${isBookmarked ? 'added' : ''}`}
-              onClick={isBookmarked ? handleRemove : handleBookmark}
-              whileHover={{ scale: 1.1 }}
-            >
-              {isBookmarked ? <CheckIcon /> : <PlusIcon />}
-            </motion.button>
-          ) : null}
+          {isLoggedIn ? <BookmarkBtn game={game} /> : null}
         </div>
       </Link>
     </StyledGame>

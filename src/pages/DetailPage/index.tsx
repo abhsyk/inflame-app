@@ -5,18 +5,20 @@ import { motion } from 'framer-motion';
 import getGameDetail from '../../utils/getGameDetail';
 import type { Game } from '../../types';
 import { Layout } from '../../components/common';
-import { LinkIcon, LoadingDots } from '../../components/ui';
+import { BookmarkBtn, LinkIcon, LoadingDots } from '../../components/ui';
 import {
   BackgroundImage,
   Banner,
   Screenshots,
   DetailHeadings,
 } from '../../components/gameDetail';
+import useGamesContext from '../../hooks/useGamesContext';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isLoggedIn } = useGamesContext();
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
@@ -57,6 +59,7 @@ const DetailPage: FC = () => {
             </div>
           </motion.div>
           <BackgroundImage image={game?.background_image} />
+          {isLoggedIn && game ? <BookmarkBtn game={game} isDetail /> : null}
         </Container>
       )}
     </Layout>
