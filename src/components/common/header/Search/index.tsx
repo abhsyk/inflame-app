@@ -4,8 +4,10 @@ import useSearch from '../../../../hooks/useSearch';
 import { CrossIcon, SearchIcon } from '../../../ui';
 
 const Search: FC = () => {
-  const { searchWord, searchWordChange, clearSearchWord, searchGames } =
+  const { searchWord, searchWordChange, clearSearchWord, handleSearchGames } =
     useSearch();
+
+  console.log(searchWord);
 
   useEffect(() => {
     const escapeKeyCallback = (e: KeyboardEvent) => {
@@ -20,17 +22,17 @@ const Search: FC = () => {
   useEffect(() => {
     const enterKeyCallback = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && searchWord.trim().length > 0) {
-        searchGames();
+        handleSearchGames();
       }
     };
     document.addEventListener('keydown', enterKeyCallback);
     return () => removeEventListener('keydown', enterKeyCallback);
-  }, [searchWord, searchGames]);
+  }, [searchWord, handleSearchGames]);
 
   return (
     <Container>
       <SearchIcon
-        onClick={searchGames}
+        onClick={handleSearchGames}
         // onClick={() => setIsSearchOpen(!isSearchOpen)}
       />
       <input

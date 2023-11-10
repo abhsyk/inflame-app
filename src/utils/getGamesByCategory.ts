@@ -21,15 +21,7 @@ const upcomingGamesParams = {
   ...params,
 };
 
-const searchGamesParams = (searchWord?: string) => {
-  return {
-    search: searchWord,
-    ordering: 'ratings_count',
-    ...params,
-  };
-};
-
-const getParams = (categoryPath: CategoryPath, searchWord?: string) => {
+const getParams = (categoryPath: CategoryPath) => {
   switch (categoryPath) {
     case 'popular-games':
       return popularGamesParams;
@@ -37,17 +29,13 @@ const getParams = (categoryPath: CategoryPath, searchWord?: string) => {
       return newGamesParams;
     case 'upcoming-games':
       return upcomingGamesParams;
-
-    default:
-      return searchGamesParams(searchWord);
   }
 };
 
 const getGamesByCategory = async (
-  categoryPath: CategoryPath,
-  searchWord?: string
+  categoryPath: CategoryPath
 ): Promise<ApiResponse> => {
-  const params = getParams(categoryPath, searchWord);
+  const params = getParams(categoryPath);
   const { data } = await server<ApiResponse>({ params });
 
   return data;

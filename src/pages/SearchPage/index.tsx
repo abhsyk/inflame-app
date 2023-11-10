@@ -2,14 +2,14 @@ import { FC } from 'react';
 import { Layout } from '../../components/common';
 import { GamesList } from '../../components/games';
 import styled from 'styled-components';
-import useGames from '../../hooks/useGames';
 import { LoadingDots } from '../../components/ui';
 import { Categories } from '../../styles/GlobalStyles';
+import useSearch from '../../hooks/useSearch';
+import useGames from '../../hooks/useGames';
 
-const CategoriesPage: FC = () => {
-  const { games, isLoading, handleNextPage, isNextPageLoading } = useGames();
-
-  console.log(games);
+const SearchPage: FC = () => {
+  const { games, isLoading, isNextPageLoading } = useSearch();
+  const { handleNextPage } = useGames();
 
   if (isLoading) {
     return (
@@ -70,4 +70,4 @@ const Container = styled(Categories)`
   }
 `;
 
-export default CategoriesPage;
+export default SearchPage;

@@ -1,63 +1,63 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import { CategoryPath, Game } from '../types';
+import { CategoryPath } from '../types';
 import getGamesByCategory from '../utils/getGamesByCategory';
+import reducer, { initialState } from './reducer';
 import useSearch from './useSearch';
 
 const useGames = (categoryPath?: CategoryPath) => {
-  const { searchWord, setSearchWord } = useSearch();
-  const [games, setGames] = useState<Game[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isNextLoading, setNextIsLoading] = useState<boolean>(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { categoryId } = useParams<{ categoryId: CategoryPath }>();
   const path: CategoryPath = (categoryPath || categoryId)!;
-  const searchKey = new URLSearchParams(window.location.search).get('key')!;
-  const [nextPage, setNextPage] = useState<string>();
+  const { handleSearchGames } = useSearch();
 
   const handleGetGamesByCategory = useCallback(async (): Promise<void> => {
-    if (path === 'search') setSearchWord(searchKey);
+    if (path === 'search') return handleSearchGames();
 
-    setIsLoading(true);
+    dispatch({ type: 'get_games_start' });
     try {
-      setGames([]); // reset
-
-      if (path !== 'search' || searchWord.trim().length > 0) {
-        const { results, next } = await getGamesByCategory(path, searchWord);
-        setGames(results);
-        setNextPage(next);
+      dispatch({ type: 'reset_games' });
+      const { results, next } = await getGamesByCategory(path);
+      dispatch({
+        type: 'get_games_complete',
+        payload: { games: results, nextPageUrl: next },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch({ type: 'get_games_error', payload: error.message });
+        console.log(error);
       }
-
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.log(error);
     }
-  }, [path, searchWord, setSearchWord, searchKey]);
+  }, [path, handleSearchGames]);
 
-  const handleNextPage = useCallback(async () => {
-    setNextIsLoading(true);
+  const handleNextPage = useCallback(async (): Promise<void> => {
+    dispatch({ type: 'get_next_page_start' });
     try {
-      const res = await fetch(nextPage!);
+      const res = await fetch(state.nextPageUrl!);
       const data = await res.json();
-      setGames((prev) => [...prev, ...data.results]);
-      setNextPage(data.next);
-      setNextIsLoading(false);
+      const { results, next } = data;
+      dispatch({
+        type: 'get_next_page_complete',
+        payload: {
+          games: results,
+          nextPageUrl: next,
+        },
+      });
     } catch (error) {
-      setNextIsLoading(false);
-      console.log(error);
+      if (error instanceof Error) {
+        dispatch({ type: 'get_next_page_error', payload: error.message });
+        console.log(error);
+      }
     }
-  }, [nextPage]);
+  }, [state.nextPageUrl]);
 
   useEffect(() => {
     if (path) handleGetGamesByCategory();
   }, [path, handleGetGamesByCategory]);
 
   return {
-    games,
-    isLoading,
-    handleGetGamesByCategory,
+    ...state,
     handleNextPage,
-    isNextLoading,
   };
 };
 
