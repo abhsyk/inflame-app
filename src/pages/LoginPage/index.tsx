@@ -42,36 +42,35 @@ const LoginPage: FC = () => {
       <div className="content">
         <Logo />
         <div className="form-container">
-          {isLoading ? <LoadingDots center /> : null}
-          {!isLoggedIn ? (
-            <form>
-              <h2>
-                Log In
-                <span> (Dummy form)</span>
-              </h2>
-              <div className="input-wrapper">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Name"
-                  value={formValues.email}
-                  onChange={handleFormValuesChange}
-                />
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  value={formValues.password}
-                  onChange={handleFormValuesChange}
-                />
-              </div>
-              <input type="button" value="Log In" onClick={handleLoginClick} />
-            </form>
-          ) : null}
+          <form>
+            <h2>
+              Log In
+              <span> (Dummy form)</span>
+            </h2>
+            <div className="input-wrapper">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Name"
+                value={formValues.email}
+                onChange={handleFormValuesChange}
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={formValues.password}
+                onChange={handleFormValuesChange}
+              />
+            </div>
+            <button type="button" onClick={handleLoginClick}>
+              {isLoading ? <LoadingDots center size={5} /> : 'Log In'}
+            </button>
+          </form>
         </div>
       </div>
     </Container>
@@ -144,7 +143,8 @@ const Container = styled.div`
     margin-bottom: 0.2rem;
   }
 
-  input {
+  input,
+  button[type='button'] {
     font-size: 1.6rem;
     padding: 0.8rem 1.5rem;
     border: none;
@@ -152,11 +152,14 @@ const Container = styled.div`
     border-radius: 0.5rem;
   }
 
-  input[type='button'] {
+  button[type='button'] {
+    height: 3.6rem;
+    width: 7.5rem;
     justify-self: start;
     background-color: #3be0bf;
     transition: background-color 0.2s;
     cursor: pointer;
+    color: var(--color-body);
 
     &:hover {
       background-color: #46f5d2;
