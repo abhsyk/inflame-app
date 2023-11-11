@@ -23,6 +23,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-family: var(--font-primary);
     color: var(--color-body);
+    overflow-x: hidden;
   }
 
   a {
@@ -256,4 +257,28 @@ export const Categories = styled(motion.section)`
   -o-border-radius: 1rem;
   margin: 3rem auto 4rem;
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+`;
+
+export const FloatingBackground = styled.div`
+  width: 160vw;
+  height: 160vw;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 2rem double rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: -123vw;
+  left: calc(50% - 75vw);
+  border-radius: 38.976%;
+  animation: rotate 50s infinite;
+  z-index: -1;
+  filter: blur(4px);
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;

@@ -78,7 +78,6 @@ const StyledCarousel = styled(motion.section)`
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
   }
 
   .carousel__image__wrapper img {

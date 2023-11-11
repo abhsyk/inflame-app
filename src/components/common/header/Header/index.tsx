@@ -44,6 +44,7 @@ const Container = styled.div`
     background-color: #15182b;
 
     &__content {
+      /* width: calc(100% - 3rem); */
       max-width: 120rem;
       height: 6.5rem;
       margin: 0 auto;

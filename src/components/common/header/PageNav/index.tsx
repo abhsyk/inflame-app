@@ -18,7 +18,7 @@ const PageNav: FC<PropsWithChildren> = ({ children }) => {
 
 const Navbar = styled.nav`
   background-color: #101010;
-  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25); */
   position: relative;
 
   .navbar__list {

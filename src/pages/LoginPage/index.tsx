@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoadingDots } from '../../components/ui';
 import { Logo } from '../../components/common';
 import useGamesContext from '../../hooks/useGamesContext';
+import { FloatingBackground } from '../../styles/GlobalStyles';
 
 const LoginPage: FC = () => {
   const { isLoggedIn, handleLogin } = useGamesContext();
@@ -73,19 +74,22 @@ const LoginPage: FC = () => {
           </form>
         </div>
       </div>
+      <FloatingBackground />
     </Container>
   );
 };
 
 const Container = styled.div`
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
+  position: relative;
+  overflow: hidden;
 
   .content {
-    height: calc(100% - 3rem);
-    width: calc(100% - 3rem);
+    height: calc(100% - 2rem);
+    width: calc(100% - 2rem);
     padding: 3rem;
 
     margin: auto;

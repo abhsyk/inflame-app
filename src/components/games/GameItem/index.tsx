@@ -66,7 +66,7 @@ const StyledGame = styled(motion.li)`
     overflow: hidden;
     box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
     justify-self: center;
-    /* border: 0.05rem solid rgba(255, 255, 255, 0.05); */
+    border: 0.05rem solid rgba(255, 255, 255, 0.05);
   }
 
   .games__image__wrapper {

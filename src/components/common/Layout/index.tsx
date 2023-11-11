@@ -4,6 +4,7 @@ import { Footer, Header } from '../../common';
 import { ScrollTopButton } from '../../ui';
 import { useLocation } from 'react-router-dom';
 import useGamesContext from '../../../hooks/useGamesContext';
+import { FloatingBackground } from '../../../styles/GlobalStyles';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { pathname } = useLocation();
@@ -19,6 +20,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       {children}
       <ScrollTopButton />
       <Footer />
+      <FloatingBackground />
     </StyledLayout>
   );
 };
@@ -32,6 +34,8 @@ const StyledLayout = styled.div`
     rgba(208, 13, 13, 0.22) 98.38%
   );
   background-color: rgba(0, 0, 0, 0.9);
+  position: relative;
+  overflow: hidden;
 `;
 
 export default Layout;
