@@ -89,8 +89,9 @@ const Container = styled(motion.div)`
   position: fixed;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  z-index: 100;
 
   .close-btn {
     position: absolute;
