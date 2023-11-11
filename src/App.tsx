@@ -7,7 +7,6 @@ import DetailPage from './pages/DetailPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import SearchPage from './pages/SearchPage';
-// import SearchPage from './pages/SearchPage';
 
 function App() {
   return (

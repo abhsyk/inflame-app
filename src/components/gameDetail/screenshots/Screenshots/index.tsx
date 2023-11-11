@@ -1,23 +1,24 @@
-import { FC } from 'react';
-import type { Game } from '../../../types';
-import { motion } from 'framer-motion';
+import { FC, useState } from 'react';
+import type { Game } from '../../../../types';
 import styled from 'styled-components';
+import { Modal } from '../../screenshots';
 
 type Props = { screenshots: Game['screenshots'] | undefined };
 
 const Screenshots: FC<Props> = ({ screenshots }) => {
+  const [currentIndex, setCurrrentIndex] = useState<number | null>(null);
+
   return (
     <>
+      <Modal
+        currentIndex={currentIndex}
+        onCurIndexChange={setCurrrentIndex}
+        screenshots={screenshots}
+      />
       {screenshots?.length ? (
         <Container>
-          {screenshots.map((s) => (
-            <motion.img
-              key={s.id}
-              src={s.image}
-              variants={variants}
-              initial="hidden"
-              animate="show"
-            />
+          {screenshots.map((s, i) => (
+            <img key={s.id} src={s.image} onClick={() => setCurrrentIndex(i)} />
           ))}
         </Container>
       ) : null}
@@ -36,21 +37,13 @@ const Container = styled.div`
     filter: grayscale(0.7);
     border: 0.1rem solid transparent;
     transition: all 0.2s;
+    cursor: pointer;
 
     &:hover {
-      transform: scale(1.1);
       border: 0.1rem solid rgba(255, 255, 255, 0.7);
       filter: grayscale(0);
     }
   }
 `;
-
-const variants = {
-  hidden: { scale: 0.9 },
-  show: {
-    scale: 1,
-    transition: { duration: 0.2 },
-  },
-};
 
 export default Screenshots;

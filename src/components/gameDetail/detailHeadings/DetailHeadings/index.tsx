@@ -49,6 +49,7 @@ const Container = styled.div`
     }
 
     &__heading {
+      font-family: var(--font-secondary);
       font-size: 4rem;
       font-weight: 400;
     }
