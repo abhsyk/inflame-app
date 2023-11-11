@@ -89,15 +89,20 @@ const Container = styled(motion.div)`
   position: fixed;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  -moz-backdrop-filter: blur(4px);
+  -ms-backdrop-filter: blur(4px);
+  -o-backdrop-filter: blur(4px);
   z-index: 100;
 
   .close-btn {
     position: absolute;
-    top: 8rem;
-    right: 9rem;
+    top: 6rem;
+    right: 6rem;
     cursor: pointer;
+    z-index: 100;
 
     svg {
       border-radius: 50%;
@@ -123,6 +128,7 @@ const ImageWrapper = styled.div`
 
   img {
     width: 100%;
+    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
   }
 
   .index {

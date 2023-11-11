@@ -60,7 +60,7 @@ const useGames = (categoryPath?: CategoryPath) => {
         await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`);
       }
     },
-    [path, fetcher, navigate]
+    [fetcher, navigate]
   );
 
   useEffect(() => {

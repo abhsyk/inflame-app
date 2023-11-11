@@ -25,7 +25,7 @@ const Container = styled.div`
   padding: 0.5rem 2rem;
   left: 50%;
   border-radius: 3rem;
-  transform: translateX(-50%) scale(0.8);
+  transform: translateX(-50%);
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
   bottom: -5rem;
   visibility: hidden;
@@ -38,7 +38,7 @@ const Container = styled.div`
   &.active {
     bottom: 5rem;
     visibility: visible;
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%);
     opacity: 1;
   }
 
