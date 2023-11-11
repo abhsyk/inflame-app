@@ -47,32 +47,31 @@ const Modal: FC<Props> = ({ currentIndex, onCurIndexChange, screenshots }) => {
               <p className="index">
                 {currentIndex + 1}/{screenshots?.length}
               </p>
-              <div className="btns-wrapper">
-                <button
-                  className="left-arr"
-                  onClick={() =>
-                    onCurIndexChange(
-                      currentIndex > 0
-                        ? currentIndex - 1
-                        : screenshots!.length - 1
-                    )
-                  }
-                >
-                  <ChevronLeftIcon />
-                </button>
-                <button
-                  className="right-arr"
-                  onClick={() =>
-                    onCurIndexChange(
-                      currentIndex < screenshots!.length - 1
-                        ? currentIndex + 1
-                        : 0
-                    )
-                  }
-                >
-                  <ChevronRightIcon />
-                </button>
-              </div>
+
+              <button
+                className="left-arr"
+                onClick={() =>
+                  onCurIndexChange(
+                    currentIndex > 0
+                      ? currentIndex - 1
+                      : screenshots!.length - 1
+                  )
+                }
+              >
+                <ChevronLeftIcon />
+              </button>
+              <button
+                className="right-arr"
+                onClick={() =>
+                  onCurIndexChange(
+                    currentIndex < screenshots!.length - 1
+                      ? currentIndex + 1
+                      : 0
+                  )
+                }
+              >
+                <ChevronRightIcon />
+              </button>
             </ImageWrapper>
           </Container>
         ) : null}
@@ -139,16 +138,10 @@ const ImageWrapper = styled.div`
     letter-spacing: 0.5rem;
   }
 
-  .btns-wrapper {
-    display: flex;
-    gap: 2rem;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 1rem;
-  }
-
   button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     display: grid;
     place-items: center;
     width: 4rem;
@@ -166,12 +159,18 @@ const ImageWrapper = styled.div`
       background-color: rgba(255, 255, 255, 0.2);
     }
 
-    &.left-arr svg {
-      margin-left: -0.2rem;
+    &.left-arr {
+      left: -5rem;
+      svg {
+        margin-left: -0.2rem;
+      }
     }
 
-    &.right-arr svg {
-      margin-right: -0.2rem;
+    &.right-arr {
+      right: -5rem;
+      svg {
+        margin-right: -0.2rem;
+      }
     }
   }
 `;
