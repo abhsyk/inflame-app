@@ -34,7 +34,7 @@ const Container = styled.div`
     height: 28.5rem;
     object-fit: cover;
     filter: grayscale(0.7);
-    border: 0.1rem solid rgba(255, 255, 255, 0.3);
+    border: 0.1rem solid transparent;
     transition: all 0.2s;
 
     &:hover {

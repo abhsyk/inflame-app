@@ -16,7 +16,7 @@ const useSearch = () => {
   const searchGames = useCallback(() => {
     navigate(`/search?key=${searchWord}`);
     handleSearchGames(searchWord);
-  }, [searchWord, navigate]);
+  }, [searchWord, navigate, handleSearchGames]);
 
   return {
     searchWord,

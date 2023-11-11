@@ -7,6 +7,7 @@ export type Game = {
   background_image: string;
   released: string;
   tba: boolean;
+  description: string;
   description_raw: string;
   screenshots: {
     id: number;

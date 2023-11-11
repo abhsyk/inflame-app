@@ -23,6 +23,8 @@ const DetailPage: FC = () => {
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
     const data = await getGameDetail(params.id!);
+    console.log(data);
+
     setGame(data);
     setIsLoading(false);
   }, [params.id]);
@@ -45,8 +47,11 @@ const DetailPage: FC = () => {
           >
             <DetailHeadings game={game} />
             <Banner image={game?.background_image} name={game?.name} />
-            {game?.description_raw ? (
-              <p className="description">{game?.description_raw}</p>
+            {game?.description ? (
+              <p
+                className="description"
+                dangerouslySetInnerHTML={{ __html: game.description }}
+              />
             ) : null}
             <Screenshots screenshots={game?.screenshots} />
             {game?.website ? (
@@ -79,15 +84,16 @@ const Container = styled.section`
 
   .description {
     font-family: var(--font-secondary);
-    column-count: 2;
-    column-gap: 3rem;
+    /* column-count: 2; */
+    /* column-gap: 3rem; */
     background-color: rgba(35, 35, 35, 0.7);
     font-size: 1.6rem;
     line-height: 1.8;
     color: #efefef;
-    padding: 3rem;
-    border-left: 0.1rem solid rgba(255, 255, 255, 0.3);
-    border-right: 0.1rem solid rgba(255, 255, 255, 0.3);
+    padding: 4rem 6rem;
+    /* border-left: 0.1rem solid rgba(255, 255, 255, 0.3);
+    border-right: 0.1rem solid rgba(255, 255, 255, 0.3); */
+    /* text-indent: 1rem; */
   }
 
   .link {

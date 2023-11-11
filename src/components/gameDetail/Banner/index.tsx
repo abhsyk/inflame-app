@@ -26,7 +26,8 @@ const Container = styled.div`
   max-height: 48rem;
   margin-top: 1rem;
   overflow: hidden;
-  border: 0.1rem solid rgba(255, 255, 255, 0.3);
+  /* border: 0.1rem solid rgba(255, 255, 255, 0.3); */
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.5);
 
   img {
     width: 100%;
