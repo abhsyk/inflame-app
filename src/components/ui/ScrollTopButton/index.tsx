@@ -36,7 +36,7 @@ const ScrollTopButton: React.FC = () => {
   );
 };
 
-const StyledButton = styled(motion.div)`
+const StyledButton = styled(motion.button)`
   display: grid;
   place-items: center;
   position: fixed;
@@ -45,6 +45,10 @@ const StyledButton = styled(motion.div)`
   font-size: 5.5rem;
   color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 50%;
   cursor: pointer;
   transition: color 0.3s;
   z-index: 50;
