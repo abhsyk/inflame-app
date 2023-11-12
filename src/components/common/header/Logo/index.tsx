@@ -31,6 +31,10 @@ const Container = styled.div`
     margin-top: 1rem;
     align-self: center;
   }
+
+  @media (max-width: 580px) {
+    flex: 1;
+  }
 `;
 
 export default Logo;

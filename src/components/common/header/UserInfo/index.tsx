@@ -151,6 +151,10 @@ const StyledLogin = styled.div`
     transition: background-color 0.2s;
     margin-left: 10.3rem;
 
+    @media (max-width: 800px) {
+      margin-left: 0.5rem;
+    }
+
     &:hover {
       background-color: #46f5d2;
     }

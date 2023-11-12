@@ -70,6 +70,11 @@ const Container = styled(motion.button)`
     }
   }
 
+  @media (max-width: 800px) {
+    padding: 0.8rem;
+    bottom: 2rem;
+  }
+
   &.detail-page {
     position: fixed;
     top: 22%;

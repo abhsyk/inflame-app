@@ -30,6 +30,16 @@ const Container = styled.footer`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 1200px) {
+      margin: 0 2rem;
+    }
+
+    @media (max-width: 800px) {
+      height: 12rem;
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
   }
 
   .copyright {
@@ -38,6 +48,10 @@ const Container = styled.footer`
 
     a {
       color: var(--color-primary);
+    }
+
+    @media (max-width: 800px) {
+      font-size: 1.2rem;
     }
   }
 

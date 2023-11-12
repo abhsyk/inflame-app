@@ -150,14 +150,14 @@ export const GlobalStyles = createGlobalStyle`
     .search-icon {
       position: absolute;
       left: 1rem;
-      font-size: 3.6rem;
+      font-size: 3rem;
       color: #777;
     }
 
     .header__content .search-icon {
       background-color: rgba(255, 255, 255, 0.1);
       padding: 1rem;
-      font-size: 5rem;
+      font-size: 4rem;
       border-radius: 50%;
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
@@ -172,7 +172,7 @@ export const GlobalStyles = createGlobalStyle`
       position: absolute;
       width: 100%;
       background-color: #efefef;
-      top: 0;
+      /* top: -20rem; */
       left: 0;
       color: #222;
       padding: 2rem 4rem;
@@ -183,16 +183,18 @@ export const GlobalStyles = createGlobalStyle`
       -moz-transition: all 0.3s;
       -ms-transition: all 0.3s;
       -o-transition: all 0.3s;
+      z-index: 50;
     }
 
     .search-box.active {
       visibility: visible;
       opacity: 1;
+      /* top: 0; */
     }
 
     .search-box .search__input,
     .search-box .cross-icon {
-      display: block;
+      /* display: block; */
     }
 
     .search-box img {

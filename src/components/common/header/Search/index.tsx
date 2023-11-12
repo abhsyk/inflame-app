@@ -4,7 +4,12 @@ import useSearch from '../../../../hooks/useSearch';
 import { SearchIcon, CrossIcon } from '../../../ui';
 import useGames from '../../../../hooks/useGames';
 
-const Search: FC = () => {
+type Props = {
+  isSearchOpen: boolean;
+  onSearchOpen: (isSearchOpen: boolean) => void;
+};
+
+const Search: FC<Props> = ({ isSearchOpen, onSearchOpen }) => {
   const { searchWord, searchWordChange, clearSearchWord } = useSearch();
   const { handleSearchGames } = useGames();
 
@@ -32,10 +37,7 @@ const Search: FC = () => {
     <Container>
       <form onSubmit={handleSubmit}>
         <button type="submit">
-          <SearchIcon
-
-          // onClick={() => setIsSearchOpen(!isSearchOpen)}
-          />
+          <SearchIcon onClick={() => onSearchOpen(!isSearchOpen)} />
         </button>
         <input
           className="search__input"
@@ -78,6 +80,10 @@ const Container = styled.div`
       visibility: visible;
       opacity: 1;
     }
+
+    @media (max-width: 800px) {
+      width: 30rem;
+    }
   }
 
   button[type='submit'] {
@@ -89,6 +95,12 @@ const Container = styled.div`
     border: none;
     outline: none;
     top: 1.1rem;
+
+    @media (max-width: 580px) {
+      position: unset;
+      display: grid;
+      place-items: center;
+    }
   }
 
   button[type='button'] {

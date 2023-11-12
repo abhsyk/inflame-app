@@ -78,6 +78,14 @@ const StyledCarousel = styled(motion.section)`
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
     overflow: hidden;
+
+    @media (max-width: 800px) {
+      height: 40rem;
+    }
+
+    @media (max-width: 580px) {
+      height: 30rem;
+    }
   }
 
   .carousel__image__wrapper img {

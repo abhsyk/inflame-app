@@ -26,8 +26,8 @@ const GameItem: FC<Props> = ({ game }) => {
           <h2 className="title">{name}</h2>
           <div className="games__info__bottom">
             <p className="release">
-              Release date:
-              <span> {tba ? 'To be announced' : dotDate}</span>
+              <span className="release-title">Release date:</span>
+              <span className="date"> {tba ? 'To be announced' : dotDate}</span>
             </p>
             <p className="games__link">View detail</p>
           </div>
@@ -36,16 +36,6 @@ const GameItem: FC<Props> = ({ game }) => {
       </Link>
     </StyledGame>
   );
-};
-
-const cardAnim = {
-  hidden: { opacity: 0, scale: 0.95 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.4 },
-  },
-  exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } },
 };
 
 const StyledGame = styled(motion.li)`
@@ -67,6 +57,18 @@ const StyledGame = styled(motion.li)`
     box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
     justify-self: center;
     border: 0.05rem solid rgba(255, 255, 255, 0.05);
+
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
+
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
+
+    @media (max-width: 800px) {
+      height: 25rem;
+    }
   }
 
   .games__image__wrapper {
@@ -86,6 +88,10 @@ const StyledGame = styled(motion.li)`
         opacity: 0.9;
       }
     }
+
+    @media (max-width: 800px) {
+      flex: 0 0 16rem;
+    }
   }
 
   .games__info {
@@ -97,12 +103,25 @@ const StyledGame = styled(motion.li)`
     position: relative;
     justify-content: space-between;
 
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
+
+    @media (max-width: 800px) {
+      flex: 0 0 10rem;
+    }
+
     .title {
       flex: 0 0 55%;
       font-size: 2rem;
       font-weight: 600;
       line-height: 1.1;
       flex: 0 0 50%;
+
+      @media (max-width: 800px) {
+        flex: 0 0 50%;
+        font-size: 1.6rem;
+      }
     }
 
     &__bottom {
@@ -110,6 +129,11 @@ const StyledGame = styled(motion.li)`
       display: flex;
       flex-direction: column;
       margin-top: 1.5rem;
+
+      @media (max-width: 800px) {
+        flex: 0 0 50%;
+        margin-top: 0;
+      }
     }
   }
 
@@ -117,10 +141,20 @@ const StyledGame = styled(motion.li)`
     font-size: 1.3rem;
     line-height: 1;
     color: #444;
-  }
 
-  .release span {
-    font-weight: 600;
+    .date {
+      font-weight: 600;
+    }
+
+    @media (max-width: 800px) {
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 580px) {
+      .release-title {
+        display: none;
+      }
+    }
   }
 
   .games__link {
@@ -129,37 +163,22 @@ const StyledGame = styled(motion.li)`
     color: #3030af;
     margin: 1rem 0;
     justify-self: center;
-  }
 
-  .bookmark-btn {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    color: var(--color-white);
-    font-size: 2.5rem;
-    background-color: var(--color-body);
-    border: none;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: #444;
-    }
-
-    &.added {
-      color: var(--color-body);
-      background-color: var(--color-white);
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: #fff;
-      }
+    @media (max-width: 800px) {
+      font-size: 1.4rem;
+      margin: 0.5rem 0;
     }
   }
 `;
+
+const cardAnim = {
+  hidden: { opacity: 0, scale: 0.95 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.4 },
+  },
+  exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } },
+};
 
 export default GameItem;

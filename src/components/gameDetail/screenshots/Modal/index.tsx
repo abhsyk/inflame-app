@@ -125,6 +125,10 @@ const ImageWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
+  @media (max-width: 1200px) {
+    width: calc(100% - 4rem);
+  }
+
   img {
     width: 100%;
     box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
@@ -142,15 +146,17 @@ const ImageWrapper = styled.div`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    height: 100%;
     display: grid;
     place-items: center;
-    width: 4rem;
-    height: 4rem;
+    width: 2rem;
+    /* height: 4rem; */
     font-size: 2rem;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     background-color: transparent;
     color: var(--color-white);
-    border: 0.1rem solid rgba(255, 255, 255, 0.5);
+    /* border: 0.1rem solid rgba(255, 255, 255, 0.5); */
+    border: none;
     outline: none;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -160,14 +166,14 @@ const ImageWrapper = styled.div`
     }
 
     &.left-arr {
-      left: -5rem;
+      left: 0;
       svg {
         margin-left: -0.2rem;
       }
     }
 
     &.right-arr {
-      right: -5rem;
+      right: 0;
       svg {
         margin-right: -0.2rem;
       }
