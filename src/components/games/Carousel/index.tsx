@@ -86,6 +86,10 @@ const StyledCarousel = styled(motion.section)`
     @media (max-width: 580px) {
       height: 30rem;
     }
+
+    @media (max-width: 480px) {
+      height: 25rem;
+    }
   }
 
   .carousel__image__wrapper img {

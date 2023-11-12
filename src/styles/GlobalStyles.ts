@@ -259,6 +259,10 @@ export const Categories = styled(motion.section)`
   -o-border-radius: 1rem;
   margin: 3rem auto 4rem;
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 580px) {
+    padding: 2rem 1rem;
+  }
 `;
 
 export const FloatingBackground = styled.div`

@@ -46,6 +46,10 @@ const Container = styled.div`
     font-size: 1.4rem;
     color: var(--color-white);
     text-decoration: underline;
+
+    @media (max-width: 580px) {
+      font-size: 1.2rem;
+    }
   }
 
   .games__tagline {
@@ -72,6 +76,10 @@ const Container = styled.div`
         background-color: var(--color-white);
         color: #222;
         border: none;
+      }
+
+      @media (max-width: 580px) {
+        font-size: 1.2rem;
       }
     }
   }
