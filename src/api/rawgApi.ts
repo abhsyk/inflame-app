@@ -1,16 +1,16 @@
 export const API_KEY = import.meta.env.VITE_RAWG_API_KEY;
 export const BASE_URL = `https://api.rawg.io/api/games`;
 
-const getCurrentMonth = (): number => {
+const getCurrentMonth = (): string => {
   const month = new Date().getMonth() + 1;
-  if (month < 10) return Number(`0${month}`);
-  else return month;
+  if (month < 10) return `0${month}`;
+  else return String(month);
 };
 
-const getCurrentDay = (): number => {
+const getCurrentDay = (): string => {
   const day = new Date().getDate();
-  if (day < 10) return Number(`0${day}`);
-  else return day;
+  if (day < 10) return `0${day}`;
+  else return String(day);
 };
 
 const currentYear = new Date().getFullYear();

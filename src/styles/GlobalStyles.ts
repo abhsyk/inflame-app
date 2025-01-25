@@ -18,12 +18,19 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 62.5%;
+    height: 100%;
   }
 
   body {
     font-family: var(--font-primary);
     color: var(--color-body);
     overflow-x: hidden;
+    height: 100%;
+  }
+
+  #root {
+    height: 100%;
+    flex: 0 1 100%;
   }
 
   a {

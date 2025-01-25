@@ -17,7 +17,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       onClick={() => (isUserInfoOpen ? handleUserInfoOpen(false) : null)}
     >
       <Header />
-      {children}
+      <MainContent>{children}</MainContent>
       <ScrollTopButton />
       <Footer />
       <FloatingBackground />
@@ -27,7 +27,6 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 
 const StyledLayout = styled.div`
   width: 100%;
-  min-height: 100vh;
   background: linear-gradient(
     200.44deg,
     rgba(31, 52, 240, 0.25) 13.57%,
@@ -35,7 +34,13 @@ const StyledLayout = styled.div`
   );
   background-color: rgba(0, 0, 0, 0.9);
   position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+`;
+
+const MainContent = styled.div`
+  flex-grow: 1;
 `;
 
 export default Layout;
