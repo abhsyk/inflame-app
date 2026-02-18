@@ -24,8 +24,7 @@ const Carousel: FC<Props> = ({ games }) => {
   }, []);
 
   useEffect(() => {
-    startSlideShow();
-    return () => ref.current && clearInterval(ref.current);
+    return startSlideShow();
   }, [startSlideShow]);
 
   return (
