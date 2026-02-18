@@ -34,7 +34,7 @@ const reducer = (state: GamesContextState = initialState, action: Action) => {
     case 'set_has_notification':
       return {
         ...state,
-        hasNotification: !state.hasNotification,
+        hasNotification: action.payload,
       };
     case 'set_added_games_name':
       return {
