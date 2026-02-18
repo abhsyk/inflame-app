@@ -51,7 +51,7 @@ export interface ApiFetcherResults<T> {
 
 export interface ApiResponse<T> {
   count: number;
-  next: string;
+  next: string | null;
   previous: string | null;
   results: T;
 }

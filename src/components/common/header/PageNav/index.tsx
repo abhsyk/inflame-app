@@ -34,14 +34,13 @@ const Navbar = styled.nav`
   }
 
   a {
-    /* height: 6rem; */
     display: flex;
     align-items: center;
+    padding: 2rem 2.5rem;
   }
 
   .navbar__item {
     color: var(--color-white);
-    padding: 2rem 2.5rem;
     position: relative;
   }
 

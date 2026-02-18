@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -22,9 +23,12 @@ const DetailPage: FC = () => {
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
-    const data = await getGameDetail(params.id!);
-    setGame(data);
-    setIsLoading(false);
+    try {
+      const data = await getGameDetail(params.id!);
+      setGame(data);
+    } finally {
+      setIsLoading(false);
+    }
   }, [params.id]);
 
   useEffect(() => {
@@ -48,7 +52,7 @@ const DetailPage: FC = () => {
             {game?.description ? (
               <p
                 className="description"
-                dangerouslySetInnerHTML={{ __html: game.description }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(game.description) }}
               />
             ) : null}
             <Screenshots screenshots={game?.screenshots} />

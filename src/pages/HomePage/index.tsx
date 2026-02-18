@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import type { CategoryPath } from '../../types';
+import { FC, useEffect, useState } from 'react';
+import type { CategoryPath, Game } from '../../types';
 import useGames from '../../hooks/useGames';
 import { Layout } from '../../components/common';
 import { Carousel, GamesList } from '../../components/games';
@@ -10,10 +10,15 @@ const HomePage: FC = () => {
   const [currentTaglinePath, setCurrentTaglinePath] =
     useState<CategoryPath>('popular-games');
   const { games, isLoading } = useGames(currentTaglinePath);
-  const { games: carouselGames, isLoading: isCarouselLoading } =
-    useGames('popular-games');
+  const [carouselGames, setCarouselGames] = useState<Game[]>([]);
 
-  if (isCarouselLoading) {
+  useEffect(() => {
+    if (currentTaglinePath === 'popular-games' && games.length > 0) {
+      setCarouselGames(games);
+    }
+  }, [games, currentTaglinePath]);
+
+  if (carouselGames.length === 0 && isLoading) {
     return (
       <Layout>
         <LoadingDots />

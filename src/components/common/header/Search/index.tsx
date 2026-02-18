@@ -30,7 +30,7 @@ const Search: FC<Props> = ({ isSearchOpen, onSearchOpen }) => {
       }
     };
     document.addEventListener('keydown', escapeKeyCallback);
-    return () => removeEventListener('keydown', escapeKeyCallback);
+    return () => document.removeEventListener('keydown', escapeKeyCallback);
   }, [searchWord, clearSearchWord]);
 
   return (

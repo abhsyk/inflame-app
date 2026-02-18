@@ -3,7 +3,7 @@ import { FC, useCallback, MouseEvent } from 'react';
 import styled from 'styled-components';
 import useGamesContext from '../../../hooks/useGamesContext';
 import { Game } from '../../../types';
-import { CheckIcon, PlusIcon } from '../Icons';
+import { CheckIcon, PlusIcon } from '../icons';
 
 type Props = { game: Game; isDetail?: boolean };
 
