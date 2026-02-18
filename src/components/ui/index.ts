@@ -1,4 +1,4 @@
-export * from './Icons';
+export * from './icons';
 export * from './tagline';
 export { default as LoadingDots } from './LoadingDots';
 export { default as ScrollTopButton } from './ScrollTopButton';
