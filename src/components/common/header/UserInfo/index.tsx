@@ -39,12 +39,12 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
           <p className="username">John Smith</p>
           <ChevronDownIcon className="chevron-icon" />
           <ul className={`user-info__list ${isUserInfoOpen ? 'active' : ''}`}>
-            <Link to="/user">
-              <li className="bookmarks">
+            <li className="bookmarks">
+              <Link to="/user">
                 <BookmarkIcon />
                 Bookmark ({bookmarks.length})
-              </li>
-            </Link>
+              </Link>
+            </li>
             <li onClick={handleLogin}>
               <LogOutIcon />
               Log Out
@@ -117,6 +117,20 @@ const StyledUserInfo = styled.div`
 
       svg {
         font-size: 2rem;
+      }
+
+      &.bookmarks {
+        padding: 0;
+
+        a {
+          display: flex;
+          align-items: center;
+          padding: 1.2rem 2rem;
+          gap: 1rem;
+          font-size: 1.6rem;
+          width: 100%;
+          color: inherit;
+        }
       }
     }
 
