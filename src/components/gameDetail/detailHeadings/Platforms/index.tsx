@@ -10,6 +10,7 @@ const Platforms: FC<Props> = ({ platforms }) => {
       {platforms ? (
         <Container>
           {platforms
+            .slice()
             .sort((a, b) => (a.platform.name > b.platform.name ? 1 : -1))
             .map((p) => (
               <p key={p.platform.id}>{p.platform.name}</p>

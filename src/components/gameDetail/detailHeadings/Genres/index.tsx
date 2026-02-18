@@ -10,6 +10,7 @@ const Genres: FC<Props> = ({ genres }) => {
       {genres ? (
         <Container>
           {genres
+            .slice()
             .sort((a, b) => (a.name > b.name ? 1 : -1))
             .map((g) => (
               <p key={g.id}>{g.name}</p>
