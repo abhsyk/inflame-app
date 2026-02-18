@@ -9,7 +9,7 @@ import {
 import { Game, GamesProviderContext } from '../types';
 import reducer, { initialState } from './reducer';
 
-export const GamesContext = createContext<Partial<GamesProviderContext>>({});
+export const GamesContext = createContext<GamesProviderContext | null>(null);
 
 const GamesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

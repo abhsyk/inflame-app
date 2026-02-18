@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import { GamesContext } from '../context';
-import type { GamesProviderContext } from '../types';
 
 const useGamesContext = () => {
-  return useContext(GamesContext) as GamesProviderContext;
+  const ctx = useContext(GamesContext);
+  if (!ctx) throw new Error('useGamesContext must be used within GamesContextProvider');
+  return ctx;
 };
 
 export default useGamesContext;
