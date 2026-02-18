@@ -19,6 +19,7 @@ const SearchPage: FC = () => {
     isNextLoading,
     handleSearchGames,
     count,
+    nextPage,
   } = useGames('search');
 
   useEffect(() => {
@@ -46,9 +47,9 @@ const SearchPage: FC = () => {
             <div className="btn-wrapper">
               {isNextLoading ? (
                 <LoadingDots center />
-              ) : (
+              ) : nextPage ? (
                 <button onClick={() => handleNextPage()}>View more</button>
-              )}
+              ) : null}
             </div>
           </>
         ) : null}
