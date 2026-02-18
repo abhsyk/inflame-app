@@ -23,9 +23,12 @@ const DetailPage: FC = () => {
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
-    const data = await getGameDetail(params.id!);
-    setGame(data);
-    setIsLoading(false);
+    try {
+      const data = await getGameDetail(params.id!);
+      setGame(data);
+    } finally {
+      setIsLoading(false);
+    }
   }, [params.id]);
 
   useEffect(() => {
