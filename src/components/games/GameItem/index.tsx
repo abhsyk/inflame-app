@@ -12,7 +12,7 @@ type Props = { game: Game };
 
 const GameItem: FC<Props> = ({ game }) => {
   const { slug, name, released, tba } = game;
-  const { isLoggedIn } = useGamesContext();
+  const { user } = useGamesContext();
   const backgroundImage = smallImage(game.background_image, 640);
   const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
 
@@ -31,7 +31,7 @@ const GameItem: FC<Props> = ({ game }) => {
             </p>
             <p className="games__link">View detail</p>
           </div>
-          {isLoggedIn ? <BookmarkBtn game={game} /> : null}
+          {user ? <BookmarkBtn game={game} /> : null}
         </div>
       </Link>
     </StyledGame>

@@ -19,7 +19,7 @@ const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isLoggedIn } = useGamesContext();
+  const { user } = useGamesContext();
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
@@ -64,7 +64,7 @@ const DetailPage: FC = () => {
             ) : null}
           </motion.div>
           <BackgroundImage image={game?.background_image} />
-          {isLoggedIn && game ? <BookmarkBtn game={game} isDetail /> : null}
+          {user && game ? <BookmarkBtn game={game} isDetail /> : null}
         </Container>
       )}
     </Layout>

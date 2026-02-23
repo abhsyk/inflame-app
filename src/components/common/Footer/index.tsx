@@ -1,15 +1,11 @@
-import { FC } from 'react';
-import { InstagramIcon, TwitterIcon, YouTubeIcon } from '../../ui';
-import styled from 'styled-components';
+import { FC } from "react";
+import { InstagramIcon, TwitterIcon, YouTubeIcon } from "../../ui";
+import styled from "styled-components";
 
 const Footer: FC = () => {
   return (
     <Container>
       <div className="footer__content">
-        <p className="copyright">
-          Copyright © 2023
-          <a href="https://github.com/abhsyk"> @abhsyk </a>
-        </p>
         <div className="social-media">
           <InstagramIcon />
           <TwitterIcon />

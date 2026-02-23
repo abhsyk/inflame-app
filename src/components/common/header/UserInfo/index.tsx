@@ -1,25 +1,25 @@
-import { FC, useCallback, useState, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { FC, useCallback, useState, MouseEvent } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   ChevronDownIcon,
   BookmarkIcon,
   LogOutIcon,
   CrossIcon,
-} from '../../../ui';
-import avator from '../../../../assets/images/avatar-icon.png';
-import styled from 'styled-components';
-import useGamesContext from '../../../../hooks/useGamesContext';
-import useGames from '../../../../hooks/useGames';
+} from "../../../ui";
+import avator from "../../../../assets/images/icon-placeholder.png";
+import styled from "styled-components";
+import useGamesContext from "../../../../hooks/useGamesContext";
+import useGames from "../../../../hooks/useGames";
 
 type Props = { isLoggedIn: boolean };
 
 const UserInfo: FC<Props> = ({ isLoggedIn }) => {
   const [message, setMessage] = useState(
-    'By logging in, you can access the bookmark feature😃'
+    "By logging in, you can access the bookmark feature😃",
   );
 
-  const { handleLogin, isUserInfoOpen, handleUserInfoOpen, bookmarks } =
+  const { handleLogout, isUserInfoOpen, handleUserInfoOpen, bookmarks, user } =
     useGamesContext();
   const { isLoading } = useGames();
 
@@ -28,24 +28,33 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
       e.stopPropagation();
       handleUserInfoOpen(!isUserInfoOpen);
     },
-    [handleUserInfoOpen, isUserInfoOpen]
+    [handleUserInfoOpen, isUserInfoOpen],
   );
 
   return (
     <>
       {isLoggedIn ? (
         <StyledUserInfo onClick={handleClickInside}>
-          <img src={avator} className="avatar-icon" alt="Avatar" />
-          <p className="username">John Smith</p>
+          <img
+            src={user?.photoURL ?? avator}
+            className="avatar-icon"
+            alt="Avatar"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = avator;
+            }}
+          />
+          <p className="username">
+            {user?.displayName ?? user?.email ?? "User"}
+          </p>
           <ChevronDownIcon className="chevron-icon" />
-          <ul className={`user-info__list ${isUserInfoOpen ? 'active' : ''}`}>
+          <ul className={`user-info__list ${isUserInfoOpen ? "active" : ""}`}>
             <li className="bookmarks">
               <Link to="/user">
                 <BookmarkIcon />
                 Bookmark ({bookmarks.length})
               </Link>
             </li>
-            <li onClick={handleLogin}>
+            <li onClick={handleLogout}>
               <LogOutIcon />
               Log Out
             </li>
@@ -59,7 +68,7 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
           {!isLoggedIn && !isLoading && message ? (
             <motion.div
               className="message-container"
-              onClick={() => setMessage('')}
+              onClick={() => setMessage("")}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 2.8 } }}
             >
