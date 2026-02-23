@@ -4,12 +4,14 @@ import { GamesList } from '../../components/games';
 import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Categories } from '../../styles/GlobalStyles';
+import { LoadingDots } from '../../components/ui';
 import useGamesContext from '../../hooks/useGamesContext';
 
 const UserPage: FC = () => {
-  const { bookmarks, isLoggedIn } = useGamesContext();
+  const { bookmarks, user, isAuthLoading } = useGamesContext();
 
-  if (!isLoggedIn) return <Navigate to="/" replace />;
+  if (isAuthLoading) return <LoadingDots center size={8} />;
+  if (!user) return <Navigate to="/" replace />;
 
   return (
     <Layout>

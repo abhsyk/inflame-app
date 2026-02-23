@@ -8,24 +8,26 @@ import { CheckIcon, PlusIcon } from '../icons';
 type Props = { game: Game; isDetail?: boolean };
 
 const BookmarkBtn: FC<Props> = ({ game, isDetail = false }) => {
-  const { handleAddBookmark, handleRemoveBookmark, bookmarks } =
+  const { handleAddBookmark, handleRemoveBookmark, bookmarks, user } =
     useGamesContext();
   const isBookmarked: boolean = !!bookmarks.find((b) => b.id === game?.id);
 
   const handleBookmark = useCallback(
-    (e: MouseEvent): void => {
+    async (e: MouseEvent): Promise<void> => {
       e.preventDefault();
-      handleAddBookmark(game);
+      if (!user) return;
+      await handleAddBookmark(game);
     },
-    [game, handleAddBookmark]
+    [game, handleAddBookmark, user]
   );
 
   const handleRemove = useCallback(
-    (e: MouseEvent): void => {
+    async (e: MouseEvent): Promise<void> => {
       e.preventDefault();
-      handleRemoveBookmark(game.id);
+      if (!user) return;
+      await handleRemoveBookmark(game.id);
     },
-    [game.id, handleRemoveBookmark]
+    [game.id, handleRemoveBookmark, user]
   );
 
   return (

@@ -5,7 +5,8 @@ export const initialState: GamesContextState = {
   hasNotification: false,
   addedGameName: '',
   isUserInfoOpen: false,
-  isLoggedIn: false,
+  user: null,
+  isAuthLoading: true,
 };
 
 const reducer = (state: GamesContextState = initialState, action: Action) => {
@@ -46,8 +47,10 @@ const reducer = (state: GamesContextState = initialState, action: Action) => {
         ...state,
         isUserInfoOpen: action.payload,
       };
-    case 'login':
-      return { ...state, isLoggedIn: !state.isLoggedIn };
+    case 'set_user':
+      return { ...state, user: action.payload, isAuthLoading: false };
+    case 'set_bookmarks_all':
+      return { ...state, bookmarks: action.payload };
     default:
       return state;
   }

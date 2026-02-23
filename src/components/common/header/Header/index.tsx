@@ -6,7 +6,7 @@ import useGamesContext from '../../../../hooks/useGamesContext';
 
 const Header: FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const { isLoggedIn, hasNotification, addedGameName } = useGamesContext();
+  const { user, hasNotification, addedGameName } = useGamesContext();
 
   return (
     <Container>
@@ -14,7 +14,7 @@ const Header: FC = () => {
         <div className="header__content">
           <Logo />
           <Search isSearchOpen={isSearchOpen} onSearchOpen={setIsSearchOpen} />
-          <UserInfo isLoggedIn={isLoggedIn} />
+          <UserInfo isLoggedIn={!!user} />
         </div>
       </div>
       <PageNav>

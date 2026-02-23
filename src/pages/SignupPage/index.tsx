@@ -7,15 +7,16 @@ import AuthErrorMessage from '../../components/ui/AuthErrorMessage';
 import useGamesContext from '../../hooks/useGamesContext';
 import { FloatingBackground } from '../../styles/GlobalStyles';
 
-const LoginPage: FC = () => {
-  const { user, isAuthLoading, handleLoginWithEmail, handleLoginWithGoogle } =
+const SignupPage: FC = () => {
+  const { user, isAuthLoading, handleSignupWithEmail, handleLoginWithGoogle } =
     useGamesContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorCode, setErrorCode] = useState<string>('');
-  const [formValues, setFormValues] = useState<{
-    email: string;
-    password: string;
-  }>({ email: '', password: '' });
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
   const navigate = useNavigate();
 
   const handleFormValuesChange = useCallback(
@@ -26,18 +27,22 @@ const LoginPage: FC = () => {
     []
   );
 
-  const handleLoginClick = useCallback(async () => {
+  const handleSignupClick = useCallback(async () => {
     setErrorCode('');
+    if (formValues.password !== formValues.confirmPassword) {
+      setErrorCode('auth/passwords-do-not-match');
+      return;
+    }
     setIsLoading(true);
     try {
-      await handleLoginWithEmail(formValues.email, formValues.password);
+      await handleSignupWithEmail(formValues.email, formValues.password);
     } catch (e: unknown) {
       const code = (e as { code?: string }).code ?? 'unknown';
       setErrorCode(code);
     } finally {
       setIsLoading(false);
     }
-  }, [formValues, handleLoginWithEmail]);
+  }, [formValues, handleSignupWithEmail]);
 
   const handleGoogleClick = useCallback(async () => {
     setErrorCode('');
@@ -64,7 +69,7 @@ const LoginPage: FC = () => {
         <Logo />
         <div className="form-container">
           <form>
-            <h2>Log In</h2>
+            <h2>Sign Up</h2>
             <div className="input-wrapper">
               <label htmlFor="email">Email</label>
               <input
@@ -85,9 +90,19 @@ const LoginPage: FC = () => {
                 onChange={handleFormValuesChange}
               />
             </div>
+            <div className="input-wrapper">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                value={formValues.confirmPassword}
+                onChange={handleFormValuesChange}
+              />
+            </div>
             {errorCode && <AuthErrorMessage code={errorCode} />}
-            <button type="button" onClick={handleLoginClick} disabled={isLoading}>
-              {isLoading ? <LoadingDots center size={5} /> : 'Log In'}
+            <button type="button" onClick={handleSignupClick} disabled={isLoading}>
+              {isLoading ? <LoadingDots center size={5} /> : 'Sign Up'}
             </button>
             <button
               type="button"
@@ -95,10 +110,10 @@ const LoginPage: FC = () => {
               onClick={handleGoogleClick}
               disabled={isLoading}
             >
-              Log In with Google
+              Sign Up with Google
             </button>
-            <p className="signup-link">
-              Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+            <p className="login-link">
+              Already have an account? <Link to="/login">Log In</Link>
             </p>
           </form>
         </div>
@@ -120,7 +135,6 @@ const Container = styled.div`
     height: calc(100% - 2rem);
     width: calc(100% - 2rem);
     padding: 3rem;
-
     margin: auto;
     background: linear-gradient(
       200.44deg,
@@ -182,7 +196,6 @@ const Container = styled.div`
 
   button[type='button'] {
     height: 3.6rem;
-    width: 7.5rem;
     justify-self: start;
     background-color: #3be0bf;
     transition: background-color 0.2s;
@@ -199,9 +212,9 @@ const Container = styled.div`
     }
 
     &.google-btn {
-      width: 100%;
       background-color: rgba(255, 255, 255, 0.15);
       color: var(--color-white);
+      width: 100%;
 
       &:hover {
         background-color: rgba(255, 255, 255, 0.25);
@@ -209,7 +222,7 @@ const Container = styled.div`
     }
   }
 
-  .signup-link {
+  .login-link {
     font-size: 1.4rem;
     color: rgba(255, 255, 255, 0.7);
 
@@ -220,4 +233,4 @@ const Container = styled.div`
   }
 `;
 
-export default LoginPage;
+export default SignupPage;

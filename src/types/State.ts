@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import { Game } from './Game';
 
 interface SetBookmarksAction {
@@ -25,8 +26,14 @@ interface SetIsUserInfoOpenAction {
   payload: boolean;
 }
 
-interface LoginAction {
-  type: 'login';
+interface SetUserAction {
+  type: 'set_user';
+  payload: User | null;
+}
+
+interface SetBookmarksAllAction {
+  type: 'set_bookmarks_all';
+  payload: Game[];
 }
 
 export type Action =
@@ -35,21 +42,26 @@ export type Action =
   | SetHasNotification
   | SetAddedGameNameAction
   | SetIsUserInfoOpenAction
-  | LoginAction;
+  | SetUserAction
+  | SetBookmarksAllAction;
 
 export interface GamesContextState {
   bookmarks: Game[];
   addedGameName: string;
   hasNotification: boolean;
   isUserInfoOpen: boolean;
-  isLoggedIn: boolean;
+  user: User | null;
+  isAuthLoading: boolean;
 }
 
 export interface GamesContextModifier {
-  handleAddBookmark: (game: Game) => void;
-  handleRemoveBookmark: (gameId: Game['id']) => void;
+  handleAddBookmark: (game: Game) => Promise<void>;
+  handleRemoveBookmark: (gameId: Game['id']) => Promise<void>;
   handleUserInfoOpen: (isOpen: boolean) => void;
-  handleLogin: () => void;
+  handleLoginWithEmail: (email: string, password: string) => Promise<void>;
+  handleLoginWithGoogle: () => Promise<void>;
+  handleSignupWithEmail: (email: string, password: string) => Promise<void>;
+  handleLogout: () => Promise<void>;
 }
 
 export type GamesProviderContext = GamesContextState & GamesContextModifier;
