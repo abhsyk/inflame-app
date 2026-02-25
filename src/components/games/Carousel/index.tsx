@@ -35,14 +35,17 @@ const Carousel: FC<Props> = ({ games }) => {
   const timerRef = useRef<NodeJS.Timeout>();
   const isDragging = useRef(false);
 
+  const len = slides.length;
+  const prevIndex = ((index - 1) % len + len) % len;
+  const nextIndex = (index + 1) % len;
+
   const goTo = useCallback(
     (next: number, dir?: number) => {
-      const len = slides.length;
       const clampedNext = ((next % len) + len) % len;
       setDirection(dir ?? (clampedNext > index ? 1 : -1));
       setIndex(clampedNext);
     },
-    [slides.length, index]
+    [len, index]
   );
 
   const resetTimer = useCallback(() => {
@@ -83,7 +86,6 @@ const Carousel: FC<Props> = ({ games }) => {
         goTo(index - 1, -1);
       }
       resetTimer();
-      // 次のtickでリセット（clickイベントより後に実行される）
       setTimeout(() => {
         isDragging.current = false;
       }, 0);
@@ -95,35 +97,56 @@ const Carousel: FC<Props> = ({ games }) => {
 
   return (
     <StyledCarousel>
-      <div className="carousel__track">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={slides[index].id}
-            className="carousel__slide"
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.1}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-          >
-            <Link
-              to={`/game/${slides[index].slug}`}
-              draggable={false}
-              onClick={(e) => { if (isDragging.current) e.preventDefault(); }}
+      {/* 前スライド — 120rem枠の左外 */}
+      <div className="carousel__side carousel__side--prev">
+        <img
+          src={smallImage(slides[prevIndex].background_image, 640)}
+          alt={slides[prevIndex].name}
+          draggable={false}
+        />
+      </div>
+
+      {/* 次スライド — 120rem枠の右外 */}
+      <div className="carousel__side carousel__side--next">
+        <img
+          src={smallImage(slides[nextIndex].background_image, 640)}
+          alt={slides[nextIndex].name}
+          draggable={false}
+        />
+      </div>
+
+      <div className="carousel__viewport">
+        {/* メインスライド */}
+        <div className="carousel__track">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={slides[index].id}
+              className="carousel__slide"
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.1}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
             >
-              <img
-                src={smallImage(slides[index].background_image, 1280)}
-                alt={slides[index].name}
+              <Link
+                to={`/game/${slides[index].slug}`}
                 draggable={false}
-              />
-            </Link>
-          </motion.div>
-        </AnimatePresence>
+                onClick={(e) => { if (isDragging.current) e.preventDefault(); }}
+              >
+                <img
+                  src={smallImage(slides[index].background_image, 1280)}
+                  alt={slides[index].name}
+                  draggable={false}
+                />
+              </Link>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       <p className="carousel__title">{slides[index].name}</p>
@@ -147,17 +170,12 @@ const StyledCarousel = styled.section`
   margin: 3rem auto 0;
   position: relative;
 
-  .carousel__track {
+  .carousel__viewport {
+    position: relative;
     width: 100%;
     height: 48rem;
-    border-radius: 1rem;
-    overflow: hidden;
-    position: relative;
-    cursor: grab;
-
-    &:active {
-      cursor: grabbing;
-    }
+    display: flex;
+    align-items: center;
 
     @media (max-width: 800px) {
       height: 40rem;
@@ -167,6 +185,49 @@ const StyledCarousel = styled.section`
     }
     @media (max-width: 480px) {
       height: 25rem;
+    }
+  }
+
+  /* 左右のサイドスライド — 120rem枠の外に配置 */
+  .carousel__side {
+    position: absolute;
+    top: 5%;
+    width: 32rem;
+    height: 90%;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &--prev {
+      right: calc(100% + -1rem);
+    }
+
+    &--next {
+      left: calc(100% + -1rem);
+    }
+  }
+
+  /* メインのトラック — viewportの100%幅を使う */
+  .carousel__track {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: grab;
+    z-index: 2;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    &:active {
+      cursor: grabbing;
     }
   }
 
@@ -199,6 +260,7 @@ const StyledCarousel = styled.section`
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
     pointer-events: none;
     max-width: 60%;
+    z-index: 3;
   }
 
   .dots {
