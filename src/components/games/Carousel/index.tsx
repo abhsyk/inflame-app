@@ -11,6 +11,8 @@ const SLIDE_COUNT = 5;
 const AUTO_PLAY_MS = 6000;
 const DRAG_THRESHOLD = 50;
 
+const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
+
 const variants = {
   enter: (dir: number) => ({
     x: dir > 0 ? '100%' : '-100%',
@@ -19,12 +21,29 @@ const variants = {
   center: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
+    transition: { duration: 0.45, ease: EASE },
   },
   exit: (dir: number) => ({
     x: dir > 0 ? '-100%' : '100%',
     opacity: 0,
-    transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
+    transition: { duration: 0.35, ease: EASE },
+  }),
+};
+
+const sideVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? '60%' : '-60%',
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.45, ease: EASE },
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? '-60%' : '60%',
+    opacity: 0,
+    transition: { duration: 0.35, ease: EASE },
   }),
 };
 
@@ -99,20 +118,38 @@ const Carousel: FC<Props> = ({ games }) => {
     <StyledCarousel>
       {/* 前スライド — 120rem枠の左外 */}
       <div className="carousel__side carousel__side--prev">
-        <img
-          src={smallImage(slides[prevIndex].background_image, 640)}
-          alt={slides[prevIndex].name}
-          draggable={false}
-        />
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={prevIndex}
+            src={smallImage(slides[prevIndex].background_image, 640)}
+            alt={slides[prevIndex].name}
+            draggable={false}
+            custom={direction}
+            variants={sideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </AnimatePresence>
       </div>
 
       {/* 次スライド — 120rem枠の右外 */}
       <div className="carousel__side carousel__side--next">
-        <img
-          src={smallImage(slides[nextIndex].background_image, 640)}
-          alt={slides[nextIndex].name}
-          draggable={false}
-        />
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={nextIndex}
+            src={smallImage(slides[nextIndex].background_image, 640)}
+            alt={slides[nextIndex].name}
+            draggable={false}
+            custom={direction}
+            variants={sideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </AnimatePresence>
       </div>
 
       <div className="carousel__viewport">
@@ -198,14 +235,7 @@ const StyledCarousel = styled.section`
     overflow: hidden;
     opacity: 0.35;
     pointer-events: none;
-    transition: opacity 0.3s ease;
     z-index: 1;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
 
     &--prev {
       right: calc(100% + -1rem);
