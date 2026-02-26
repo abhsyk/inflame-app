@@ -71,7 +71,8 @@ const useGames = (categoryPath?: CategoryPath, filters?: CategoryFilters) => {
 
   const handleGetGamesByCategory = useCallback(async (): Promise<void> => {
     if (path === 'search') return;
-    const key = `games:${path}:${filterOrdering || ''}:${filterGenres || ''}:${filterPlatforms || ''}`;
+    const totalPages = initialPageRef.current;
+    const key = `games:${path}:${filterOrdering || ''}:${filterGenres || ''}:${filterPlatforms || ''}:${totalPages}`;
     cacheKeyRef.current = key;
     const cached = getSessionCache(key);
     if (cached) {
@@ -80,7 +81,6 @@ const useGames = (categoryPath?: CategoryPath, filters?: CategoryFilters) => {
       setCount(cached.count);
       return;
     }
-    const totalPages = initialPageRef.current;
     for (let p = 1; p <= totalPages; p++) {
       const params = getParams(path, filterOrdering, filterGenres, filterPlatforms, p);
       await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`, p > 1);
@@ -88,8 +88,10 @@ const useGames = (categoryPath?: CategoryPath, filters?: CategoryFilters) => {
   }, [path, fetcher, filterOrdering, filterGenres, filterPlatforms]);
 
   const handleNextPage = useCallback(async () => {
+    initialPageRef.current += 1;
+    cacheKeyRef.current = `games:${path}:${filterOrdering || ''}:${filterGenres || ''}:${filterPlatforms || ''}:${initialPageRef.current}`;
     await fetcher<Game[]>(nextPage!, true);
-  }, [nextPage, fetcher]);
+  }, [nextPage, fetcher, path, filterOrdering, filterGenres, filterPlatforms]);
 
   const handleSearchGames = useCallback(
     async (searchWord: string, ordering = '-rating', genres?: string, platforms?: string, totalPages = 1) => {
