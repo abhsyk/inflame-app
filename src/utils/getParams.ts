@@ -1,4 +1,4 @@
-import { API_KEY, currentDate, lastYear, nextYear } from '../api';
+import { API_KEY, currentDate, lastThreeMonths, lastYear, nextYear } from '../api';
 import { CategoryPath } from '../types';
 
 const params = { page_size: String(9), key: API_KEY };
@@ -9,8 +9,8 @@ const popularGamesParams = {
 };
 
 const newGamesParams = {
-  dates: `${currentDate},${nextYear}`,
-  ordering: 'released',
+  dates: `${lastThreeMonths},${currentDate}`,
+  ordering: '-released',
   ...params,
 };
 

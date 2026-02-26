@@ -22,6 +22,13 @@ export const currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
 export const lastYear = `${currentYear - 1}-${currentMonth}-${currentDay}`;
 export const nextYear = `${currentYear + 1}-${currentMonth}-${currentDay}`;
 
+const threeMonthsAgoDate = new Date();
+threeMonthsAgoDate.setMonth(threeMonthsAgoDate.getMonth() - 3);
+const tmaYear = threeMonthsAgoDate.getFullYear();
+const tmaMonth = String(threeMonthsAgoDate.getMonth() + 1).padStart(2, '0');
+const tmaDay = String(threeMonthsAgoDate.getDate()).padStart(2, '0');
+export const lastThreeMonths = `${tmaYear}-${tmaMonth}-${tmaDay}`;
+
 export const gameDetailURL = (slug: string) => `${BASE_URL}/${slug}`;
 
 export const gameScreenshotURL = (slug: string) =>
