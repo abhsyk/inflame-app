@@ -1,11 +1,16 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import useGames from './useGames';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const useSearch = () => {
   const { handleSearchGames } = useGames();
-  const [searchWord, setSearchWord] = useState<string>('');
+  const [searchParams] = useSearchParams();
+  const [searchWord, setSearchWord] = useState<string>(searchParams.get('q') ?? '');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSearchWord(searchParams.get('q') ?? '');
+  }, [searchParams]);
 
   const searchWordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchWord(e.target.value);
@@ -14,7 +19,7 @@ const useSearch = () => {
   const clearSearchWord = useCallback(() => setSearchWord(''), []);
 
   const searchGames = useCallback(() => {
-    navigate(`/search?key=${searchWord}`);
+    navigate(`/search?q=${searchWord}`);
     handleSearchGames(searchWord);
   }, [searchWord, navigate, handleSearchGames]);
 

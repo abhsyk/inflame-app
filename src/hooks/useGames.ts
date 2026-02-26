@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ApiResponse, CategoryPath, Game } from '../types';
 import { BASE_URL } from '../api';
 import getParams, { getSearchParams } from '../utils/getParams';
 
 const useGames = (categoryPath?: CategoryPath) => {
-  const navigate = useNavigate();
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isNextLoading, setIsNextLoading] = useState<boolean>(false);
@@ -53,14 +52,13 @@ const useGames = (categoryPath?: CategoryPath) => {
   }, [nextPage, fetcher]);
 
   const handleSearchGames = useCallback(
-    async (searchWord: string) => {
+    async (searchWord: string, ordering = '-rating') => {
       if (searchWord) {
-        navigate(`/search?key=${searchWord}`);
-        const params = getSearchParams(searchWord);
+        const params = getSearchParams(searchWord, ordering);
         await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`);
       }
     },
-    [fetcher, navigate]
+    [fetcher]
   );
 
   useEffect(() => {

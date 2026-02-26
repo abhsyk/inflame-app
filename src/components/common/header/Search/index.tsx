@@ -2,7 +2,6 @@ import { FC, FormEvent, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import useSearch from '../../../../hooks/useSearch';
 import { SearchIcon, CrossIcon } from '../../../ui';
-import useGames from '../../../../hooks/useGames';
 
 type Props = {
   isSearchOpen: boolean;
@@ -10,17 +9,16 @@ type Props = {
 };
 
 const Search: FC<Props> = ({ isSearchOpen, onSearchOpen }) => {
-  const { searchWord, searchWordChange, clearSearchWord } = useSearch();
-  const { handleSearchGames } = useGames();
+  const { searchWord, searchWordChange, clearSearchWord, searchGames } = useSearch();
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
       if (searchWord.trim().length) {
-        handleSearchGames(searchWord);
+        searchGames();
       }
     },
-    [searchWord, handleSearchGames]
+    [searchWord, searchGames]
   );
 
   useEffect(() => {
