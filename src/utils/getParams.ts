@@ -1,19 +1,22 @@
-import { API_KEY, currentDate, lastThreeMonths, lastYear, nextYear } from '../api';
+import { API_KEY, currentDate, lastThirtyDays, lastThreeMonths, lastYear, nextYear } from '../api';
 import { CategoryPath } from '../types';
 
 const params = { page_size: String(9), key: API_KEY };
+const trendingGamesParams = {
+  dates: `${lastThirtyDays},${currentDate}`,
+  ordering: '-added',
+  ...params,
+};
 const popularGamesParams = {
   dates: `${lastYear},${currentDate}`,
   ordering: '-rating',
   ...params,
 };
-
 const newGamesParams = {
   dates: `${lastThreeMonths},${currentDate}`,
   ordering: '-released',
   ...params,
 };
-
 const upcomingGamesParams = {
   dates: `${currentDate},${nextYear}`,
   ordering: '-added',
@@ -43,6 +46,9 @@ const getParams = (
 ) => {
   let base: Record<string, string> | undefined;
   switch (categoryPath) {
+    case 'trending-games':
+      base = trendingGamesParams;
+      break;
     case 'popular-games':
       base = popularGamesParams;
       break;

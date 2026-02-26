@@ -40,6 +40,7 @@ export type RatingStarType = 'full' | 'half' | 'empty';
 
 export type CategoryName = 'Popular' | 'New' | 'Upcoming';
 export type CategoryPath =
+  | 'trending-games'
   | 'popular-games'
   | 'new-games'
   | 'upcoming-games'

@@ -29,6 +29,13 @@ const tmaMonth = String(threeMonthsAgoDate.getMonth() + 1).padStart(2, '0');
 const tmaDay = String(threeMonthsAgoDate.getDate()).padStart(2, '0');
 export const lastThreeMonths = `${tmaYear}-${tmaMonth}-${tmaDay}`;
 
+const thirtyDaysAgoDate = new Date();
+thirtyDaysAgoDate.setDate(thirtyDaysAgoDate.getDate() - 30);
+const tdaYear = thirtyDaysAgoDate.getFullYear();
+const tdaMonth = String(thirtyDaysAgoDate.getMonth() + 1).padStart(2, '0');
+const tdaDay = String(thirtyDaysAgoDate.getDate()).padStart(2, '0');
+export const lastThirtyDays = `${tdaYear}-${tdaMonth}-${tdaDay}`;
+
 export const gameDetailURL = (slug: string) => `${BASE_URL}/${slug}`;
 
 export const gameScreenshotURL = (slug: string) =>

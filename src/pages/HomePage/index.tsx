@@ -10,15 +10,16 @@ const HomePage: FC = () => {
   const [currentTaglinePath, setCurrentTaglinePath] =
     useState<CategoryPath>('popular-games');
   const { games, isLoading } = useGames(currentTaglinePath);
+  const { games: trendingGames, isLoading: isTrendingLoading } = useGames('trending-games');
   const [carouselGames, setCarouselGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    if (currentTaglinePath === 'popular-games' && games.length > 0) {
-      setCarouselGames(games);
+    if (trendingGames.length > 0) {
+      setCarouselGames(trendingGames);
     }
-  }, [games, currentTaglinePath]);
+  }, [trendingGames]);
 
-  if (carouselGames.length === 0 && isLoading) {
+  if (carouselGames.length === 0 && isTrendingLoading) {
     return (
       <Layout>
         <LoadingDots />
