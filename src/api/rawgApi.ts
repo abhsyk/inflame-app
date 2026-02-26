@@ -1,5 +1,6 @@
 export const API_KEY = import.meta.env.VITE_RAWG_API_KEY;
 export const BASE_URL = `https://api.rawg.io/api/games`;
+export const GENRES_URL = `https://api.rawg.io/api/genres`;
 
 const getCurrentMonth = (): string => {
   const month = new Date().getMonth() + 1;

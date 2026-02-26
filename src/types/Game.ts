@@ -25,7 +25,7 @@ export type Game = {
 type Platform = { id: number; name: string };
 export type Publisher = { id: number; name: string };
 type Rating = { id: number; title: string };
-type Genre = { id: number; name: string };
+export type Genre = { id: number; name: string; slug: string };
 export type RatingStarType = 'full' | 'half' | 'empty';
 
 export type CategoryName = 'Popular' | 'New' | 'Upcoming';

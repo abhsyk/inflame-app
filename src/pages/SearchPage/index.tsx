@@ -6,6 +6,7 @@ import { Layout } from '../../components/common';
 import { GamesList } from '../../components/games';
 import { LoadingDots } from '../../components/ui';
 import useGames from '../../hooks/useGames';
+import useGenres from '../../hooks/useGenres';
 
 const ORDERING_OPTIONS = [
   { value: '-rating', label: 'Top Rated' },
@@ -27,15 +28,21 @@ const SearchPage: FC = () => {
     count,
     nextPage,
   } = useGames('search');
+  const { genres } = useGenres();
 
   useEffect(() => {
     if (params.q) {
-      handleSearchGames(params.q, params.ordering);
+      handleSearchGames(params.q, params.ordering, params.genres);
     }
-  }, [params.q, params.ordering, handleSearchGames]);
+  }, [params.q, params.ordering, params.genres, handleSearchGames]);
 
   const handleOrderingChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSearchParams({ q: params.q, ordering: e.target.value });
+    setSearchParams({ q: params.q, ordering: e.target.value, ...(params.genres ? { genres: params.genres } : {}) });
+  };
+
+  const handleGenreChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    setSearchParams({ q: params.q, ordering: params.ordering || '-rating', ...(val ? { genres: val } : {}) });
   };
 
   if (isLoading) {
@@ -49,10 +56,21 @@ const SearchPage: FC = () => {
   return (
     <Layout>
       <Container className="categories">
-        {!!games && games.length > 0 ? (
-          <>
-            <Toolbar>
-              <p>Results: {count}</p>
+        {params.q && (
+          <Toolbar>
+            <p>Results: {count}</p>
+            <Filters>
+              <Select
+                value={params.genres || ''}
+                onChange={handleGenreChange}
+              >
+                <option value="">All Genres</option>
+                {genres.map((g) => (
+                  <option key={g.id} value={g.slug}>
+                    {g.name}
+                  </option>
+                ))}
+              </Select>
               <Select
                 value={params.ordering || '-rating'}
                 onChange={handleOrderingChange}
@@ -63,7 +81,11 @@ const SearchPage: FC = () => {
                   </option>
                 ))}
               </Select>
-            </Toolbar>
+            </Filters>
+          </Toolbar>
+        )}
+        {games.length > 0 ? (
+          <>
             <GamesList games={games} />
             <div className="btn-wrapper">
               {isNextLoading ? (
@@ -73,6 +95,19 @@ const SearchPage: FC = () => {
               ) : null}
             </div>
           </>
+        ) : params.q ? (
+          <EmptyMessage>
+            <span>No results found for "{params.q}"</span>
+            {params.genres && (
+              <ClearButton
+                onClick={() =>
+                  setSearchParams({ q: params.q, ordering: params.ordering || '-rating' })
+                }
+              >
+                Clear genre filter
+              </ClearButton>
+            )}
+          </EmptyMessage>
         ) : null}
       </Container>
     </Layout>
@@ -116,6 +151,37 @@ const Container = styled(Categories)`
     color: var(--color-white);
     font-size: 1.4rem;
   }
+`;
+
+const EmptyMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 6rem 0;
+  color: var(--color-white);
+  font-size: 1.6rem;
+  opacity: 0.7;
+`;
+
+const ClearButton = styled.button`
+  font-family: var(--font-secondary);
+  font-size: 1.3rem;
+  color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.6rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+`;
+
+const Filters = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 const Toolbar = styled.div`

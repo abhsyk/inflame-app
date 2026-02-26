@@ -20,10 +20,15 @@ const upcomingGamesParams = {
   ...params,
 };
 
-export const getSearchParams = (searchWord: string, ordering = '-rating') => {
+export const getSearchParams = (
+  searchWord: string,
+  ordering = '-rating',
+  genres?: string
+) => {
   return {
     search: searchWord,
     ordering,
+    ...(genres ? { genres } : {}),
     ...params,
   };
 };
