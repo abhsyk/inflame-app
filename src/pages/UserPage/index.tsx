@@ -19,7 +19,7 @@ const UserPage: FC = () => {
         {!!bookmarks && bookmarks.length ? (
           <GamesList games={bookmarks} />
         ) : (
-          <Message>There are no bookmarks😢</Message>
+          <Message>No bookmarks yet.</Message>
         )}
       </Categories>
     </Layout>

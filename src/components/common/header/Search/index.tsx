@@ -42,7 +42,7 @@ const Search: FC<Props> = ({ isSearchOpen, onSearchOpen }) => {
         <input
           className="search__input"
           type="text"
-          placeholder="Search"
+          placeholder="Search in English (e.g. Zelda)"
           value={searchWord}
           onChange={searchWordChange}
         />

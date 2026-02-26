@@ -52,6 +52,14 @@ const Container = styled.div`
       font-family: var(--font-secondary);
       font-size: 4rem;
       font-weight: 400;
+
+      @media (max-width: 800px) {
+        font-size: 3rem;
+      }
+
+      @media (max-width: 600px) {
+        font-size: 2.4rem;
+      }
     }
 
     &__second-row {
@@ -59,12 +67,23 @@ const Container = styled.div`
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
+      flex-wrap: wrap;
+
+      @media (max-width: 600px) {
+        justify-content: flex-start;
+      }
     }
 
     &__third-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      @media (max-width: 600px) {
+        justify-content: flex-start;
+      }
     }
 
     &__release {

@@ -28,11 +28,16 @@ const Screenshots: FC<Props> = ({ screenshots }) => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 
   img {
     width: 100%;
-    height: 28.5rem;
+    aspect-ratio: 16 / 9;
+    height: auto;
     object-fit: cover;
     filter: grayscale(0.7);
     border: 0.1rem solid transparent;

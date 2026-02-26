@@ -12,7 +12,7 @@ const Notification: FC<Props> = ({ hasNotification, addedGameName }) => {
     <Container className={hasNotification ? 'active' : ''}>
       <BookmarkIcon />
       <p>
-        <strong>{addedGameName}</strong> has been added to your bookmark!
+        <strong>{addedGameName}</strong> has been added to your bookmarks.
       </p>
     </Container>
   );

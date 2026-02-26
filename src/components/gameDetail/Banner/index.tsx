@@ -23,19 +23,19 @@ const Banner: FC<Props> = ({ image, name }) => {
 
 const Container = styled.div`
   width: 100%;
-  max-height: 48rem;
   margin-top: 1rem;
   overflow: hidden;
-  /* border: 0.1rem solid rgba(255, 255, 255, 0.3); */
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.5);
+  aspect-ratio: 16 / 9;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 
     &.not-found {
-      margin-top: -30%;
+     // margin-top: -20%;
     }
   }
 `;

@@ -37,8 +37,8 @@ const Container = styled.div`
     z-index: 100;
 
     &__content {
-      /* width: calc(100% - 3rem); */
-      max-width: 120rem;
+      width: calc(100% - 5rem);
+      // max-width: 120rem;
       height: 6.5rem;
       margin: 0 auto;
       display: flex;
