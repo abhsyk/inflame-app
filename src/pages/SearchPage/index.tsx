@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Categories } from '../../styles/GlobalStyles';
 import { Layout } from '../../components/common';
-import { GamesList } from '../../components/games';
+import { GamesList, GamesSkeletonList } from '../../components/games';
 import { LoadingDots } from '../../components/ui';
 import useGames from '../../hooks/useGames';
 import useGenres from '../../hooks/useGenres';
@@ -69,14 +69,6 @@ const SearchPage: FC = () => {
     setSearchParams(next);
   };
 
-  if (isLoading) {
-    return (
-      <Layout>
-        <LoadingDots />
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
       <Container className="categories">
@@ -119,7 +111,9 @@ const SearchPage: FC = () => {
             </Filters>
           </Toolbar>
         )}
-        {games.length > 0 ? (
+        {isLoading ? (
+          <GamesSkeletonList count={12} />
+        ) : games.length > 0 ? (
           <>
             <GamesList games={games} />
             <div className="btn-wrapper">

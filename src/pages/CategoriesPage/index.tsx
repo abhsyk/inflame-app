@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { Layout } from '../../components/common';
-import { GamesList } from '../../components/games';
+import { GamesList, GamesSkeletonList } from '../../components/games';
 import styled from 'styled-components';
 import useGames from '../../hooks/useGames';
 import useGenres from '../../hooks/useGenres';
@@ -70,52 +70,50 @@ const CategoriesPage: FC = () => {
 
   return (
     <Layout>
-      {isLoading ? (
-        <LoadingDots />
-      ) : (
-        <Container className="categories">
-          <Toolbar>
-            <p>Results: {count}</p>
-            <Filters>
-              <Select value={genres || ''} onChange={handleGenreChange}>
-                <option value="">All Genres</option>
-                {genreList.map((g) => (
-                  <option key={g.id} value={g.slug}>
-                    {g.name}
-                  </option>
-                ))}
-              </Select>
-              <Select value={platforms || ''} onChange={handlePlatformChange}>
-                <option value="">All Platforms</option>
-                {platformList.map((p) => (
-                  <option key={p.id} value={String(p.id)}>
-                    {p.name}
-                  </option>
-                ))}
-              </Select>
-              <Select value={effectiveOrdering} onChange={handleOrderingChange}>
-                {ORDERING_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </Select>
-            </Filters>
-          </Toolbar>
-          {!!games && games.length > 0 ? (
-            <>
-              <GamesList games={games} />
-              <div className="btn-wrapper">
-                {isNextLoading ? (
-                  <LoadingDots center />
-                ) : nextPage ? (
-                  <button onClick={() => { handleNextPage(); setSearchParams(buildParams({ page: String(page + 1) }), { replace: true }); }}>View more</button>
-                ) : null}
-              </div>
-            </>
-          ) : null}
-        </Container>
-      )}
+      <Container className="categories">
+        <Toolbar>
+          <p>Results: {count}</p>
+          <Filters>
+            <Select value={genres || ''} onChange={handleGenreChange}>
+              <option value="">All Genres</option>
+              {genreList.map((g) => (
+                <option key={g.id} value={g.slug}>
+                  {g.name}
+                </option>
+              ))}
+            </Select>
+            <Select value={platforms || ''} onChange={handlePlatformChange}>
+              <option value="">All Platforms</option>
+              {platformList.map((p) => (
+                <option key={p.id} value={String(p.id)}>
+                  {p.name}
+                </option>
+              ))}
+            </Select>
+            <Select value={effectiveOrdering} onChange={handleOrderingChange}>
+              {ORDERING_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </Select>
+          </Filters>
+        </Toolbar>
+        {isLoading ? (
+          <GamesSkeletonList count={12} />
+        ) : games.length > 0 ? (
+          <>
+            <GamesList games={games} />
+            <div className="btn-wrapper">
+              {isNextLoading ? (
+                <LoadingDots center />
+              ) : nextPage ? (
+                <button onClick={() => { handleNextPage(); setSearchParams(buildParams({ page: String(page + 1) }), { replace: true }); }}>View more</button>
+              ) : null}
+            </div>
+          </>
+        ) : null}
+      </Container>
     </Layout>
   );
 };
