@@ -13,9 +13,11 @@ import {
   Screenshots,
   DetailHeadings,
   SeriesCarousel,
+  Trailers,
 } from '../../components/gameDetail';
 import useGamesContext from '../../hooks/useGamesContext';
 import useGameSeries from '../../hooks/useGameSeries';
+import useGameMovies from '../../hooks/useGameMovies';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
@@ -23,6 +25,7 @@ const DetailPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useGamesContext();
   const { series } = useGameSeries(game?.slug);
+  const { movies } = useGameMovies(game?.slug);
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
@@ -59,6 +62,7 @@ const DetailPage: FC = () => {
               />
             ) : null}
             <Screenshots screenshots={game?.screenshots} />
+            <Trailers movies={movies} />
             {game?.website ? (
               <div className="link">
                 <LinkIcon />
