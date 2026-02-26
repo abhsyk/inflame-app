@@ -1,27 +1,19 @@
-import { FC, useCallback, useState, MouseEvent } from "react";
+import { FC, useCallback, MouseEvent } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import {
   ChevronDownIcon,
   BookmarkIcon,
   LogOutIcon,
-  CrossIcon,
 } from "../../../ui";
 import avator from "../../../../assets/images/icon-placeholder.png";
 import styled from "styled-components";
 import useGamesContext from "../../../../hooks/useGamesContext";
-import useGames from "../../../../hooks/useGames";
 
 type Props = { isLoggedIn: boolean };
 
 const UserInfo: FC<Props> = ({ isLoggedIn }) => {
-  const [message, setMessage] = useState(
-    "By logging in, you can access the bookmark feature😃",
-  );
-
   const { handleLogout, isUserInfoOpen, handleUserInfoOpen, bookmarks, user } =
     useGamesContext();
-  const { isLoading } = useGames();
 
   const handleClickInside = useCallback(
     (e: MouseEvent<HTMLDivElement>): void => {
@@ -65,19 +57,6 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
           <Link to="/login" className="login">
             Log In
           </Link>
-          {!isLoggedIn && !isLoading && message ? (
-            <motion.div
-              className="message-container"
-              onClick={() => setMessage("")}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 2.8 } }}
-            >
-              <p>{message}</p>
-              <div>
-                <CrossIcon />
-              </div>
-            </motion.div>
-          ) : null}
         </StyledLogin>
       )}
     </>
@@ -183,34 +162,6 @@ const StyledLogin = styled.div`
     }
   }
 
-  .message-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    position: absolute;
-    width: 32rem;
-    padding: 1rem 1.5rem;
-    font-size: 1.5rem;
-    background-color: #e7fef0;
-    right: 0;
-    top: 150%;
-    z-index: 20;
-    border-radius: 1rem;
-    cursor: pointer;
-
-    div {
-      display: flex;
-    }
-
-    svg {
-      border: 0.1rem solid var(--color-body);
-      color: var(--color-body);
-      font-size: 2rem;
-      border-radius: 50%;
-      padding: 0.3rem;
-    }
-  }
 `;
 
 export default UserInfo;
