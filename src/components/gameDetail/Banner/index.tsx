@@ -23,7 +23,7 @@ const Banner: FC<Props> = ({ image, name }) => {
 
 const Container = styled.div`
   width: 100%;
-  max-height: 48rem;
+  max-height: 64rem;
   margin-top: 1rem;
   overflow: hidden;
   /* border: 0.1rem solid rgba(255, 255, 255, 0.3); */
@@ -33,11 +33,16 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+
 
     &.not-found {
-      margin-top: -30%;
+      margin-top: -20%;
     }
   }
+
+  @media (max-width: 800px) {
+    max-height: 50rem;}
 `;
 
 export default Banner;

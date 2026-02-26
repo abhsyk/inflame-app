@@ -30,7 +30,7 @@ const Container = styled.div`
     border: 0.1rem solid #efefef;
     padding: 0.2rem 1rem;
     font-size: 1.2rem;
-    border-radius: 1rem;
+    border-radius: 2rem;
   }
 `;
 

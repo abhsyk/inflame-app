@@ -28,7 +28,7 @@ const Screenshots: FC<Props> = ({ screenshots }) => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
 
   img {
     width: 100%;

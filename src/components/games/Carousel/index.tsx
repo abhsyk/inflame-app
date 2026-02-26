@@ -210,7 +210,7 @@ const StyledCarousel = styled.section`
   .carousel__viewport {
     position: relative;
     width: 100%;
-    height: 48rem;
+    height: 60rem;
     display: flex;
     align-items: center;
 
@@ -276,6 +276,7 @@ const StyledCarousel = styled.section`
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       pointer-events: none;
     }
   }

@@ -93,6 +93,14 @@ const Container = styled.section`
     line-height: 1.8;
     color: #efefef;
     padding: 4rem 6rem;
+
+    p {
+      margin-bottom: 1.6rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
     /* border-left: 0.1rem solid rgba(255, 255, 255, 0.3);
     border-right: 0.1rem solid rgba(255, 255, 255, 0.3); */
     /* text-indent: 1rem; */
