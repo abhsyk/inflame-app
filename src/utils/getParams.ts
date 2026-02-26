@@ -35,17 +35,32 @@ export const getSearchParams = (
   };
 };
 
-const getParams = (categoryPath: CategoryPath) => {
+const getParams = (
+  categoryPath: CategoryPath,
+  ordering?: string,
+  genres?: string,
+  platforms?: string
+) => {
+  let base: Record<string, string> | undefined;
   switch (categoryPath) {
     case 'popular-games':
-      return popularGamesParams;
+      base = popularGamesParams;
+      break;
     case 'new-games':
-      return newGamesParams;
+      base = newGamesParams;
+      break;
     case 'upcoming-games':
-      return upcomingGamesParams;
+      base = upcomingGamesParams;
+      break;
     default:
       return;
   }
+  return {
+    ...base,
+    ...(ordering ? { ordering } : {}),
+    ...(genres ? { genres } : {}),
+    ...(platforms ? { platforms } : {}),
+  };
 };
 
 export default getParams;

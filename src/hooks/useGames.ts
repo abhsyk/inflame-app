@@ -4,7 +4,9 @@ import { ApiResponse, CategoryPath, Game } from '../types';
 import { BASE_URL } from '../api';
 import getParams, { getSearchParams } from '../utils/getParams';
 
-const useGames = (categoryPath?: CategoryPath) => {
+type CategoryFilters = { ordering?: string; genres?: string; platforms?: string };
+
+const useGames = (categoryPath?: CategoryPath, filters?: CategoryFilters) => {
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isNextLoading, setIsNextLoading] = useState<boolean>(false);
@@ -12,6 +14,7 @@ const useGames = (categoryPath?: CategoryPath) => {
   const path: CategoryPath = (categoryPath || categoryId)!;
   const [nextPage, setNextPage] = useState<string>();
   const [count, setCount] = useState<number>(0);
+  const { ordering: filterOrdering, genres: filterGenres, platforms: filterPlatforms } = filters || {};
 
   const fetcher = useCallback(
     async <T>(
@@ -43,9 +46,9 @@ const useGames = (categoryPath?: CategoryPath) => {
 
   const handleGetGamesByCategory = useCallback(async (): Promise<void> => {
     if (path === 'search') return;
-    const params = getParams(path);
+    const params = getParams(path, filterOrdering, filterGenres, filterPlatforms);
     await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`);
-  }, [path, fetcher]);
+  }, [path, fetcher, filterOrdering, filterGenres, filterPlatforms]);
 
   const handleNextPage = useCallback(async () => {
     await fetcher<Game[]>(nextPage!, true);
