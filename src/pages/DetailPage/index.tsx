@@ -12,14 +12,17 @@ import {
   Banner,
   Screenshots,
   DetailHeadings,
+  SeriesCarousel,
 } from '../../components/gameDetail';
 import useGamesContext from '../../hooks/useGamesContext';
+import useGameSeries from '../../hooks/useGameSeries';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useGamesContext();
+  const { series } = useGameSeries(game?.slug);
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
@@ -62,6 +65,7 @@ const DetailPage: FC = () => {
                 <a href={game?.website}> {game?.website} </a>
               </div>
             ) : null}
+            <SeriesCarousel games={series} />
           </motion.div>
           <BackgroundImage image={game?.background_image} />
           {user && game ? <BookmarkBtn game={game} isDetail /> : null}

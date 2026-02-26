@@ -27,5 +27,8 @@ export const gameDetailURL = (slug: string) => `${BASE_URL}/${slug}`;
 export const gameScreenshotURL = (slug: string) =>
   `${BASE_URL}/${slug}/screenshots`;
 
+export const gameSeriesURL = (slug: string) =>
+  `${BASE_URL}/${slug}/game-series`;
+
 export const searchGameURL = (searchWord: string, page: number) =>
   `${BASE_URL}?search=${searchWord}&ordering=-rating&page=${page}&page_size=12`;
