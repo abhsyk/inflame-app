@@ -79,20 +79,32 @@ const Container = styled.section`
   .detail {
     max-width: 120rem;
     margin: 0 auto;
-    padding: 3rem 0;
+    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 600px) {
+      padding: 2rem 1.6rem;
+    }
   }
 
   .description {
     font-family: var(--font-secondary);
-    /* column-count: 2; */
-    /* column-gap: 3rem; */
     background-color: rgba(35, 35, 35, 0.7);
     font-size: 1.6rem;
     line-height: 1.8;
     color: #efefef;
     padding: 4rem 6rem;
+
+    @media (max-width: 800px) {
+      padding: 3rem 2.4rem;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      padding: 2rem 1.6rem;
+      font-size: 1.4rem;
+    }
 
     p {
       margin-bottom: 1.6rem;

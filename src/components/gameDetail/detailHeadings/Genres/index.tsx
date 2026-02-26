@@ -25,6 +25,11 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    flex: none;
+  }
 
   p {
     border: 0.1rem solid #efefef;

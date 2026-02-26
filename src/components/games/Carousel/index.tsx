@@ -244,6 +244,10 @@ const StyledCarousel = styled.section`
     &--next {
       left: calc(100% + -1rem);
     }
+
+    @media (max-width: 1280px) {
+      display: none;
+    }
   }
 
   /* メインのトラック — viewportの100%幅を使う */

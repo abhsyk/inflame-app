@@ -25,6 +25,7 @@ const Container = styled.div`
   display: flex;
   justify-self: end;
   gap: 0.5rem;
+  flex-wrap: wrap;
 
   p {
     font-size: 1.2rem;

@@ -27,6 +27,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 
 const StyledLayout = styled.div`
   width: 100%;
+  overflow-x: hidden;
   background: linear-gradient(
     200.44deg,
     rgba(31, 52, 240, 0.25) 13.57%,

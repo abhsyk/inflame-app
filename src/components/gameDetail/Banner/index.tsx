@@ -23,11 +23,10 @@ const Banner: FC<Props> = ({ image, name }) => {
 
 const Container = styled.div`
   width: 100%;
-  max-height: 64rem;
   margin-top: 1rem;
   overflow: hidden;
-  /* border: 0.1rem solid rgba(255, 255, 255, 0.3); */
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.5);
+  aspect-ratio: 16 / 9;
 
   img {
     width: 100%;
@@ -35,14 +34,10 @@ const Container = styled.div`
     object-fit: cover;
     object-position: center;
 
-
     &.not-found {
-      margin-top: -20%;
+     // margin-top: -20%;
     }
   }
-
-  @media (max-width: 800px) {
-    max-height: 50rem;}
 `;
 
 export default Banner;
