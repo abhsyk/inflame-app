@@ -20,12 +20,13 @@ const Container = styled.footer`
   background-color: #101010;
 
   .footer__content {
-    max-width: 120rem;
+    width: calc(100% - 5rem);
+    // max-width: 120rem;
     height: 6rem;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
 
     @media (max-width: 1200px) {
       margin: 0 2rem;
