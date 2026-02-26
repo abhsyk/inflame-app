@@ -16,9 +16,13 @@ const GameItem: FC<Props> = ({ game }) => {
   const backgroundImage = smallImage(game.background_image, 640);
   const dotDate: string = released ? released.replace(/-0|-/gi, '.') : released;
 
+  const handleClick = () => {
+    sessionStorage.setItem('scroll-target-game', slug);
+  };
+
   return (
-    <StyledGame variants={cardAnim} initial="hidden" animate="show" exit="exit">
-      <Link to={`/game/${slug}`}>
+    <StyledGame variants={cardAnim} initial="hidden" animate="show" exit="exit" data-game-slug={slug}>
+      <Link to={`/game/${slug}`} onClick={handleClick}>
         <div className="games__image__wrapper">
           <img src={backgroundImage ?? NotFoundImage} alt={name} />
         </div>

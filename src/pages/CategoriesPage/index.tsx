@@ -31,9 +31,10 @@ const CategoriesPage: FC = () => {
   const ordering = searchParams.get('ordering') || undefined;
   const genres = searchParams.get('genres') || undefined;
   const platforms = searchParams.get('platforms') || undefined;
+  const page = Number(searchParams.get('page')) || 1;
 
   const { games, isLoading, handleNextPage, isNextLoading, nextPage, count } =
-    useGames(undefined, { ordering, genres, platforms });
+    useGames(undefined, { ordering, genres, platforms, page });
   const { genres: genreList } = useGenres();
   const { platforms: platformList } = usePlatforms();
 
@@ -108,7 +109,7 @@ const CategoriesPage: FC = () => {
                 {isNextLoading ? (
                   <LoadingDots center />
                 ) : nextPage ? (
-                  <button onClick={() => handleNextPage()}>View more</button>
+                  <button onClick={() => { handleNextPage(); setSearchParams(buildParams({ page: String(page + 1) }), { replace: true }); }}>View more</button>
                 ) : null}
               </div>
             </>

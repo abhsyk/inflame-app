@@ -27,13 +27,15 @@ export const getSearchParams = (
   searchWord: string,
   ordering = '-rating',
   genres?: string,
-  platforms?: string
+  platforms?: string,
+  page?: number
 ) => {
   return {
     search: searchWord,
     ordering,
     ...(genres ? { genres } : {}),
     ...(platforms ? { platforms } : {}),
+    ...(page && page > 1 ? { page: String(page) } : {}),
     ...params,
   };
 };
@@ -42,7 +44,8 @@ const getParams = (
   categoryPath: CategoryPath,
   ordering?: string,
   genres?: string,
-  platforms?: string
+  platforms?: string,
+  page?: number
 ) => {
   let base: Record<string, string> | undefined;
   switch (categoryPath) {
@@ -66,6 +69,7 @@ const getParams = (
     ...(ordering ? { ordering } : {}),
     ...(genres ? { genres } : {}),
     ...(platforms ? { platforms } : {}),
+    ...(page && page > 1 ? { page: String(page) } : {}),
   };
 };
 

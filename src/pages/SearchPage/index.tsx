@@ -35,8 +35,10 @@ const SearchPage: FC = () => {
 
   useEffect(() => {
     if (params.q) {
-      handleSearchGames(params.q, params.ordering, params.genres, params.platforms);
+      const totalPages = Number(params.page) || 1;
+      handleSearchGames(params.q, params.ordering, params.genres, params.platforms, totalPages);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.q, params.ordering, params.genres, params.platforms, handleSearchGames]);
 
   const buildParams = (overrides: Record<string, string>) => ({
@@ -124,7 +126,7 @@ const SearchPage: FC = () => {
               {isNextLoading ? (
                 <LoadingDots center />
               ) : nextPage ? (
-                <button onClick={() => handleNextPage()}>View more</button>
+                <button onClick={() => { const cur = Number(params.page) || 1; handleNextPage(); setSearchParams(buildParams({ page: String(cur + 1) }), { replace: true }); }}>View more</button>
               ) : null}
             </div>
           </>
