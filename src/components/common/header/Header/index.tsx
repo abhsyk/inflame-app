@@ -41,12 +41,16 @@ const Container = styled.div`
       // max-width: 120rem;
       height: 6.5rem;
       margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
 
+      > *:last-child {
+        justify-self: end;
+      }
+
       @media (max-width: 580px) {
-        justify-content: unset;
+        grid-template-columns: 1fr auto;
       }
     }
   }

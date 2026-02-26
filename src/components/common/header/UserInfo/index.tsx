@@ -36,7 +36,7 @@ const UserInfo: FC<Props> = ({ isLoggedIn }) => {
             }}
           />
           <p className="username">
-            {user?.displayName ?? user?.email ?? "User"}
+            {user?.displayName ?? user?.email?.split("@")[0] ?? "User"}
           </p>
           <ChevronDownIcon className="chevron-icon" />
           <ul className={`user-info__list ${isUserInfoOpen ? "active" : ""}`}>
