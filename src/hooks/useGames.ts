@@ -52,9 +52,9 @@ const useGames = (categoryPath?: CategoryPath) => {
   }, [nextPage, fetcher]);
 
   const handleSearchGames = useCallback(
-    async (searchWord: string, ordering = '-rating', genres?: string) => {
+    async (searchWord: string, ordering = '-rating', genres?: string, platforms?: string) => {
       if (searchWord) {
-        const params = getSearchParams(searchWord, ordering, genres);
+        const params = getSearchParams(searchWord, ordering, genres, platforms);
         await fetcher<Game[]>(`${BASE_URL}?${new URLSearchParams(params)}`);
       }
     },

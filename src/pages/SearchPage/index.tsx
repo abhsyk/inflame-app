@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Categories } from '../../styles/GlobalStyles';
@@ -7,6 +7,7 @@ import { GamesList } from '../../components/games';
 import { LoadingDots } from '../../components/ui';
 import useGames from '../../hooks/useGames';
 import useGenres from '../../hooks/useGenres';
+import usePlatforms from '../../hooks/usePlatforms';
 
 const ORDERING_OPTIONS = [
   { value: '-rating', label: 'Top Rated' },
@@ -29,20 +30,41 @@ const SearchPage: FC = () => {
     nextPage,
   } = useGames('search');
   const { genres } = useGenres();
+  const { platforms } = usePlatforms();
+  const [lastChangedFilter, setLastChangedFilter] = useState<'genres' | 'platforms' | null>(null);
 
   useEffect(() => {
     if (params.q) {
-      handleSearchGames(params.q, params.ordering, params.genres);
+      handleSearchGames(params.q, params.ordering, params.genres, params.platforms);
     }
-  }, [params.q, params.ordering, params.genres, handleSearchGames]);
+  }, [params.q, params.ordering, params.genres, params.platforms, handleSearchGames]);
+
+  const buildParams = (overrides: Record<string, string>) => ({
+    q: params.q,
+    ordering: params.ordering || '-rating',
+    ...(params.genres ? { genres: params.genres } : {}),
+    ...(params.platforms ? { platforms: params.platforms } : {}),
+    ...overrides,
+  });
 
   const handleOrderingChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSearchParams({ q: params.q, ordering: e.target.value, ...(params.genres ? { genres: params.genres } : {}) });
+    setSearchParams(buildParams({ ordering: e.target.value }));
   };
 
   const handleGenreChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const val = e.target.value;
-    setSearchParams({ q: params.q, ordering: params.ordering || '-rating', ...(val ? { genres: val } : {}) });
+    const next = buildParams({});
+    if (val) { next.genres = val; setLastChangedFilter('genres'); }
+    else { delete next.genres; setLastChangedFilter(null); }
+    setSearchParams(next);
+  };
+
+  const handlePlatformChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    const next = buildParams({});
+    if (val) { next.platforms = val; setLastChangedFilter('platforms'); }
+    else { delete next.platforms; setLastChangedFilter(null); }
+    setSearchParams(next);
   };
 
   if (isLoading) {
@@ -68,6 +90,17 @@ const SearchPage: FC = () => {
                 {genres.map((g) => (
                   <option key={g.id} value={g.slug}>
                     {g.name}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                value={params.platforms || ''}
+                onChange={handlePlatformChange}
+              >
+                <option value="">All Platforms</option>
+                {platforms.map((p) => (
+                  <option key={p.id} value={String(p.id)}>
+                    {p.name}
                   </option>
                 ))}
               </Select>
@@ -98,13 +131,28 @@ const SearchPage: FC = () => {
         ) : params.q ? (
           <EmptyMessage>
             <span>No results found for "{params.q}"</span>
-            {params.genres && (
+            {params.genres && (lastChangedFilter === null || lastChangedFilter === 'genres') && (
               <ClearButton
-                onClick={() =>
-                  setSearchParams({ q: params.q, ordering: params.ordering || '-rating' })
-                }
+                onClick={() => {
+                  const next = buildParams({});
+                  delete next.genres;
+                  setLastChangedFilter(null);
+                  setSearchParams(next);
+                }}
               >
                 Clear genre filter
+              </ClearButton>
+            )}
+            {params.platforms && (lastChangedFilter === null || lastChangedFilter === 'platforms') && (
+              <ClearButton
+                onClick={() => {
+                  const next = buildParams({});
+                  delete next.platforms;
+                  setLastChangedFilter(null);
+                  setSearchParams(next);
+                }}
+              >
+                Clear platform filter
               </ClearButton>
             )}
           </EmptyMessage>

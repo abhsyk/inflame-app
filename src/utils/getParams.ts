@@ -23,12 +23,14 @@ const upcomingGamesParams = {
 export const getSearchParams = (
   searchWord: string,
   ordering = '-rating',
-  genres?: string
+  genres?: string,
+  platforms?: string
 ) => {
   return {
     search: searchWord,
     ordering,
     ...(genres ? { genres } : {}),
+    ...(platforms ? { platforms } : {}),
     ...params,
   };
 };
