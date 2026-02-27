@@ -6,20 +6,25 @@ import { motion } from 'framer-motion';
 import getGameDetail from '../../utils/getGameDetail';
 import type { Game } from '../../types';
 import { Layout } from '../../components/common';
-import { BookmarkBtn, LinkIcon, LoadingDots } from '../../components/ui';
+import { LinkIcon } from '../../components/ui';
 import {
   BackgroundImage,
   Banner,
   Screenshots,
   DetailHeadings,
+  SeriesCarousel,
+  Trailers,
+  DetailPageSkeleton,
 } from '../../components/gameDetail';
-import useGamesContext from '../../hooks/useGamesContext';
+import useGameSeries from '../../hooks/useGameSeries';
+import useGameMovies from '../../hooks/useGameMovies';
 
 const DetailPage: FC = () => {
   const [game, setGame] = useState<Game>();
   const params = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { user } = useGamesContext();
+  const { series } = useGameSeries(game?.slug);
+  const { movies } = useGameMovies(game?.slug);
 
   const handleGetGameDetail = useCallback(async () => {
     setIsLoading(true);
@@ -38,7 +43,7 @@ const DetailPage: FC = () => {
   return (
     <Layout>
       {!game && isLoading ? (
-        <LoadingDots />
+        <DetailPageSkeleton />
       ) : (
         <Container>
           <motion.div
@@ -56,15 +61,16 @@ const DetailPage: FC = () => {
               />
             ) : null}
             <Screenshots screenshots={game?.screenshots} />
+            <Trailers movies={movies} />
             {game?.website ? (
               <div className="link">
                 <LinkIcon />
                 <a href={game?.website}> {game?.website} </a>
               </div>
             ) : null}
+            <SeriesCarousel games={series} />
           </motion.div>
           <BackgroundImage image={game?.background_image} />
-          {user && game ? <BookmarkBtn game={game} isDetail /> : null}
         </Container>
       )}
     </Layout>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import type { Game } from '../../../types';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -7,6 +7,18 @@ import { GameItem } from '../../games';
 type Props = { games: Game[] };
 
 const GamesList: FC<Props> = ({ games }) => {
+  useEffect(() => {
+    const slug = sessionStorage.getItem('scroll-target-game');
+    if (!slug || games.length === 0) return;
+    requestAnimationFrame(() => {
+      const el = document.querySelector(`[data-game-slug="${slug}"]`);
+      if (el) {
+        el.scrollIntoView({ block: 'center' });
+        sessionStorage.removeItem('scroll-target-game');
+      }
+    });
+  }, [games]);
+
   return (
     <StyledGameList>
       <AnimatePresence>

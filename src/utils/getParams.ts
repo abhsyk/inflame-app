@@ -1,44 +1,76 @@
-import { API_KEY, currentDate, lastYear, nextYear } from '../api';
+import { API_KEY, currentDate, lastThirtyDays, lastThreeMonths, lastYear, nextYear } from '../api';
 import { CategoryPath } from '../types';
 
 const params = { page_size: String(9), key: API_KEY };
+const trendingGamesParams = {
+  dates: `${lastThirtyDays},${currentDate}`,
+  ordering: '-added',
+  ...params,
+};
 const popularGamesParams = {
   dates: `${lastYear},${currentDate}`,
   ordering: '-rating',
   ...params,
 };
-
 const newGamesParams = {
-  dates: `${currentDate},${nextYear}`,
-  ordering: 'released',
+  dates: `${lastThreeMonths},${currentDate}`,
+  ordering: '-released',
   ...params,
 };
-
 const upcomingGamesParams = {
   dates: `${currentDate},${nextYear}`,
   ordering: '-added',
   ...params,
 };
 
-export const getSearchParams = (searchWord: string) => {
+export const getSearchParams = (
+  searchWord: string,
+  ordering = '-rating',
+  genres?: string,
+  platforms?: string,
+  page?: number
+) => {
   return {
     search: searchWord,
-    ordering: 'ratings_count',
+    ordering,
+    ...(genres ? { genres } : {}),
+    ...(platforms ? { platforms } : {}),
+    ...(page && page > 1 ? { page: String(page) } : {}),
     ...params,
   };
 };
 
-const getParams = (categoryPath: CategoryPath) => {
+const getParams = (
+  categoryPath: CategoryPath,
+  ordering?: string,
+  genres?: string,
+  platforms?: string,
+  page?: number
+) => {
+  let base: Record<string, string> | undefined;
   switch (categoryPath) {
+    case 'trending-games':
+      base = trendingGamesParams;
+      break;
     case 'popular-games':
-      return popularGamesParams;
+      base = popularGamesParams;
+      break;
     case 'new-games':
-      return newGamesParams;
+      base = newGamesParams;
+      break;
     case 'upcoming-games':
-      return upcomingGamesParams;
+      base = upcomingGamesParams;
+      break;
     default:
       return;
   }
+  return {
+    ...base,
+    ...(ordering ? { ordering } : {}),
+    ...(genres ? { genres } : {}),
+    ...(platforms ? { platforms } : {}),
+    ...(page && page > 1 ? { page: String(page) } : {}),
+  };
 };
 
 export default getParams;

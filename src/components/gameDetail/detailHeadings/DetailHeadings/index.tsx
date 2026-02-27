@@ -7,10 +7,13 @@ import {
   Publishers,
   RatingStars,
 } from '../../detailHeadings';
+import { BookmarkBtn } from '../../../ui';
+import useGamesContext from '../../../../hooks/useGamesContext';
 
 type Props = { game: Game | undefined };
 
 const DetailHeadings: FC<Props> = ({ game }) => {
+  const { user } = useGamesContext();
   const dotDate = game?.released
     ? game?.released.replace(/-0|-/gi, '.')
     : game?.released;
@@ -18,7 +21,10 @@ const DetailHeadings: FC<Props> = ({ game }) => {
   return (
     <Container>
       <div className="detail__info">
-        <h1 className="detail__heading">{game?.name}</h1>
+        <div className="detail__heading-row">
+          <h1 className="detail__heading">{game?.name}</h1>
+          {user && game ? <BookmarkBtn game={game} isDetail /> : null}
+        </div>
         <div className="detail__second-row">
           <Publishers publishers={game?.publishers} />
           <Genres genres={game?.genres} />
@@ -46,6 +52,13 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 1rem;
+    }
+
+    &__heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.6rem;
     }
 
     &__heading {

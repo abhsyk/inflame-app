@@ -22,14 +22,25 @@ export type Game = {
   genres: Genre[];
 };
 
-type Platform = { id: number; name: string };
+export type Platform = { id: number; name: string; slug: string };
 export type Publisher = { id: number; name: string };
 type Rating = { id: number; title: string };
-type Genre = { id: number; name: string };
+export type Genre = { id: number; name: string; slug: string };
+export type Movie = {
+  id: number;
+  name: string;
+  preview: string;
+  data: {
+    '480': string;
+    max: string;
+  };
+};
+
 export type RatingStarType = 'full' | 'half' | 'empty';
 
 export type CategoryName = 'Popular' | 'New' | 'Upcoming';
 export type CategoryPath =
+  | 'trending-games'
   | 'popular-games'
   | 'new-games'
   | 'upcoming-games'

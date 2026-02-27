@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import type { CategoryPath, Game } from '../../types';
 import useGames from '../../hooks/useGames';
 import { Layout } from '../../components/common';
-import { Carousel, GamesList } from '../../components/games';
+import { Carousel, GamesList, GamesSkeletonList } from '../../components/games';
 import { LoadingDots, SwitchTaglineCategory } from '../../components/ui';
 import { Categories } from '../../styles/GlobalStyles';
 
@@ -10,15 +10,16 @@ const HomePage: FC = () => {
   const [currentTaglinePath, setCurrentTaglinePath] =
     useState<CategoryPath>('popular-games');
   const { games, isLoading } = useGames(currentTaglinePath);
+  const { games: trendingGames, isLoading: isTrendingLoading } = useGames('trending-games');
   const [carouselGames, setCarouselGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    if (currentTaglinePath === 'popular-games' && games.length > 0) {
-      setCarouselGames(games);
+    if (trendingGames.length > 0) {
+      setCarouselGames(trendingGames);
     }
-  }, [games, currentTaglinePath]);
+  }, [trendingGames]);
 
-  if (carouselGames.length === 0 && isLoading) {
+  if (carouselGames.length === 0 && isTrendingLoading) {
     return (
       <Layout>
         <LoadingDots />
@@ -34,10 +35,11 @@ const HomePage: FC = () => {
           currentTaglinePath={currentTaglinePath}
           onTagChange={setCurrentTaglinePath}
         />
-        {!!games && games.length > 0 ? (
+        {isLoading ? (
+          <GamesSkeletonList count={6} />
+        ) : games.length > 0 ? (
           <GamesList games={games.slice(0, 6)} />
         ) : null}
-        {isLoading && <LoadingDots />}
       </Categories>
     </Layout>
   );

@@ -78,16 +78,12 @@ const Container = styled(motion.button)`
   }
 
   &.detail-page {
-    position: fixed;
-    top: 22%;
-    bottom: unset;
-    right: -0.2rem;
-    z-index: 100;
-    background-color: var(--color-white);
-    color: var(--color-body);
-    padding: 1rem 2.5rem 1rem 1.5rem;
-    border-top-left-radius: 5rem;
-    border-bottom-left-radius: 5rem;
+    position: static;
+    flex-shrink: 0;
+    font-size: 2rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.3);
   }
 `;
 
