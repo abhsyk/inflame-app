@@ -36,9 +36,9 @@ const HomePage: FC = () => {
           onTagChange={setCurrentTaglinePath}
         />
         {isLoading ? (
-          <GamesSkeletonList count={6} />
+          <GamesSkeletonList count={8} />
         ) : games.length > 0 ? (
-          <GamesList games={games.slice(0, 6)} />
+          <GamesList games={games.slice(0, 8)} />
         ) : null}
       </Categories>
     </Layout>

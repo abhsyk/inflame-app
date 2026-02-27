@@ -48,8 +48,8 @@ const StyledGame = styled(motion.li)`
   a {
     display: flex;
     flex-direction: column;
-    width: 37.3rem;
-    height: 37.6rem;
+    width: 100%;
+    height: 30rem;
     list-style: none;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 1rem;
@@ -62,14 +62,6 @@ const StyledGame = styled(motion.li)`
     justify-self: center;
     border: 0.05rem solid rgba(255, 255, 255, 0.05);
 
-    @media (max-width: 1200px) {
-      width: 100%;
-    }
-
-    @media (max-width: 1000px) {
-      width: 100%;
-    }
-
     @media (max-width: 800px) {
       height: 25rem;
     }
@@ -77,7 +69,7 @@ const StyledGame = styled(motion.li)`
 
   .games__image__wrapper {
     width: 100%;
-    flex: 0 0 23.6rem;
+    flex: 0 0 18rem;
     overflow: hidden;
 
     img {
@@ -99,17 +91,13 @@ const StyledGame = styled(motion.li)`
   }
 
   .games__info {
-    width: 37.3rem;
-    flex: 0 0 14rem;
+    width: 100%;
+    flex: 0 0 12rem;
     display: flex;
     flex-direction: column;
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    padding: 1rem 1.5rem 0rem 1.5rem;
     position: relative;
     justify-content: space-between;
-
-    @media (max-width: 1200px) {
-      width: 100%;
-    }
 
     @media (max-width: 800px) {
       flex: 0 0 10rem;
@@ -132,7 +120,7 @@ const StyledGame = styled(motion.li)`
       flex: 0 0 45%;
       display: flex;
       flex-direction: column;
-      margin-top: 1.5rem;
+      margin-top: auto;
 
       @media (max-width: 800px) {
         flex: 0 0 50%;

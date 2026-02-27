@@ -30,8 +30,8 @@ const GameItemSkeleton: FC = () => (
 
 const StyledSkeleton = styled.li`
   list-style: none;
-  width: 37.3rem;
-  height: 37.6rem;
+  width: 100%;
+  height: 30rem;
   border-radius: 1rem;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.08);
@@ -40,10 +40,6 @@ const StyledSkeleton = styled.li`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 1200px) {
-    width: 100%;
-  }
-
   @media (max-width: 800px) {
     height: 25rem;
   }
@@ -51,7 +47,7 @@ const StyledSkeleton = styled.li`
 
 const ImageArea = styled.div`
   width: 100%;
-  flex: 0 0 23.6rem;
+  flex: 0 0 18rem;
   ${shimmerBg}
 
   @media (max-width: 800px) {
