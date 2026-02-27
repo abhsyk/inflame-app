@@ -94,7 +94,7 @@ const StyledGame = styled(motion.li)`
     }
 
     @media (max-width: 480px) {
-      flex: 0 0 18rem;
+      flex: 0 0 14rem;
     }
   }
 
@@ -103,41 +103,43 @@ const StyledGame = styled(motion.li)`
     flex: 0 0 12rem;
     display: flex;
     flex-direction: column;
-    padding: 1rem 1.5rem 0rem 1.5rem;
+    padding: 1rem 1.5rem 1rem 1.5rem;
     position: relative;
-    justify-content: space-between;
 
     @media (max-width: 800px) {
       flex: 0 0 10rem;
     }
 
     @media (max-width: 480px) {
-      flex: 1 0 auto;
-      padding-bottom: 1rem;
+      flex: 0 0 11rem;
+      padding: 0.8rem 1.2rem;
     }
 
     .title {
-      flex: 0 0 55%;
       font-size: 2rem;
       font-weight: 600;
-      line-height: 1.1;
-      flex: 0 0 50%;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       @media (max-width: 800px) {
-        flex: 0 0 50%;
         font-size: 1.6rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.5rem;
       }
     }
 
     &__bottom {
-      flex: 0 0 45%;
       display: flex;
       flex-direction: column;
       margin-top: auto;
 
       @media (max-width: 800px) {
-        flex: 0 0 50%;
-        margin-top: 0;
         padding-right: 4.5rem;
       }
 
@@ -148,9 +150,8 @@ const StyledGame = styled(motion.li)`
 
     .bookmark-btn {
       @media (max-width: 480px) {
-        position: static;
-        align-self: flex-end;
-        margin-top: 0.5rem;
+        bottom: 0.8rem;
+        right: 1.2rem;
       }
     }
   }
@@ -168,7 +169,9 @@ const StyledGame = styled(motion.li)`
       font-size: 1.2rem;
     }
 
-    @media (max-width: 580px) {
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+
       .release-title {
         display: none;
       }
@@ -185,6 +188,11 @@ const StyledGame = styled(motion.li)`
     @media (max-width: 800px) {
       font-size: 1.4rem;
       margin: 0.5rem 0;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.3rem;
+      margin: 0.4rem 0 0;
     }
   }
 `;
