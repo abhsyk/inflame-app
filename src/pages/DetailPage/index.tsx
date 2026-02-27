@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import getGameDetail from '../../utils/getGameDetail';
 import type { Game } from '../../types';
 import { Layout } from '../../components/common';
-import { LinkIcon, LoadingDots } from '../../components/ui';
+import { LinkIcon } from '../../components/ui';
 import {
   BackgroundImage,
   Banner,
@@ -14,6 +14,7 @@ import {
   DetailHeadings,
   SeriesCarousel,
   Trailers,
+  DetailPageSkeleton,
 } from '../../components/gameDetail';
 import useGameSeries from '../../hooks/useGameSeries';
 import useGameMovies from '../../hooks/useGameMovies';
@@ -42,7 +43,7 @@ const DetailPage: FC = () => {
   return (
     <Layout>
       {!game && isLoading ? (
-        <LoadingDots />
+        <DetailPageSkeleton />
       ) : (
         <Container>
           <motion.div
