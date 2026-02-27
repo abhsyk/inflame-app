@@ -75,7 +75,16 @@ const Sections = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 3rem 3rem;
+  padding: 3rem;
+
+  @media (max-width: 1250px) {
+    padding: 3rem 0;
+  }
+
+  @media (max-width: 580px) {
+    padding: 1.5rem 0;
+    gap: 2rem;
+  }
 `;
 
 const Section = styled(motion.section)`

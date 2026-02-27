@@ -49,6 +49,10 @@ const StyledGameList = styled(motion.ul)`
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default GamesList;

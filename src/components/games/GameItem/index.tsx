@@ -63,7 +63,11 @@ const StyledGame = styled(motion.li)`
     border: 0.05rem solid rgba(255, 255, 255, 0.05);
 
     @media (max-width: 800px) {
-      height: 25rem;
+      height: 27rem;
+    }
+
+    @media (max-width: 480px) {
+      height: auto;
     }
   }
 
@@ -88,6 +92,10 @@ const StyledGame = styled(motion.li)`
     @media (max-width: 800px) {
       flex: 0 0 16rem;
     }
+
+    @media (max-width: 480px) {
+      flex: 0 0 18rem;
+    }
   }
 
   .games__info {
@@ -101,6 +109,11 @@ const StyledGame = styled(motion.li)`
 
     @media (max-width: 800px) {
       flex: 0 0 10rem;
+    }
+
+    @media (max-width: 480px) {
+      flex: 1 0 auto;
+      padding-bottom: 1rem;
     }
 
     .title {
@@ -125,6 +138,19 @@ const StyledGame = styled(motion.li)`
       @media (max-width: 800px) {
         flex: 0 0 50%;
         margin-top: 0;
+        padding-right: 4.5rem;
+      }
+
+      @media (max-width: 480px) {
+        padding-right: 0;
+      }
+    }
+
+    .bookmark-btn {
+      @media (max-width: 480px) {
+        position: static;
+        align-self: flex-end;
+        margin-top: 0.5rem;
       }
     }
   }

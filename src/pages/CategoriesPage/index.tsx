@@ -163,6 +163,7 @@ const Container = styled(Categories)`
 const Filters = styled.div`
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 const Toolbar = styled.div`
@@ -170,6 +171,12 @@ const Toolbar = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
+  gap: 1rem;
+
+  @media (max-width: 580px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Select = styled.select`
@@ -190,6 +197,11 @@ const Select = styled.select`
 
   &:hover {
     border-color: var(--color-primary);
+  }
+
+  @media (max-width: 580px) {
+    font-size: 1.2rem;
+    padding: 0.5rem 0.8rem;
   }
 `;
 

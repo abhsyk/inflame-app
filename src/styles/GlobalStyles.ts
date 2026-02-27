@@ -139,7 +139,6 @@ export const GlobalStyles = createGlobalStyle`
       padding: 0 1rem;
     }
 
-    .navbar__item:nth-child(1),
     .header__content .search__input,
     .header__content .cross-icon {
       display: none;
@@ -215,7 +214,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     .games__link {
-      display: none;
+      // display: none;
     }
 
     .games__info {
@@ -269,6 +268,7 @@ export const Categories = styled(motion.section)`
 
   @media (max-width: 580px) {
     padding: 2rem 1rem;
+    margin: 1.5rem 1rem;
   }
 `;
 

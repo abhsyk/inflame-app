@@ -6,7 +6,6 @@ const PageNav: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Navbar className="navbar">
       <div className="navbar__list">
-        <CustomLink to="/">Home</CustomLink>
         <CustomLink to="/top-rated">Top Rated</CustomLink>
         <CustomLink to="/new-releases">New Releases</CustomLink>
         <CustomLink to="/coming-soon">Coming Soon</CustomLink>
@@ -31,12 +30,22 @@ const Navbar = styled.nav`
     font-size: 1.6rem;
     text-transform: uppercase;
     font-weight: 400;
+
+    @media (max-width: 580px) {
+      font-size: 1.3rem;
+      justify-content: flex-start;
+    }
   }
 
   a {
     display: flex;
     align-items: center;
     padding: 2rem 2.5rem;
+    white-space: nowrap;
+
+    @media (max-width: 580px) {
+      padding: 1.4rem 1.4rem;
+    }
   }
 
   .navbar__item {

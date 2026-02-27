@@ -144,7 +144,7 @@ const Sidebar: FC = () => {
 const DesktopSidebar = styled.aside`
   width: 22rem;
   flex-shrink: 0;
-  padding: 2rem 1rem 2rem 1.6rem;
+  padding: 3rem 1rem 3rem 1.6rem;
   overflow-y: auto;
   height: 100vh;
   // max-height: calc(100vh - 6.5rem);
