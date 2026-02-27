@@ -4,12 +4,12 @@ export const getCategoryName = (
   categoryId: CategoryPath
 ): CategoryName | null => {
   switch (categoryId) {
-    case 'popular-games':
-      return 'Popular';
-    case 'new-games':
-      return 'New';
-    case 'upcoming-games':
-      return 'Upcoming';
+    case 'top-rated':
+      return 'Top Rated';
+    case 'new-releases':
+      return 'New Releases';
+    case 'coming-soon':
+      return 'Coming Soon';
     default:
       return null;
   }

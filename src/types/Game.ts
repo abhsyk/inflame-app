@@ -38,12 +38,12 @@ export type Movie = {
 
 export type RatingStarType = 'full' | 'half' | 'empty';
 
-export type CategoryName = 'Popular' | 'New' | 'Upcoming';
+export type CategoryName = 'Top Rated' | 'New Releases' | 'Coming Soon';
 export type CategoryPath =
   | 'trending-games'
-  | 'popular-games'
-  | 'new-games'
-  | 'upcoming-games'
+  | 'top-rated'
+  | 'new-releases'
+  | 'coming-soon'
   | 'search';
 
 export interface ApiFetcherOptions {

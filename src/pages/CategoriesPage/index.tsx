@@ -9,6 +9,7 @@ import usePlatforms from '../../hooks/usePlatforms';
 import { LoadingDots } from '../../components/ui';
 import { Categories } from '../../styles/GlobalStyles';
 import { CategoryPath } from '../../types';
+import { getCategoryName } from '../../utils/getCategoryName';
 
 const ORDERING_OPTIONS = [
   { value: '-rating', label: 'Top Rated' },
@@ -19,9 +20,9 @@ const ORDERING_OPTIONS = [
 ] as const;
 
 const DEFAULT_ORDERING: Partial<Record<CategoryPath, string>> = {
-  'popular-games': '-rating',
-  'new-games': '-released',
-  'upcoming-games': '-added',
+  'top-rated': '-rating',
+  'new-releases': '-released',
+  'coming-soon': '-added',
 };
 
 const CategoriesPage: FC = () => {
@@ -71,6 +72,7 @@ const CategoriesPage: FC = () => {
   return (
     <Layout>
       <Container className="categories">
+        {categoryId && <h1 className="categories__heading">{getCategoryName(categoryId)}</h1>}
         <Toolbar>
           <p>Results: {count}</p>
           <Filters>
@@ -129,6 +131,7 @@ const Container = styled(Categories)`
     text-align: center;
     color: var(--color-white);
     font-weight: 600;
+    margin-bottom: 2rem;
   }
 
   .btn-wrapper {

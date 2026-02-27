@@ -42,9 +42,9 @@ const Sidebar: FC = () => {
 
   const handleGenreClick = (slug: string) => {
     if (activeGenre === slug) {
-      navigate('/popular-games');
+      navigate('/top-rated');
     } else {
-      navigate(`/popular-games?genres=${slug}`);
+      navigate(`/top-rated?genres=${slug}`);
     }
     setIsOpen(false);
   };
@@ -52,14 +52,14 @@ const Sidebar: FC = () => {
   const handlePlatformClick = (id: number) => {
     const idStr = String(id);
     if (activePlatform === idStr) {
-      navigate('/popular-games');
+      navigate('/top-rated');
     } else {
-      navigate(`/popular-games?platforms=${id}`);
+      navigate(`/top-rated?platforms=${id}`);
     }
     setIsOpen(false);
   };
 
-  const isOnPopularGames = location.pathname === '/popular-games';
+  const isOnPopularGames = location.pathname === '/top-rated';
 
   const sidebarContent = (
     <SidebarInner>

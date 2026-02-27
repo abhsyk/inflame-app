@@ -7,9 +7,9 @@ const PageNav: FC<PropsWithChildren> = ({ children }) => {
     <Navbar className="navbar">
       <div className="navbar__list">
         <CustomLink to="/">Home</CustomLink>
-        <CustomLink to="/popular-games">Popular</CustomLink>
-        <CustomLink to="/new-games">New</CustomLink>
-        <CustomLink to="/upcoming-games">Upcoming</CustomLink>
+        <CustomLink to="/top-rated">Top Rated</CustomLink>
+        <CustomLink to="/new-releases">New Releases</CustomLink>
+        <CustomLink to="/coming-soon">Coming Soon</CustomLink>
       </div>
       {children}
     </Navbar>
