@@ -50,7 +50,9 @@ const Container = styled.div`
       }
 
       @media (max-width: 580px) {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr auto auto;
+        width: 100%;
+        padding: 0 1rem;
       }
     }
   }

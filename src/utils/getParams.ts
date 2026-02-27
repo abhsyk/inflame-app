@@ -1,7 +1,7 @@
 import { API_KEY, currentDate, lastThirtyDays, lastThreeMonths, lastYear, nextYear } from '../api';
 import { CategoryPath } from '../types';
 
-const params = { page_size: String(9), key: API_KEY };
+const params = { page_size: String(12), key: API_KEY };
 const trendingGamesParams = {
   dates: `${lastThirtyDays},${currentDate}`,
   ordering: '-added',
@@ -52,13 +52,13 @@ const getParams = (
     case 'trending-games':
       base = trendingGamesParams;
       break;
-    case 'popular-games':
+    case 'top-rated':
       base = popularGamesParams;
       break;
-    case 'new-games':
+    case 'new-releases':
       base = newGamesParams;
       break;
-    case 'upcoming-games':
+    case 'coming-soon':
       base = upcomingGamesParams;
       break;
     default:

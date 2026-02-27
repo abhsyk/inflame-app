@@ -139,7 +139,6 @@ export const GlobalStyles = createGlobalStyle`
       padding: 0 1rem;
     }
 
-    .navbar__item:nth-child(1),
     .header__content .search__input,
     .header__content .cross-icon {
       display: none;
@@ -215,7 +214,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     .games__link {
-      display: none;
+      // display: none;
     }
 
     .games__info {
@@ -255,7 +254,7 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const Categories = styled(motion.section)`
-  max-width: 120rem;
+  // max-width: 120rem;
   min-height: calc(100vh - 26rem);
   padding: 3rem 2rem;
   background-color: rgba(255, 255, 255, 0.1);
@@ -264,11 +263,12 @@ export const Categories = styled(motion.section)`
   -moz-border-radius: 1rem;
   -ms-border-radius: 1rem;
   -o-border-radius: 1rem;
-  margin: 3rem auto 4rem;
+  margin: 3rem 3rem;
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.25);
 
   @media (max-width: 580px) {
     padding: 2rem 1rem;
+    margin: 1.5rem 1rem;
   }
 `;
 

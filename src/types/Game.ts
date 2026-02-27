@@ -25,7 +25,7 @@ export type Game = {
 export type Platform = { id: number; name: string; slug: string };
 export type Publisher = { id: number; name: string };
 type Rating = { id: number; title: string };
-export type Genre = { id: number; name: string; slug: string };
+export type Genre = { id: number; name: string; slug: string; image_background: string; games_count: number };
 export type Movie = {
   id: number;
   name: string;
@@ -38,12 +38,12 @@ export type Movie = {
 
 export type RatingStarType = 'full' | 'half' | 'empty';
 
-export type CategoryName = 'Popular' | 'New' | 'Upcoming';
+export type CategoryName = 'Top Rated' | 'New Releases' | 'Coming Soon';
 export type CategoryPath =
   | 'trending-games'
-  | 'popular-games'
-  | 'new-games'
-  | 'upcoming-games'
+  | 'top-rated'
+  | 'new-releases'
+  | 'coming-soon'
   | 'search';
 
 export interface ApiFetcherOptions {

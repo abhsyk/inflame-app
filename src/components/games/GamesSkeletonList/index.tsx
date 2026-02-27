@@ -4,7 +4,7 @@ import GameItemSkeleton from '../GameItemSkeleton';
 
 type Props = { count?: number };
 
-const GamesSkeletonList: FC<Props> = ({ count = 6 }) => (
+const GamesSkeletonList: FC<Props> = ({ count = 8 }) => (
   <StyledList>
     {Array.from({ length: count }, (_, i) => (
       <GameItemSkeleton key={i} />
@@ -14,17 +14,13 @@ const GamesSkeletonList: FC<Props> = ({ count = 6 }) => (
 
 const StyledList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 37.3rem);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   margin-top: 1rem;
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-  }
-
-  @media (max-width: 1000px) {
-    grid-template-columns: repeat(auto-fit, minmax(37.3rem, 1fr));
   }
 
   @media (max-width: 800px) {

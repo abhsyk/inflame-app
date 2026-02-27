@@ -32,7 +32,7 @@ const GamesList: FC<Props> = ({ games }) => {
 
 const StyledGameList = styled(motion.ul)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 37.3rem);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   margin-top: 1rem;
 
@@ -48,6 +48,10 @@ const StyledGameList = styled(motion.ul)`
   @media (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
   }
 `;
 
