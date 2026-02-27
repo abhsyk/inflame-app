@@ -49,3 +49,6 @@ export const gameMoviesURL = (slug: string) =>
 
 export const searchGameURL = (searchWord: string, page: number) =>
   `${BASE_URL}?search=${searchWord}&ordering=-rating&page=${page}&page_size=12`;
+
+export const autoCompleteGameURL = (searchWord: string) =>
+  `${BASE_URL}?search=${searchWord}&page_size=5&key=${API_KEY}`;
