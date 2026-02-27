@@ -88,6 +88,7 @@ const Container = styled.section`
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     @media (max-width: 600px) {
       padding: 2rem 1.6rem;
@@ -101,6 +102,8 @@ const Container = styled.section`
     line-height: 1.8;
     color: #efefef;
     padding: 4rem 6rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
 
     @media (max-width: 800px) {
       padding: 3rem 2.4rem;
@@ -110,6 +113,15 @@ const Container = styled.section`
     @media (max-width: 600px) {
       padding: 2rem 1.6rem;
       font-size: 1.4rem;
+    }
+
+    * {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    pre {
+      white-space: pre-wrap;
     }
 
     p {
