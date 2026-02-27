@@ -103,7 +103,7 @@ const StyledGame = styled(motion.li)`
     flex: 0 0 12rem;
     display: flex;
     flex-direction: column;
-    padding: 1rem 1.5rem 1rem 1.5rem;
+    padding: 1rem 1.5rem 0;
     position: relative;
 
     @media (max-width: 800px) {
