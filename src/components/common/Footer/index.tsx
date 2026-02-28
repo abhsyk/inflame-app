@@ -1,16 +1,20 @@
 import { FC } from "react";
-import { InstagramIcon, TwitterIcon, YouTubeIcon } from "../../ui";
 import styled from "styled-components";
 
 const Footer: FC = () => {
   return (
     <Container>
       <div className="footer__content">
-        <div className="social-media">
-          <InstagramIcon />
-          <TwitterIcon />
-          <YouTubeIcon />
-        </div>
+        <p className="copyright">
+          © 2026{" "}
+          <a href="https://github.com/abhsyk" target="_blank" rel="noreferrer">
+            abhsyk
+          </a>{" "}
+          | Game data provided by{" "}
+          <a href="https://rawg.io" target="_blank" rel="noreferrer">
+            RAWG
+          </a>
+        </p>
       </div>
     </Container>
   );
@@ -26,7 +30,7 @@ const Container = styled.footer`
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
 
     @media (max-width: 1200px) {
       margin: 0 2rem;
