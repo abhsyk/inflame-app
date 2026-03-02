@@ -9,7 +9,8 @@ const BackgroundImage: FC<Props> = ({ image }) => {
       {image ? (
         <div
           style={{
-            background: `url(${image}) center`,
+            backgroundImage: `url(${image})`,
+            backgroundPosition: 'center',
             backgroundSize: 'cover',
             width: '100%',
             height: '100%',
