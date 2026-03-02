@@ -14,6 +14,7 @@ import {
   DetailHeadings,
   SeriesCarousel,
   Trailers,
+  StoreLinks,
   DetailPageSkeleton,
 } from '../../components/gameDetail';
 import useGameSeries from '../../hooks/useGameSeries';
@@ -62,6 +63,7 @@ const DetailPage: FC = () => {
             ) : null}
             <Screenshots screenshots={game?.screenshots} />
             <Trailers movies={movies} />
+            <StoreLinks game={game} />
             {game?.website ? (
               <div className="link">
                 <LinkIcon />

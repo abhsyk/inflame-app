@@ -4,6 +4,7 @@ import { Game } from '../types';
 const fetchUrls = {
   detail: `?${new URLSearchParams({ key: API_KEY })}`,
   screenshots: `/screenshots?${new URLSearchParams({ key: API_KEY })}`,
+  stores: `/stores?${new URLSearchParams({ key: API_KEY })}`,
 };
 
 const getGameDetail = async (gameId: string): Promise<Game> => {
@@ -18,8 +19,9 @@ const getGameDetail = async (gameId: string): Promise<Game> => {
   });
 
   return Promise.all(responses).then((results) => {
-    const fetchResults = { ...results[0]?.data, ...results[1]?.data };
-    fetchResults['screenshots'] = fetchResults['results'];
+    const fetchResults = { ...results[0]?.data, ...results[1]?.data, ...results[2]?.data };
+    fetchResults['screenshots'] = results[1]?.data['results'];
+    fetchResults['stores'] = results[2]?.data['results'];
     delete fetchResults['results'];
 
     return fetchResults;
